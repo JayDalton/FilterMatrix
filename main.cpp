@@ -1,16 +1,19 @@
 ﻿#include "pch.h"
 
+// std
 #include <iostream>
 #include <string_view>
 #include <filesystem>
 
+// openCV
 #include <opencv2/core.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/highgui.hpp>
 
-using namespace std;
-using namespace winrt;
-using namespace Windows::Foundation;
+//using namespace std;
+//using namespace winrt;
+//using namespace Windows::Foundation;
+
+#include "MatrixFilter.h"
+#include "MatrixViewer.h"
 
 int main()
 {
@@ -24,6 +27,7 @@ int main()
 
 	cv::CommandLineParser parser(__argc, __argv, keys);
 	parser.about("Grid Artifacts Elimination in Computed Radiographic Images v0.0.1");
+
 	if (parser.has("help"))
 	{
 		parser.printMessage();
@@ -60,19 +64,18 @@ int main()
 	std::cout << "minVal: " << min_val << " " << "maxVal: " << max_val << std::endl;
 	std::cout << "minLoc: " << min_loc << " " << "maxLoc: " << max_loc << std::endl;
 
-	cv::Mat visible;
-	cv::Size size(matrix.cols, matrix.rows);
-	cv::resize(matrix, visible, size / 10);
-	cv::normalize(visible, visible, 0, 255, cv::NORM_MINMAX);
-	visible.convertTo(visible, CV_8U);
-	cv::imshow("Vorschau", visible);
-	cv::waitKey();
+	MatrixViewer::showMatrix("Vorschau Original", matrix);
 
 	cv::Mat floatImage;
 	matrix.convertTo(floatImage, CV_32F, 1.0 / USHRT_MAX);
-	assert(matrix.depth() == CV_32F);		// 32 bit
-	assert(matrix.channels() == 1);			// 1 chan
 
-	cv::Mat dftImage;
+	MatrixViewer::showMatrix("Vorschau Floating", floatImage);
 
+	auto fourierMTX{ MatrixFilter::linewiseTransform(floatImage) };
+	//MatrixFilter::writeMatrixToFile(floatImage, "imp.floating.xml");
+
+	auto magnitudeMTX{ MatrixFilter::formatMagnitude(fourierMTX) };
+	//MatrixFilter::writeMatrixToFile(fourierMTX, "imp.fourier.xml");
+
+	//cv::waitKey();
 }

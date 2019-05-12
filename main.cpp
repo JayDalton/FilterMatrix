@@ -73,9 +73,15 @@ int main()
 
 	auto fourierMTX{ MatrixFilter::linewiseTransform(floatImage) };
 	//MatrixFilter::writeMatrixToFile(floatImage, "imp.floating.xml");
+	
+	auto transformMTX{ MatrixFilter::completeTransform(floatImage) };
+	//MatrixFilter::writeMatrixToFile(floatImage, "imp.complete.xml");
 
-	auto magnitudeMTX{ MatrixFilter::formatMagnitude(fourierMTX) };
-	//MatrixFilter::writeMatrixToFile(fourierMTX, "imp.fourier.xml");
+	auto formatedMagnitudeMTX{ MatrixFilter::formatMagnitude(fourierMTX) };
+	MatrixFilter::writeMatrixToFile(formatedMagnitudeMTX, "imp.formatedMagnitude.xml");
 
-	//cv::waitKey();
+	auto completeMagnitudeMTX{ MatrixFilter::completeMagnitude(transformMTX) };
+	MatrixFilter::writeMatrixToFile(completeMagnitudeMTX, "imp.completeMagnitude.xml");
+
+	cv::waitKey();
 }

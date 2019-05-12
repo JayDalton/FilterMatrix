@@ -9,7 +9,11 @@ public:
 	MatrixFilter();
 
 	static cv::Mat linewiseTransform(const cv::Mat& source);
+	static cv::Mat completeTransform(const cv::Mat& source);
+
 	static cv::Mat formatMagnitude(const cv::Mat& source);
+	static cv::Mat completeMagnitude(const cv::Mat& source);
+
 	static void writeMatrixToFile(const cv::Mat& matrix, std::string_view filename);
 
 private:

@@ -63,6 +63,40 @@ cv::Mat MatrixFilter::linewiseTransform(const cv::Mat& source)
 	}
 
 	dump_duration(now, "linewise transform");
+	std::cout << result.channels() << std::endl;
+	std::cout << result.type() << std::endl;
+
+	return result;
+}
+
+cv::Mat MatrixFilter::completeTransform(const cv::Mat& source)
+{
+	assert(source.depth() == CV_32F);		// 32 bit
+	assert(source.channels() == 1);			// 1 chan
+
+	auto now{ cv::getTickCount() };
+
+	cv::Mat padded;								// expand input image to optimal size
+	int m = cv::getOptimalDFTSize(source.rows);
+	int n = cv::getOptimalDFTSize(source.cols);		// on the border add zero values
+	cv::copyMakeBorder(
+		source, padded, 
+		0, m - source.rows, 
+		0, n - source.cols, 
+		cv::BORDER_CONSTANT, 
+		cv::Scalar::all(0)
+	);
+
+	cv::Mat result;
+	cv::dft(
+		padded, result, 
+		cv::DFT_ROWS + cv::DFT_SCALE 
+		+ cv::DFT_COMPLEX_OUTPUT
+	);
+
+	dump_duration(now, "complete magnitude");
+	std::cout << result.channels() << std::endl;
+	std::cout << result.type() << std::endl;
 
 	return result;
 }
@@ -89,9 +123,34 @@ cv::Mat MatrixFilter::formatMagnitude(const cv::Mat& source)
 		result.push_back(magI);
 	}
 
-	dump_duration(now, "format to magnitude");
+	dump_duration(now, "formated magnitude");
+	std::cout << result.channels() << std::endl;
+	std::cout << result.type() << std::endl;
 
-	return cv::Mat();
+	return result;
+}
+
+cv::Mat MatrixFilter::completeMagnitude(const cv::Mat& source)
+{
+	assert(source.depth() == CV_32F);		// 32 bit
+	assert(source.channels() == 2);			// 2 chan
+
+	auto now{ cv::getTickCount() };
+
+	cv::Mat result;
+	cv::magnitude(
+		source.ptr<double>(0)[0], 
+		source.ptr<double>(1)[0], 
+		result
+	);
+	result += cv::Scalar::all(1);							// switch to logarithmic scale
+	cv::log(result, result);
+
+	dump_duration(now, "complete to magnitude");
+	std::cout << result.channels() << std::endl;
+	std::cout << result.type() << std::endl;
+
+	return result;
 }
 
 void MatrixFilter::writeMatrixToFile(const cv::Mat& matrix, std::string_view filename)

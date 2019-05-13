@@ -2,27 +2,27 @@
 
 // std
 #include <iostream>
-#include <string_view>
 #include <filesystem>
+#include <string_view>
 
 // openCV
 #include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
 
-//using namespace std;
-//using namespace winrt;
-//using namespace Windows::Foundation;
-
+// own
 #include "MatrixFilter.h"
 #include "MatrixViewer.h"
+
+namespace fs = std::filesystem;
 
 int main()
 {
 	winrt::init_apartment();
 
 	const cv::String keys =
-		"{help h usage ? |      | print this message   }"
-		"{@image1        |      | image1 for compare   }"
-		"{@image2        |<none>| image2 for compare   }"
+		"{help h usage ? |          | print this message   }"
+		"{@image1        |          | image1 for compare   }"
+		"{@image2        |result.pgm| image2 for compare   }"
 	;
 
 	cv::CommandLineParser parser(__argc, __argv, keys);
@@ -34,8 +34,8 @@ int main()
 		return 0;
 	}
 
-	auto importFileName{ parser.get<cv::String>(0) };
-	auto exportFileName{ parser.get<cv::String>(1) };
+	auto importFileName{ parser.get<std::string>(0) };
+	auto exportFileName{ parser.get<std::string>(1) };
 
 	if (!parser.check())
 	{
@@ -43,49 +43,55 @@ int main()
 		return 0;
 	}
 
-	auto path{ std::string(importFileName) };
-	if (!std::filesystem::exists(path))
+	auto path{ fs::path(importFileName) };
+	if (!fs::exists(path))
 	{
 		std::cout << " file does not exist: " << path << std::endl;
 		return -1;
 	}
 
-	auto matrix{ cv::imread(path, CV_LOAD_IMAGE_GRAYSCALE | CV_LOAD_IMAGE_ANYDEPTH) };
+	if (!path.has_extension() || path.extension() != ".pgm")
+	{
+		std::cout << " wrong file extension. Only PGM support." << std::endl;
+		return -1;
+	}
+
+	auto matrix{ MatrixFilter::loadFileMatrix(path) };
 	if (matrix.empty())
 	{
 		std::cout << " matrix is empty" << std::endl;
 		return -1;
 	}
 
-	double min_val{ 0 }, max_val{ 0 };
-	cv::Point min_loc{ 0,0 }, max_loc{ 0,0 };
-	cv::minMaxLoc(matrix, &min_val, &max_val, &min_loc, &max_loc);
-	std::cout << "rows: " << matrix.rows << " " << "cols: " << matrix.cols << std::endl;
-	std::cout << "minVal: " << min_val << " " << "maxVal: " << max_val << std::endl;
-	std::cout << "minLoc: " << min_loc << " " << "maxLoc: " << max_loc << std::endl;
 	//MatrixFilter::writeMatrixToFile(matrix, "imp.original.xml");
 	MatrixViewer::showMatrix("Vorschau Original", matrix);
+	MatrixViewer::showInformation("Infos original", matrix);
 
-	cv::Mat floatingMTX;
-	matrix.convertTo(floatingMTX, CV_32F, 1.0 / USHRT_MAX);
+	auto floatingMTX{ MatrixFilter::convertToFloat(matrix) };
 	//MatrixFilter::writeMatrixToFile(floatingMTX, "imp.floating.xml");
 	MatrixViewer::showMatrix("Vorschau Floating", floatingMTX);
+	MatrixViewer::showInformation("Infos Floating", floatingMTX);
 
 	auto linewiseMTX{ MatrixFilter::linewiseTransform(floatingMTX) };
 	//MatrixFilter::writeMatrixToFile(linewiseMTX, "imp.linewise.xml");
-	MatrixViewer::showFourier("Fourier View old true", linewiseMTX, true);
-	MatrixViewer::showFourier("Fourier View old false", linewiseMTX, false);
+	MatrixViewer::showFourier("Fourier View old true", linewiseMTX);
 
 	auto transformMTX{ MatrixFilter::completeTransform(floatingMTX) };
 	//MatrixFilter::writeMatrixToFile(transformMTX, "imp.transform.xml");
-	MatrixViewer::showFourier("Fourier View new true", transformMTX, true);
-	MatrixViewer::showFourier("Fourier View new false", transformMTX, false);
+	MatrixViewer::showFourier("Fourier View new true", transformMTX);
 
-	//auto formatedMagnitudeMTX{ MatrixFilter::formatMagnitude(fourierMTX) };
-	//MatrixFilter::writeMatrixToFile(formatedMagnitudeMTX, "imp.formatedMagnitude.xml");
+	auto linewiseInvert{ MatrixFilter::linewiseInvertDFT(linewiseMTX) };
+	MatrixViewer::showMatrix("Invert linewise", linewiseInvert);
 
-	//auto completeMagnitudeMTX{ MatrixFilter::completeMagnitude(transformMTX) };
-	//MatrixFilter::writeMatrixToFile(completeMagnitudeMTX, "imp.completeMagnitude.xml");
+	auto transformInvert{ MatrixFilter::completeInvertDFT(transformMTX) };
+	MatrixViewer::showMatrix("Invert complete", transformInvert);
+
+	auto resultMatrix{MatrixFilter::convertToReal(linewiseInvert)};
+	MatrixFilter::saveFileMatrix(path.replace_filename("result.pgm"), resultMatrix);
+
+	//cv::Mat resultImage;
+	//linewiseInvert.convertTo(resultImage, CV_16UC1, USHRT_MAX);
+	//cv::imwrite(path.replace_filename("result.pgm").string(), resultImage);
 
 	cv::waitKey();
 }

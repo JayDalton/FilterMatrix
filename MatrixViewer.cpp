@@ -1,9 +1,28 @@
 #include "pch.h"
+
 #include "MatrixViewer.h"
 
+#include <iostream>
+
+// openCV
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
 
 MatrixViewer::MatrixViewer()
 {
+}
+
+void MatrixViewer::showInformation(std::string_view label, const cv::Mat& matrix)
+{
+	double min_val{ 0 }, max_val{ 0 };
+	cv::Point min_loc{ 0,0 }, max_loc{ 0,0 };
+	cv::minMaxLoc(matrix, &min_val, &max_val, &min_loc, &max_loc);
+
+	std::cout << label << std::endl;
+	std::cout << "type: " << matrix.type() << " " << "channels: " << matrix.channels() << std::endl;
+	std::cout << "rows: " << matrix.rows << " " << "cols: " << matrix.cols << std::endl;
+	std::cout << "minVal: " << min_val << " " << "maxVal: " << max_val << std::endl;
+	std::cout << "minLoc: " << min_loc << " " << "maxLoc: " << max_loc << std::endl;
 }
 
 void MatrixViewer::showMatrix(std::string_view label, const cv::Mat& matrix)

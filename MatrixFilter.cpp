@@ -22,11 +22,36 @@ int64 MatrixFilter::Impl::dump_duration(int64 now, std::string label)
 	return cv::getTickCount();
 }
 
-MatrixFilter::MatrixFilter()
-{
-}
+MatrixFilter::MatrixFilter() {}
 
 MatrixFilter::~MatrixFilter() = default;
+
+cv::Mat MatrixFilter::loadFileMatrix(const fs::path& path)
+{
+	return cv::imread(path.string(), cv::IMREAD_GRAYSCALE | cv::IMREAD_ANYDEPTH);
+}
+
+cv::Mat MatrixFilter::convertToFloat(const cv::Mat& source)
+{
+	cv::Mat converted;
+	source.convertTo(converted, CV_32F, 1.0 / USHRT_MAX);
+	return converted;
+}
+
+cv::Mat MatrixFilter::convertToReal(const cv::Mat& source)
+{
+	cv::Mat converted;
+	source.convertTo(converted, CV_16UC1, USHRT_MAX);
+	return converted;
+}
+
+void MatrixFilter::saveFileMatrix(fs::path path, const cv::Mat& source)
+{
+	if (!cv::imwrite(path.replace_extension(".pgm").string(), source))
+	{
+		std::cout << "saveFileMatrix went wrong!" << std::endl;
+	}
+}
 
 int64 MatrixFilter::dump_duration(int64 now, std::string label)
 {
@@ -87,7 +112,7 @@ cv::Mat MatrixFilter::completeTransform(const cv::Mat& source)
 	);
 
 	cv::Mat result;
-	cv::dft(padded, result, cv::DFT_ROWS + cv::DFT_COMPLEX_OUTPUT);
+	cv::dft(padded, result, cv::DFT_ROWS | cv::DFT_COMPLEX_OUTPUT);
 
 	dump_duration(now, "complete transform");
 	return result;
@@ -147,6 +172,44 @@ cv::Mat MatrixFilter::completeMagnitude(const cv::Mat& source)
 	std::cout << result.type() << std::endl;
 
 	return result;
+}
+
+cv::Mat MatrixFilter::linewiseInvertDFT(const cv::Mat& source)
+{
+	assert(source.depth() == CV_32F);		// 32 bit
+	assert(source.channels() == 2);			// 2 chan
+
+	auto now{ cv::getTickCount() };
+
+	cv::Mat target;
+	for (int row = 0; row < source.rows; ++row)
+	{
+		cv::Mat one_row = source.row(row);
+
+		cv::Mat inverse;
+		cv::dft(one_row, inverse, cv::DFT_INVERSE | cv::DFT_REAL_OUTPUT | cv::DFT_SCALE);
+		target.push_back(inverse);
+	}
+
+	dump_duration(now, "linewise dft invert: ");
+	return target;
+}
+
+cv::Mat MatrixFilter::completeInvertDFT(const cv::Mat& source)
+{
+	assert(source.depth() == CV_32F);		// 32 bit
+	assert(source.channels() == 2);			// 2 chan
+
+	auto now{ cv::getTickCount() };
+
+	cv::Mat target;
+	cv::dft(source, target, 
+		cv::DFT_COMPLEX_INPUT | cv::DFT_REAL_OUTPUT | 
+		cv::DFT_INVERSE | cv::DFT_SCALE | cv::DFT_ROWS
+	);
+
+	dump_duration(now, "complete dft invert: ");
+	return target;
 }
 
 void MatrixFilter::writeMatrixToFile(const cv::Mat& matrix, std::string_view filename)

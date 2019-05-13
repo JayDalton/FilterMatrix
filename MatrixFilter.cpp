@@ -50,7 +50,13 @@ cv::Mat MatrixFilter::linewiseTransform(const cv::Mat& source)
 		cv::Mat paddedLine;								// expand input image to optimal size
 		int m = cv::getOptimalDFTSize(one_row.rows);
 		int n = cv::getOptimalDFTSize(one_row.cols);		// on the border add zero values
-		cv::copyMakeBorder(one_row, paddedLine, 0, m - one_row.rows, 0, n - one_row.cols, cv::BORDER_CONSTANT, cv::Scalar::all(0));
+		cv::copyMakeBorder(
+			one_row, paddedLine, 
+			0, m - one_row.rows, 
+			0, n - one_row.cols, 
+			cv::BORDER_CONSTANT, 
+			cv::Scalar::all(0)
+		);
 
 		cv::Mat linePlanes[] = { cv::Mat_<float>(paddedLine), cv::Mat::zeros(paddedLine.size(), CV_32F) };
 
@@ -63,9 +69,6 @@ cv::Mat MatrixFilter::linewiseTransform(const cv::Mat& source)
 	}
 
 	dump_duration(now, "linewise transform");
-	std::cout << result.channels() << std::endl;
-	std::cout << result.type() << std::endl;
-
 	return result;
 }
 
@@ -76,28 +79,17 @@ cv::Mat MatrixFilter::completeTransform(const cv::Mat& source)
 
 	auto now{ cv::getTickCount() };
 
-	cv::Mat padded;								// expand input image to optimal size
-	int m = cv::getOptimalDFTSize(source.rows);
-	int n = cv::getOptimalDFTSize(source.cols);		// on the border add zero values
-	cv::copyMakeBorder(
-		source, padded, 
-		0, m - source.rows, 
-		0, n - source.cols, 
-		cv::BORDER_CONSTANT, 
-		cv::Scalar::all(0)
+	cv::Mat padded;
+	cv::copyMakeBorder(source, padded, 
+		0, cv::getOptimalDFTSize(source.rows) - source.rows,
+		0, cv::getOptimalDFTSize(source.cols) - source.cols,
+		cv::BORDER_CONSTANT, cv::Scalar::all(0)
 	);
 
 	cv::Mat result;
-	cv::dft(
-		padded, result, 
-		cv::DFT_ROWS + cv::DFT_SCALE 
-		+ cv::DFT_COMPLEX_OUTPUT
-	);
+	cv::dft(padded, result, cv::DFT_ROWS + cv::DFT_COMPLEX_OUTPUT);
 
-	dump_duration(now, "complete magnitude");
-	std::cout << result.channels() << std::endl;
-	std::cout << result.type() << std::endl;
-
+	dump_duration(now, "complete transform");
 	return result;
 }
 
@@ -137,16 +129,20 @@ cv::Mat MatrixFilter::completeMagnitude(const cv::Mat& source)
 
 	auto now{ cv::getTickCount() };
 
-	cv::Mat result;
+	cv::Mat planes[2];
+	cv::split(source, planes);
+
 	cv::magnitude(
-		source.ptr<double>(0)[0], 
-		source.ptr<double>(1)[0], 
-		result
+		planes[0], 
+		planes[1], 
+		planes[0]
 	);
+
+	cv::Mat result = planes[0];
 	result += cv::Scalar::all(1);							// switch to logarithmic scale
 	cv::log(result, result);
 
-	dump_duration(now, "complete to magnitude");
+	dump_duration(now, "complete magnitude");
 	std::cout << result.channels() << std::endl;
 	std::cout << result.type() << std::endl;
 

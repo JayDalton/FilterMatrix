@@ -63,25 +63,29 @@ int main()
 	std::cout << "rows: " << matrix.rows << " " << "cols: " << matrix.cols << std::endl;
 	std::cout << "minVal: " << min_val << " " << "maxVal: " << max_val << std::endl;
 	std::cout << "minLoc: " << min_loc << " " << "maxLoc: " << max_loc << std::endl;
-
+	//MatrixFilter::writeMatrixToFile(matrix, "imp.original.xml");
 	MatrixViewer::showMatrix("Vorschau Original", matrix);
 
-	cv::Mat floatImage;
-	matrix.convertTo(floatImage, CV_32F, 1.0 / USHRT_MAX);
+	cv::Mat floatingMTX;
+	matrix.convertTo(floatingMTX, CV_32F, 1.0 / USHRT_MAX);
+	//MatrixFilter::writeMatrixToFile(floatingMTX, "imp.floating.xml");
+	MatrixViewer::showMatrix("Vorschau Floating", floatingMTX);
 
-	MatrixViewer::showMatrix("Vorschau Floating", floatImage);
+	auto linewiseMTX{ MatrixFilter::linewiseTransform(floatingMTX) };
+	//MatrixFilter::writeMatrixToFile(linewiseMTX, "imp.linewise.xml");
+	MatrixViewer::showFourier("Fourier View old true", linewiseMTX, true);
+	MatrixViewer::showFourier("Fourier View old false", linewiseMTX, false);
 
-	auto fourierMTX{ MatrixFilter::linewiseTransform(floatImage) };
-	//MatrixFilter::writeMatrixToFile(floatImage, "imp.floating.xml");
-	
-	auto transformMTX{ MatrixFilter::completeTransform(floatImage) };
-	//MatrixFilter::writeMatrixToFile(floatImage, "imp.complete.xml");
+	auto transformMTX{ MatrixFilter::completeTransform(floatingMTX) };
+	//MatrixFilter::writeMatrixToFile(transformMTX, "imp.transform.xml");
+	MatrixViewer::showFourier("Fourier View new true", transformMTX, true);
+	MatrixViewer::showFourier("Fourier View new false", transformMTX, false);
 
-	auto formatedMagnitudeMTX{ MatrixFilter::formatMagnitude(fourierMTX) };
-	MatrixFilter::writeMatrixToFile(formatedMagnitudeMTX, "imp.formatedMagnitude.xml");
+	//auto formatedMagnitudeMTX{ MatrixFilter::formatMagnitude(fourierMTX) };
+	//MatrixFilter::writeMatrixToFile(formatedMagnitudeMTX, "imp.formatedMagnitude.xml");
 
-	auto completeMagnitudeMTX{ MatrixFilter::completeMagnitude(transformMTX) };
-	MatrixFilter::writeMatrixToFile(completeMagnitudeMTX, "imp.completeMagnitude.xml");
+	//auto completeMagnitudeMTX{ MatrixFilter::completeMagnitude(transformMTX) };
+	//MatrixFilter::writeMatrixToFile(completeMagnitudeMTX, "imp.completeMagnitude.xml");
 
 	cv::waitKey();
 }

@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 
 // std
+#include <vector>
+#include <sstream>
 #include <iostream>
 #include <filesystem>
 #include <string_view>
@@ -15,9 +17,40 @@
 
 namespace fs = std::filesystem;
 
+void PrintByte(const std::byte& aByte)
+{
+	std::cout << std::to_integer<int>(aByte) << std::endl;
+}
+
 int main()
 {
 	winrt::init_apartment();
+
+	std::vector<std::byte> buffer{ 100 };
+
+	std::byte myByte{ 2 };
+	PrintByte(myByte);
+
+	// A 2-bit left shift
+	myByte <<= 2;
+	PrintByte(myByte);  // 8
+
+	// Initialize two new bytes using binary literals.
+	std::byte byte1{ 0b0011 };
+	std::byte byte2{ 0b1010 };
+	PrintByte(byte1);   // 3
+	PrintByte(byte2);   // 10
+
+	// Bit-wise OR and AND operations
+	std::byte byteOr = byte1 | byte2;
+	std::byte byteAnd = byte1 & byte2;
+	PrintByte(byteOr);  // 11
+	PrintByte(byteAnd); // 2
+
+	std::byte x = (std::byte)10;
+	std::byte y = (std::byte)'a';
+	std::cout << (int)x << std::endl;
+	std::cout << (char)y << std::endl;
 
 	const cv::String keys =
 		"{help h usage ? |          | print this message   }"
@@ -87,11 +120,10 @@ int main()
 	MatrixViewer::showMatrix("Invert complete", transformInvert);
 
 	auto resultMatrix{MatrixFilter::convertToReal(linewiseInvert)};
-	MatrixFilter::saveFileMatrix(path.replace_filename("result.pgm"), resultMatrix);
+	MatrixFilter::saveFileMatrix(path.replace_filename("resultOld.pgm"), resultMatrix);
 
-	//cv::Mat resultImage;
-	//linewiseInvert.convertTo(resultImage, CV_16UC1, USHRT_MAX);
-	//cv::imwrite(path.replace_filename("result.pgm").string(), resultImage);
+	auto resultComplete{ MatrixFilter::convertToReal(transformInvert) };
+	MatrixFilter::saveFileMatrix(path.replace_filename("resultNew.pgm"), resultComplete);
 
 	cv::waitKey();
 }

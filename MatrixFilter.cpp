@@ -60,6 +60,7 @@ int64 MatrixFilter::dump_duration(int64 now, std::string label)
 	return cv::getTickCount();
 }
 
+
 cv::Mat MatrixFilter::linewiseTransform(const cv::Mat& source)
 {
 	assert(source.depth() == CV_32F);		// 32 bit
@@ -216,7 +217,7 @@ void MatrixFilter::writeMatrixToFile(const cv::Mat& matrix, std::string_view fil
 {
 	auto now { cv::getTickCount() };
 	cv::FileStorage file { filename.data(), cv::FileStorage::WRITE };
-	file << "OpenCvMatrix" << matrix;
+	file << "OpenCVMatrix" << matrix;
 	dump_duration(now, "matrix written to file");
 }
 

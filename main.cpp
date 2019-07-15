@@ -8,6 +8,8 @@
 #include <filesystem>
 #include <string_view>
 
+// boost
+
 // openCV
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
@@ -17,61 +19,11 @@
 #include "MatrixViewer.h"
 
 namespace fs = std::filesystem;
-
-using MessageParam = std::variant<uint, bool, std::string>;
-using ParamVector = std::vector<MessageParam>;
-
-struct SampleVisitor
-{
-	void operator()(uint i) const {
-		std::cout << "uint: " << i << "\n";
-	}
-	void operator()(bool b) const {
-		std::cout << "bool: " << b << "\n";
-	}
-	void operator()(const std::string& s) const {
-		std::cout << "string: " << s << "\n";
-	}
-};
-
-struct MessageIdent
-{
-	const uint top{ 0 };
-	const uint sub{ 0 };
-};
-
-struct Message
-{
-	MessageIdent ident{11, 22};
-	ParamVector params{ 1234u, false, true, "Hello World!", 4231u };
-};
+using namespace std::literals;
 
 int main()
 {
 	winrt::init_apartment();
-
-	Message message;
-
-	auto param = message.params.at(0);
-	std::cout << param.index() << std::endl;
-
-	for (auto& sample : message.params)
-	{
-		std::visit(SampleVisitor{}, sample);
-
-		if (std::holds_alternative<uint>(sample))
-		{
-			std::cout << "the variant holds an uint!\n";
-		}
-		else if (std::holds_alternative<bool>(sample))
-		{
-			std::cout << "the variant holds a bool\n";
-		}
-		else if (std::holds_alternative<std::string>(sample))
-		{
-			std::cout << "the variant holds a string\n";
-		}
-	}
 
 	const cv::String keys =
 		"{help h usage ? |          | print this message   }"
@@ -146,5 +98,5 @@ int main()
 	auto resultComplete{ MatrixFilter::convertToReal(transformInvert) };
 	MatrixFilter::saveFileMatrix(path.replace_filename("resultNew.pgm"), resultComplete);
 
-	//cv::waitKey();
+	cv::waitKey();
 }

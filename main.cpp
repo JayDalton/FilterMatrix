@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 
 // std
+#include <chrono>
+#include <future>
 #include <vector>
 #include <variant>
 #include <sstream>
@@ -9,6 +11,9 @@
 #include <string_view>
 
 // boost
+
+#include <experimental/coroutine>
+using std::experimental::coroutine_handle;
 
 // openCV
 #include <opencv2/core.hpp>
@@ -20,10 +25,27 @@
 
 namespace fs = std::filesystem;
 using namespace std::literals;
+using namespace std::chrono;
+
+template<typename ... Base>
+struct Visitor : Base ...
+{
+	using Base::operator()...;
+};
+
+template<typename ... T> Visitor(T...)->Visitor<T...>;
 
 int main()
 {
 	winrt::init_apartment();
+
+	constexpr Visitor visitor{
+		[](double d) -> int { return d + 3.4; },
+		[](int i) -> int { return i - 2; }
+	};
+
+	constexpr auto v = std::variant<double, int>{ 9.0 };
+	constexpr auto result = std::visit(visitor, v);
 
 	const cv::String keys =
 		"{help h usage ? |          | print this message   }"
@@ -69,6 +91,11 @@ int main()
 		return -1;
 	}
 
+	
+
+	auto myFunc = []() {};
+	benchmark(myFunc);
+
 	//MatrixFilter::writeMatrixToFile(matrix, "imp.original.xml");
 	MatrixViewer::showMatrix("Vorschau Original", matrix);
 	MatrixViewer::showInformation("Infos original", matrix);
@@ -82,21 +109,23 @@ int main()
 	//MatrixFilter::writeMatrixToFile(linewiseMTX, "imp.linewise.xml");
 	MatrixViewer::showFourier("Fourier View old true", linewiseMTX);
 
-	auto transformMTX{ MatrixFilter::completeTransform(floatingMTX) };
+	auto completeMTX{ MatrixFilter::completeTransform(floatingMTX) };
 	//MatrixFilter::writeMatrixToFile(transformMTX, "imp.transform.xml");
-	MatrixViewer::showFourier("Fourier View new true", transformMTX);
+	MatrixViewer::showFourier("Fourier View new true", completeMTX);
 
 	auto linewiseInvert{ MatrixFilter::linewiseInvertDFT(linewiseMTX) };
 	MatrixViewer::showMatrix("Invert linewise", linewiseInvert);
 
-	auto transformInvert{ MatrixFilter::completeInvertDFT(transformMTX) };
-	MatrixViewer::showMatrix("Invert complete", transformInvert);
+	auto completeInvert{ MatrixFilter::completeInvertDFT(completeMTX) };
+	MatrixViewer::showMatrix("Invert complete", completeInvert);
 
-	auto resultMatrix{MatrixFilter::convertToReal(linewiseInvert)};
-	MatrixFilter::saveFileMatrix(path.replace_filename("resultOld.pgm"), resultMatrix);
+	auto resultLinewise{MatrixFilter::convertToReal(linewiseInvert)};
+	MatrixFilter::saveFileMatrix(path.replace_filename("resultOld.pgm"), resultLinewise);
+	MatrixViewer::showMatrix("Result A", resultLinewise);
 
-	auto resultComplete{ MatrixFilter::convertToReal(transformInvert) };
+	auto resultComplete{ MatrixFilter::convertToReal(completeInvert) };
 	MatrixFilter::saveFileMatrix(path.replace_filename("resultNew.pgm"), resultComplete);
+	MatrixViewer::showMatrix("Result B", resultComplete);
 
 	cv::waitKey();
 }

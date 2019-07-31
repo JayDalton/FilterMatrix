@@ -28,6 +28,7 @@ MatrixFilter::~MatrixFilter() = default;
 
 cv::Mat MatrixFilter::loadFileMatrix(const fs::path& path)
 {
+	std::cout << "Open file: " << path << std::endl;
 	return cv::imread(path.string(), cv::IMREAD_GRAYSCALE | cv::IMREAD_ANYDEPTH);
 }
 

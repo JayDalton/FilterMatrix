@@ -8,6 +8,16 @@
 
 namespace fs = std::filesystem;
 
+template <typename FunctObj>
+void benchmark(FunctObj func)
+{
+	auto start = std::chrono::high_resolution_clock::now();
+	func();
+	auto stop = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+	std::cout << "Time taken: " << duration.count() << " microseconds" << std::endl;
+}
+
 class MatrixFilter
 {
 public:

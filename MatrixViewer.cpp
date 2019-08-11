@@ -14,6 +14,8 @@ MatrixViewer::MatrixViewer()
 
 void MatrixViewer::showInformation(std::string_view label, const cv::Mat& matrix)
 {
+	MethodTimer timer{ __func__ };
+
 	double min_val{ 0 }, max_val{ 0 };
 	cv::Point min_loc{ 0,0 }, max_loc{ 0,0 };
 	cv::minMaxLoc(matrix, &min_val, &max_val, &min_loc, &max_loc);
@@ -27,6 +29,8 @@ void MatrixViewer::showInformation(std::string_view label, const cv::Mat& matrix
 
 void MatrixViewer::showMatrix(std::string_view label, const cv::Mat& matrix)
 {
+	MethodTimer timer{ __func__ };
+
 	cv::Mat visible;
 	cv::Size size(matrix.cols, matrix.rows);
 	cv::resize(matrix, visible, size / 10);

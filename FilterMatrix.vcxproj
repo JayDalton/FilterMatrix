@@ -101,15 +101,19 @@
   <ItemGroup>
     <ClInclude Include="MatrixFilter.h" />
     <ClInclude Include="MatrixViewer.h" />
+    <ClInclude Include="MethodTimer.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ValueVisitor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MatrixFilter.cpp" />
     <ClCompile Include="MatrixViewer.cpp" />
+    <ClCompile Include="MethodTimer.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ValueVisitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

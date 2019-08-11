@@ -1,51 +1,12 @@
 ﻿#include "pch.h"
 
-// std
-#include <chrono>
-#include <future>
-#include <vector>
-#include <variant>
-#include <sstream>
-#include <iostream>
-#include <filesystem>
-#include <string_view>
-
-// boost
-
-#include <experimental/coroutine>
-using std::experimental::coroutine_handle;
-
-// openCV
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
-
-// own
-#include "MatrixFilter.h"
-#include "MatrixViewer.h"
-
 namespace fs = std::filesystem;
 using namespace std::literals;
 using namespace std::chrono;
 
-template<typename ... Base>
-struct Visitor : Base ...
-{
-	using Base::operator()...;
-};
-
-template<typename ... T> Visitor(T...)->Visitor<T...>;
-
 int main()
 {
 	winrt::init_apartment();
-
-	constexpr Visitor visitor{
-		[](double d) -> int { return d + 3.4; },
-		[](int i) -> int { return i - 2; }
-	};
-
-	constexpr auto v = std::variant<double, int>{ 9.0 };
-	constexpr auto result = std::visit(visitor, v);
 
 	const cv::String keys =
 		"{help h usage ? |          | print this message   }"

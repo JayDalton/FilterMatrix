@@ -67,8 +67,10 @@ cv::Mat MatrixFilter::linewiseTransform(const cv::Mat& source)
 	assert(source.depth() == CV_32F);		// 32 bit
 	assert(source.channels() == 1);			// 1 chan
 
+	MethodTimer timer{ __func__ };
+
 	cv::Mat result{};
-	auto now{ cv::getTickCount() };
+	//auto now{ cv::getTickCount() };
 
 	for (int row = 0; row < source.rows; ++row)
 	{
@@ -95,7 +97,7 @@ cv::Mat MatrixFilter::linewiseTransform(const cv::Mat& source)
 		result.push_back(complexLine);
 	}
 
-	dump_duration(now, "linewise transform");
+	//dump_duration(now, "linewise transform");
 	return result;
 }
 
@@ -104,7 +106,8 @@ cv::Mat MatrixFilter::completeTransform(const cv::Mat& source)
 	assert(source.depth() == CV_32F);		// 32 bit
 	assert(source.channels() == 1);			// 1 chan
 
-	auto now{ cv::getTickCount() };
+	MethodTimer timer{__func__};
+	//auto now{ cv::getTickCount() };
 
 	cv::Mat padded;
 	cv::copyMakeBorder(source, padded, 
@@ -116,7 +119,7 @@ cv::Mat MatrixFilter::completeTransform(const cv::Mat& source)
 	cv::Mat result;
 	cv::dft(padded, result, cv::DFT_ROWS | cv::DFT_COMPLEX_OUTPUT);
 
-	dump_duration(now, "complete transform");
+	//dump_duration(now, "complete transform");
 	return result;
 }
 
@@ -125,8 +128,10 @@ cv::Mat MatrixFilter::formatMagnitude(const cv::Mat& source)
 	assert(source.depth() == CV_32F);		// 32 bit
 	assert(source.channels() == 2);			// 2 chan
 
+	MethodTimer timer{__func__};
+
 	cv::Mat result;
-	auto now{ cv::getTickCount() };
+	//auto now{ cv::getTickCount() };
 
 	for (int row = 0; row < source.rows; ++row)
 	{
@@ -142,7 +147,7 @@ cv::Mat MatrixFilter::formatMagnitude(const cv::Mat& source)
 		result.push_back(magI);
 	}
 
-	dump_duration(now, "formated magnitude");
+	//dump_duration(now, "formated magnitude");
 	std::cout << result.channels() << std::endl;
 	std::cout << result.type() << std::endl;
 

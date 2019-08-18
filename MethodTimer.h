@@ -1,11 +1,9 @@
 #pragma once
 
-
 class MethodTimer
 {
 public:
-	explicit MethodTimer();
-	explicit MethodTimer(std::string label);
+	explicit MethodTimer(const char* label = nullptr);
 	~MethodTimer();
 
 private:

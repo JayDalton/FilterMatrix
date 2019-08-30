@@ -13,7 +13,7 @@ struct ValueVisitor
 	void test()
 	{
 		constexpr Visitor visitor{
-			[](double d) -> int { return d + 3.4; },
+			[](double d) -> double { return d + 3.4; },
 			[](int i) -> int { return i - 2; }
 		};
 

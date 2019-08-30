@@ -99,6 +99,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ConfigParameter.h" />
+    <ClInclude Include="Configuration.h" />
     <ClInclude Include="MatrixFilter.h" />
     <ClInclude Include="MatrixViewer.h" />
     <ClInclude Include="MethodTimer.h" />
@@ -106,6 +108,8 @@
     <ClInclude Include="ValueVisitor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConfigParameter.cpp" />
+    <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MatrixFilter.cpp" />
     <ClCompile Include="MatrixViewer.cpp" />

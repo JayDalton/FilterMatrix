@@ -8,6 +8,10 @@ int main()
 {
 	winrt::init_apartment();
 
+	auto b = Boolean{"switch", "Lichtschalter", false};
+
+	std::cout << b.m_ident << std::endl;
+
 	const cv::String keys =
 		"{help h usage ? |          | print this message   }"
 		"{@image1        |          | image1 for compare   }"

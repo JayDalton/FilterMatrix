@@ -28,3 +28,6 @@ using std::experimental::coroutine_handle;
 #include "MatrixFilter.h"
 #include "MatrixViewer.h"
 #include "ValueVisitor.h"
+
+
+#include "Configuration.h"

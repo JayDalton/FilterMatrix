@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 
 namespace fs = std::filesystem;
 using namespace std::literals;

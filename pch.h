@@ -19,9 +19,12 @@ using std::experimental::coroutine_handle;
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 
+#include <CppCoreCheck/warnings.h>
+
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Foundation.Collections.h>
 
+//#include <rapidjson/>
 
 // own
 #include "MethodTimer.h"

@@ -1,5 +1,10 @@
 #pragma once
 
+#include <variant>
+#include <utility>
+#include <typeinfo>
+#include <type_traits>
+
 template<typename ... Base>
 struct Visitor : Base ...
 {
@@ -7,6 +12,8 @@ struct Visitor : Base ...
 };
 
 template<typename ... T> Visitor(T...)->Visitor<T...>;
+
+// YouTube: Jason Turner C++ Weekly - Ep 134 - The Best Possible Way To Create A Visitor?
 
 struct ValueVisitor
 {
@@ -21,4 +28,22 @@ struct ValueVisitor
 		//constexpr auto result = std::visit(visitor, v);
 	}
 };
+
+// https://www.bfilipek.com/2018/06/variant.html
+
+struct SampleVisitor
+{
+	void operator()(int i) const {
+		std::cout << "int: " << i << "\n";
+	}
+	void operator()(float f) const {
+		std::cout << "float: " << f << "\n";
+	}
+	void operator()(const std::string& s) const {
+		std::cout << "string: " << s << "\n";
+	}
+};
+
+template<class... Ts> struct overload : Ts... { using Ts::operator()...; };
+template<class... Ts> overload(Ts...)->overload<Ts...>;
 

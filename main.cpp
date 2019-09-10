@@ -1,5 +1,7 @@
 ﻿#include "pch.h"
 
+#include <array>
+
 namespace fs = std::filesystem;
 using namespace std::literals;
 using namespace std::chrono;
@@ -7,6 +9,10 @@ using namespace std::chrono;
 int main()
 {
 	winrt::init_apartment();
+
+	std::array arr{ "1234567" };
+
+	auto s = sizeof arr;
 
 	auto b = Boolean{"switch", "Lichtschalter", false};
 

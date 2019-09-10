@@ -1,5 +1,7 @@
 #pragma once
 
+#include <variant>
+
 template<typename ... Base>
 struct Visitor : Base ...
 {
@@ -18,7 +20,7 @@ struct ValueVisitor
 		};
 
 		constexpr auto v = std::variant<double, int>{ 9.0 };
-		constexpr auto result = std::visit(visitor, v);
+		//constexpr auto result = std::visit(visitor, v);
 	}
 };
 

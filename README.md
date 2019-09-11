@@ -16,3 +16,11 @@ Two given interfaces allowing Commandline based
 + Using OpenCV for reading and manipulating 
 + complex number convertion for image datas
 + applying given suppression methods 
+
+### Known Dependencies
+
++ OpenCV 4
++ Qt 5.12.4
++ rapidjson
++ graphicsmagick
++ sdplog + fmt

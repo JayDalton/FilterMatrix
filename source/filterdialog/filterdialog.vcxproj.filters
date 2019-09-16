@@ -28,28 +28,29 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FilterDialog.cpp">
+    <ClCompile Include="Application\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
+    <ClCompile Include="Application\ApplicationConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ApplicationConfig.cpp">
+    <ClCompile Include="Dialog\FilterDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\FileSelect\FileSelectTab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="FilterDialog.h">
+    <QtMoc Include="Application\Application.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Application.h">
+    <QtMoc Include="Dialog\FilterDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="FilterDialog.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
+    <QtMoc Include="Dialog\FileSelect\FileSelectTab.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FilterDialog.qrc">
@@ -60,8 +61,16 @@
     <None Include="filterdialog.props" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ApplicationConfig.h">
+    <ClInclude Include="Application\ApplicationConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Dialog\FilterDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Dialog\FileSelect\FileSelectTab.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

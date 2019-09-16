@@ -7,9 +7,4 @@
 #include "Logger/Logger.h"
 #include "Logger/MethodTimer.h"
 
-void test()
-{
-   
-}
-
 // Codepage: UTF-8 (№ь÷цƒдя)

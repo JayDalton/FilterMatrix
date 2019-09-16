@@ -85,16 +85,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="ApplicationConfig.cpp" />
-    <ClCompile Include="FilterDialog.cpp" />
+    <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Application\ApplicationConfig.cpp" />
+    <ClCompile Include="Dialog\FilterDialog.cpp" />
+    <ClCompile Include="Dialog\FileSelect\FileSelectTab.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="FilterDialog.h" />
+    <QtMoc Include="Dialog\FilterDialog.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="FilterDialog.ui" />
+    <QtUic Include="Dialog\FilterDialog.ui" />
+    <QtUic Include="Dialog\FileSelect\FileSelectTab.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FilterDialog.qrc" />
@@ -111,8 +113,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Application.h" />
-    <ClInclude Include="ApplicationConfig.h" />
+    <QtMoc Include="Dialog\FileSelect\FileSelectTab.h" />
+    <QtMoc Include="Application\Application.h" />
+    <ClInclude Include="Application\ApplicationConfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

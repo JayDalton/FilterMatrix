@@ -1,25 +1,23 @@
 <UI version="4.0" >
- <class>FilterDialogClass</class>
- <widget class="QWidget" name="FilterDialogClass" >
+ <class>FileSelectTab</class>
+ <widget class="QWidget" name="FileSelectTab" >
   <property name="objectName" >
-   <string notr="true">FilterDialogClass</string>
+   <string notr="true">FileSelectTab</string>
   </property>
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>FilterDialog</string>
+   <string>FileSelectTab</string>
   </property>
  </widget>
  <layoutDefault spacing="6" margin="11" />
  <pixmapfunction></pixmapfunction>
- <resources>
-   <include location="FilterDialog.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </UI>

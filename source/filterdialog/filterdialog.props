@@ -7,8 +7,18 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)source\commonfilter;$(QTDIR)\include;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)source\filterdialog;$(SolutionDir)source\filterdialog\GeneratedFiles;$(SolutionDir)source\commonfilter;$(QTDIR)\include;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <QtMoc>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+      <QtMocDir>.\GeneratedFiles\$(ConfigurationName)</QtMocDir>
+    </QtMoc>
+    <QtRcc>
+      <QtRccDir>.\GeneratedFiles\$(ConfigurationName)</QtRccDir>
+    </QtRcc>
+    <QtUic>
+      <QtUicDir>.\GeneratedFiles\$(ConfigurationName)</QtUicDir>
+    </QtUic>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

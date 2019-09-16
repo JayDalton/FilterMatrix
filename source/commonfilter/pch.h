@@ -10,4 +10,7 @@
 // add headers that you want to pre-compile here
 #include "framework.h"
 
+#include <pch_common.h>
+//#include <pch_commonfilter.h>
+
 #endif //PCH_H

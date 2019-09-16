@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+//#include <common>
+
 // std
 #include <chrono>
 #include <future>
@@ -27,8 +29,8 @@ using std::experimental::coroutine_handle;
 //#include <rapidjson/>
 
 // own
-#include "MethodTimer.h"
-#include "MatrixFilter.h"
+//#include "MethodTimer.h"
+//#include "MatrixFilter.h"
 #include "MatrixViewer.h"
 #include "ValueVisitor.h"
 

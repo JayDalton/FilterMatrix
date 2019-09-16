@@ -51,10 +51,10 @@
   <ImportGroup Label="ExtensionSettings" />
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="filterdialog.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="filterdialog.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -85,6 +85,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="ApplicationConfig.cpp" />
     <ClCompile Include="FilterDialog.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -96,6 +98,21 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FilterDialog.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="filterdialog.props" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\commonfilter\commonfilter.vcxproj">
+      <Project>{ec6b0b86-f442-42bf-bc7f-122bbc72938a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\common\common.vcxproj">
+      <Project>{93c8cfc6-0673-4659-a9a6-eb863663bc92}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Application.h" />
+    <ClInclude Include="ApplicationConfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -91,37 +91,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ConfigParameter.h" />
-    <ClInclude Include="Configuration.h" />
-    <ClInclude Include="MatrixFilter.h" />
-    <ClInclude Include="MatrixViewer.h" />
-    <ClInclude Include="MethodTimer.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="ValueVisitor.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConfigParameter.cpp" />
-    <ClCompile Include="Configuration.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MatrixFilter.cpp" />
-    <ClCompile Include="MatrixViewer.cpp" />
-    <ClCompile Include="MethodTimer.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ValueVisitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="PropertySheet.props" />
     <Text Include="readme.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="commonfilter\commonfilter.vcxproj">
-      <Project>{1a94c693-c588-4be8-86aa-9f430152693c}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

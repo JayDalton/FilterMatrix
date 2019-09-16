@@ -10,4 +10,9 @@
 // add headers that you want to pre-compile here
 #include "framework.h"
 
+// Logging
+#include <spdlog/spdlog.h>
+#include <spdlog/logger.h>
+
+
 #endif //PCH_H

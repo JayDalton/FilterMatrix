@@ -25,7 +25,9 @@ private:
 private:
    struct Impl;
    std::unique_ptr<Impl> m;
+
    Ui::FilterDialogClass ui;
+
    std::unique_ptr<QAction> m_openFile{nullptr};
    std::unique_ptr<QAction> m_saveFile{nullptr};
 };

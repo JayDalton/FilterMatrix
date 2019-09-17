@@ -13,7 +13,7 @@ struct FilterDialog::Impl
 
    FileSelectTab* tabFileSelect{ nullptr };
 
-   DataLayerUPtr data{ nullptr };
+   DataLayerSPtr data{ nullptr };
 
    Ui::FilterDialogClass ui;
 
@@ -27,6 +27,8 @@ FilterDialog::FilterDialog()
    : m{ std::make_unique<Impl>(this) }
 {
    m->ui.setupUi(this);
+
+   setWindowTitle(tr("Matrix Filter Dialog"));
 
    restoreSettings();
    setupDataLayers();
@@ -51,13 +53,13 @@ void FilterDialog::saveSettings()
 
 void FilterDialog::setupDataLayers()
 {
-   m->data = std::make_unique<DataLayer>();
+   m->data = std::make_shared<DataLayer>();
    m->data->loadConfiguration();
 }
 
 void FilterDialog::setupTabWidgets()
 {
-   m->tabFileSelect = new FileSelectTab{ this };
+   m->tabFileSelect = new FileSelectTab{ m->data, this };
    m->ui.tabWidget->addTab(m->tabFileSelect, "File Select");
 
 }

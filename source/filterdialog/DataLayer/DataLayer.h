@@ -11,3 +11,4 @@ struct DataLayer
 };
 
 using DataLayerUPtr = std::unique_ptr<DataLayer>;
+using DataLayerSPtr = std::shared_ptr<DataLayer>;

@@ -5,6 +5,7 @@
 
 #include "FileSelect/FileSelectTab.h"
 
+#include "DataLayer/DataLayer.h"
 
 struct FilterDialog::Impl
 {
@@ -12,11 +13,15 @@ struct FilterDialog::Impl
 
    FileSelectTab* tabFileSelect{ nullptr };
 
+   DataLayerUPtr data{ nullptr };
+
    Ui::FilterDialogClass ui;
 
 private:
    FilterDialog* m_parent{ nullptr };
 };
+
+//////////////////////////////////////////////////////////////////
 
 FilterDialog::FilterDialog()
    : m{ std::make_unique<Impl>(this) }
@@ -30,14 +35,24 @@ FilterDialog::FilterDialog()
 
 FilterDialog::~FilterDialog() = default;
 
+void FilterDialog::closeEvent(QCloseEvent* event)
+{
+   saveSettings();
+}
+
 void FilterDialog::restoreSettings()
 {
 
 }
 
+void FilterDialog::saveSettings()
+{
+}
+
 void FilterDialog::setupDataLayers()
 {
-
+   m->data = std::make_unique<DataLayer>();
+   m->data->loadConfiguration();
 }
 
 void FilterDialog::setupTabWidgets()

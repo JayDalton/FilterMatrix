@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="Application\Application.cpp" />
     <ClCompile Include="Application\ApplicationConfig.cpp" />
+    <ClCompile Include="DataLayer\DataLayer.cpp" />
     <ClCompile Include="Dialog\FilterDialog.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectTab.cpp" />
     <ClCompile Include="main.cpp" />
@@ -113,6 +114,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataLayer\DataLayer.h" />
     <QtMoc Include="Dialog\FileSelect\FileSelectTab.h" />
     <QtMoc Include="Application\Application.h" />
     <ClInclude Include="Application\ApplicationConfig.h" />

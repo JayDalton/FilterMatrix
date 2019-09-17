@@ -10,11 +10,14 @@ public:
    ~FilterDialog();
    explicit FilterDialog();
 
+protected:
+   void closeEvent(QCloseEvent* event) override;
+
 private:
-   void restoreSettings();
    void setupDataLayers();
    void setupTabWidgets();
-
+   void restoreSettings();
+   void saveSettings();
 
 private:
    struct Impl;

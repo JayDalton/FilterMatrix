@@ -34,7 +34,6 @@ FileSelectTab::FileSelectTab(DataLayerSPtr data, QWidget* parent)
 
    setupActions();
    setupMenus();
-
 }
 
 void FileSelectTab::setupActions()
@@ -58,35 +57,19 @@ void FileSelectTab::setupMenus()
 
 void FileSelectTab::openFile()
 {
-   QString fileName = QFileDialog::getOpenFileName(
+   QString fileName{ QFileDialog::getOpenFileName(
       this, tr("Open Matrix File"), "",
-      tr("Portable Graymap (*.pgm);;All Files (*)"));
+      tr("Portable Graymap (*.pgm);;All Files (*)")) };
 
    if (fileName.isEmpty())
+   {
       return;
-   else {
+   }
 
-      QFile file(fileName);
-
-      if (!file.open(QIODevice::ReadOnly)) {
-         QMessageBox::information(this, tr("Unable to open file"),
-            file.errorString());
-         return;
-      }
-
-      //QDataStream in(&file);
-      //in.setVersion(QDataStream::Qt_4_5);
-      //contacts.clear();   // clear existing contacts
-      //in >> contacts;
-
-      //if (contacts.isEmpty()) {
-      //   QMessageBox::information(this, tr("No contacts in file"),
-      //      tr("The file you are attempting to open contains no contacts."));
-      //} else {
-      //   QMap<QString, QString>::iterator i = contacts.begin();
-      //   nameLine->setText(i.key());
-      //   addressText->setText(i.value());
-      //}
+   if (!m->data->loadMatrixFile(fileName.toStdString()))
+   {
+      QMessageBox::information(this, tr("Unable to open file"), fileName);
+      return;
    }
 
    //updateInterface(NavigationMode);

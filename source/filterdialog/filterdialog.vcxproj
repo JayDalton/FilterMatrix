@@ -90,6 +90,7 @@
     <ClCompile Include="DataLayer\DataLayer.cpp" />
     <ClCompile Include="Dialog\FilterDialog.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectTab.cpp" />
+    <ClCompile Include="Dialog\FileSelect\FileSelectModel.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataLayer\DataLayer.h" />
+    <QtMoc Include="Dialog\FileSelect\FileSelectModel.h" />
     <QtMoc Include="Dialog\FileSelect\FileSelectTab.h" />
     <QtMoc Include="Application\Application.h" />
     <ClInclude Include="Application\ApplicationConfig.h" />

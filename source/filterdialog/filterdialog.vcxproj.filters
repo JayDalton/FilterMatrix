@@ -43,6 +43,9 @@
     <ClCompile Include="DataLayer\DataLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Dialog\FileSelect\FileSelectModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Application\Application.h">
@@ -52,6 +55,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Dialog\FileSelect\FileSelectTab.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Dialog\FileSelect\FileSelectModel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

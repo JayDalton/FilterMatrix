@@ -70,6 +70,13 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <QtRcc>
+      <QtRccDir>.\Generated</QtRccDir>
+    </QtRcc>
+    <QtUic>
+      <QtUicDir>.\Generated</QtUicDir>
+    </QtUic>
+    <QtMoc />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -91,6 +98,12 @@
     <ClCompile Include="Dialog\FilterDialog.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectTab.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectModel.cpp" />
+    <ClCompile Include="Generated\qrc_FilterDialog.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataLayer\DataLayer.h" />
+    <ClInclude Include="Generated\ui_FileSelectTab.h" />
+    <ClInclude Include="Generated\ui_FilterDialog.h" />
     <QtMoc Include="Dialog\FileSelect\FileSelectModel.h" />
     <QtMoc Include="Dialog\FileSelect\FileSelectTab.h" />
     <QtMoc Include="Application\Application.h" />

@@ -58,15 +58,15 @@ QVariant FileSelectModel::headerData(int section, Qt::Orientation orientation, i
    switch (static_cast<Column>(section))
    {
    case Column::Name:
-      return "Vorname";
+      return "Dateiname";
    case Column::Path:
-      return "Nachname";
+      return "Verzeichnis";
    case Column::Size:
-      return "Firma";
+      return "Bytes";
    case Column::Type:
-      return "Art";
+      return "Typ";
    case Column::Extension:
-      return "Telefonnummer";
+      return "Dateiendung";
    default:
       return {};
    }
@@ -90,17 +90,30 @@ QVariant FileSelectModel::data(const QModelIndex& index, int role) const
    switch (static_cast<Column>(index.column()))
    {
    case Column::Name: 
-      return QVariant{ entry.m_fileName.data() };
+      return entry.getFileName().data();
    case Column::Path:
-      return QVariant{ entry.m_filePath.data() };
-   //case Column::Size:
-   //   return QVariant{ entry.m_fileSize.data() };
-   //case Column::Type:
-   //   return QVariant{ entry.m_fileType.data() };
+      return entry.getFilePath().data();
+   case Column::Type:
+      return formatFileType(entry.getFileType());
+   case Column::Size:
+      return entry.getFileSize();
    case Column::Extension:
-      return QVariant{ entry.m_extension.data() };
+      return entry.getExtension().data();
    default: 
       return {};
+   }
+}
+
+QString FileSelectModel::formatFileType(MatrixFile::Type type) const
+{
+   switch (type)
+   {
+   case MatrixFile::Type::None:
+      return "none";
+   case MatrixFile::Type::Graymap:
+      return "Graymap";
+   default:
+      return "undefined";
    }
 }
 

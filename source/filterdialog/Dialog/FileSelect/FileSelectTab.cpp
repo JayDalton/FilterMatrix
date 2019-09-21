@@ -36,6 +36,11 @@ FileSelectTab::FileSelectTab(DataLayerSPtr data, QWidget* parent)
    setupMenus();
 }
 
+void FileSelectTab::setupUIElements()
+{
+   m->ui.pushButton;
+}
+
 void FileSelectTab::setupActions()
 {
    m->m_openFile = std::make_unique<QAction>(tr("&Öffnen"));

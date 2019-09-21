@@ -1,10 +1,7 @@
 #pragma once
 
-//#include "qabstractitemmodel.h"
-
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
-
 
 #include "MatrixFile.h"
 
@@ -29,6 +26,9 @@ public:
    Qt::ItemFlags flags(const QModelIndex&) const override;
    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
    QVariant data(const QModelIndex& index, int role) const override;
+
+private:
+   QString formatFileType(MatrixFile::Type type) const;
 
 private:
    MatrixFileRepository m_repo;

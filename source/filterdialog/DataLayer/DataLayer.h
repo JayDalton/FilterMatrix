@@ -14,6 +14,8 @@ struct DataLayer
 
    bool loadMatrixFile(std::string_view path);
 
+private:
+   FileManager m_fileManger;
 };
 
 using DataLayerUPtr = std::unique_ptr<DataLayer>;

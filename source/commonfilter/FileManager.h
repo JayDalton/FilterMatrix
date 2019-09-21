@@ -2,16 +2,19 @@
 
 #include <memory>
 #include <string>
+#include <optional>
 #include <string_view>
 
+#include "MatrixFile.h"
 
 struct FileManager
 {
-   FileManager();
+   MatrixFileOpt findMatrixFile(std::string_view filePath) const;
+   void appendMatrixFile(MatrixFile matrixFile);
+   const MatrixFileList& getFileList() const;
 
-   void loadMatrixFromFile(std::string_view path) const;
-
-
+private:
+   MatrixFileList m_fileList;
 };
 
 using FileManagerUPtr = std::unique_ptr<FileManager>;

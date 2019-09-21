@@ -16,11 +16,12 @@ protected:
    void contextMenuEvent(QContextMenuEvent* event) override;
 
 private:
-    void setupActions();
-    void setupMenus();
+   void setupUIElements();
+   void setupActions();
+   void setupMenus();
 
-    void openFile();
-    void saveFile();
+   void openFile();
+   void saveFile();
 
 private:
    struct Impl;

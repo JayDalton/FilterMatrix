@@ -14,6 +14,8 @@ struct DataLayer
    MatrixFileOpt openMatrixFile(std::string_view path);
    void loadMatrixFile(MatrixFileInfo file);
 
+   cv::Mat currentMatrix();
+
    void getSourceMatrixView();
    void getMagnitudeMatrixView();
    void getResultMatrixView();

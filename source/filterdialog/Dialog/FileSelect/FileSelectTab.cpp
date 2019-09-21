@@ -81,7 +81,7 @@ void FileSelectTab::openFile()
 
    if (auto file = m->data->openMatrixFile(fileName.toStdString()))
    {
-      m_fileSelectModel->addMatrixFile(file.value());
+      m_fileSelectModel->setImageMatrix(file.value());
       return;
    }
 
@@ -99,6 +99,8 @@ void FileSelectTab::loadFile()
    auto index = selectionModel->currentIndex();
    auto file = m_fileSelectModel->getMatrixFile(index);
    m->data->loadMatrixFile(file);
+
+   emit displayMatrixData();
 
    // switch dialog tab with file index
 }

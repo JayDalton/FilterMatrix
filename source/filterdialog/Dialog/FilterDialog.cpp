@@ -3,7 +3,10 @@
 #include "FilterDialog.h"
 #include "ui_FilterDialog.h"
 
+#include "QTabWidget"
+
 #include "FileSelect/FileSelectTab.h"
+#include "MatrixDataView/MatrixDataTab.h"
 
 #include "DataLayer/DataLayer.h"
 
@@ -12,6 +15,7 @@ struct FilterDialog::Impl
    Impl(FilterDialog* parent) : m_parent(parent) {}
 
    FileSelectTab* tabFileSelect{ nullptr };
+   MatrixDataTab* tabMatrixData{ nullptr };
 
    DataLayerSPtr data{ nullptr };
 
@@ -61,6 +65,16 @@ void FilterDialog::setupTabWidgets()
 {
    m->tabFileSelect = new FileSelectTab{ m->data, this };
    m->ui.tabWidget->addTab(m->tabFileSelect, "File Select");
+
+   m->tabMatrixData = new MatrixDataTab{ m->data, this };
+   m->ui.tabWidget->addTab(m->tabMatrixData, "Matrix Data");
+
+   connect(m->tabFileSelect, &FileSelectTab::displayMatrixData, 
+      //m->tabMatrixData, &MatrixDataTab::load);
+      this, [&]() {
+         m->tabMatrixData->load();
+         m->ui.tabWidget->setCurrentWidget(m->tabMatrixData);
+      });
 
 }
 

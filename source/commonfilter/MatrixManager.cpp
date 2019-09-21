@@ -25,6 +25,11 @@ void MatrixManager::loadMatrixFromFile(MatrixFileInfo fileInfo)
    m_target = transformToInteger(m_fourier);
 }
 
+cv::Mat MatrixManager::getSourceData() const
+{
+   return m_magnitude;
+}
+
 cv::Mat MatrixManager::importMatrixFile(MatrixFileInfo info) const
 {
    return cv::imread(info.getPath().string(), cv::IMREAD_GRAYSCALE | cv::IMREAD_ANYDEPTH);

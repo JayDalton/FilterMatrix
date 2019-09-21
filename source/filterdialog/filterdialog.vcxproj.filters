@@ -49,6 +49,12 @@
     <ClCompile Include="Generated\qrc_FilterDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Dialog\MatrixDataView\MatrixDataTab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\MatrixDataView\MatrixDataModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Application\Application.h">
@@ -61,6 +67,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Dialog\FileSelect\FileSelectModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Dialog\MatrixDataView\MatrixDataTab.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Dialog\MatrixDataView\MatrixDataModel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -85,12 +97,18 @@
     <ClInclude Include="Generated\ui_FilterDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Generated\ui_MatrixDataTab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Dialog\FilterDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Dialog\FileSelect\FileSelectTab.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Dialog\MatrixDataView\MatrixDataTab.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

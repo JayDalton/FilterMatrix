@@ -13,6 +13,9 @@ public:
     ~FileSelectTab() = default;
     explicit FileSelectTab(DataLayerSPtr data, QWidget* parent);
 
+signals:
+   void displayMatrixData();
+
 protected:
    void contextMenuEvent(QContextMenuEvent* event) override;
 

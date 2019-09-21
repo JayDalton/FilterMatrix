@@ -64,6 +64,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <AdditionalIncludeDirectories>.\Dialog\MatrixDataView;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -84,6 +85,7 @@
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <AdditionalIncludeDirectories>.\Dialog\MatrixDataView;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -98,6 +100,7 @@
     <ClCompile Include="Dialog\FilterDialog.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectTab.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectModel.cpp" />
+    <ClCompile Include="Dialog\MatrixDataView\MatrixDataTab.cpp" />
     <ClCompile Include="Generated\qrc_FilterDialog.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
@@ -105,6 +108,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Dialog\MatrixDataView\MatrixDataModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Dialog\FilterDialog.h" />
@@ -112,6 +116,7 @@
   <ItemGroup>
     <QtUic Include="Dialog\FilterDialog.ui" />
     <QtUic Include="Dialog\FileSelect\FileSelectTab.ui" />
+    <QtUic Include="Dialog\MatrixDataView\MatrixDataTab.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FilterDialog.qrc" />
@@ -129,6 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataLayer\DataLayer.h" />
+    <ClInclude Include="Generated\ui_MatrixDataTab.h" />
+    <QtMoc Include="Dialog\MatrixDataView\MatrixDataModel.h" />
+    <QtMoc Include="Dialog\MatrixDataView\MatrixDataTab.h" />
     <ClInclude Include="Generated\ui_FileSelectTab.h" />
     <ClInclude Include="Generated\ui_FilterDialog.h" />
     <QtMoc Include="Dialog\FileSelect\FileSelectModel.h" />

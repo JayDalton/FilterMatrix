@@ -27,3 +27,8 @@ void DataLayer::loadMatrixFile(MatrixFileInfo file)
 {
    m_matrixManger.loadMatrixFromFile(file);
 }
+
+cv::Mat DataLayer::currentMatrix()
+{
+   return m_matrixManger.getSourceData();
+}

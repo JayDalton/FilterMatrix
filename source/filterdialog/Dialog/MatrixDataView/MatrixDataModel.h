@@ -1,23 +1,28 @@
 #pragma once
 
+//class MatrixDataModel
+//{
+//};
+
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 
 #include "MatrixFile.h"
+#include "ImageMatrix.h"
+#include "MatrixManager.h"
 
 using MatrixFileRepository = std::vector<MatrixFileInfo>;
 
-class FileSelectModel final : public QAbstractItemModel
+class MatrixDataModel final : public QAbstractItemModel
 {
    Q_OBJECT
 public:
    enum class Column { Name, Type, Size, Path, Extension, Count };
 
-   explicit FileSelectModel();
-   ~FileSelectModel() override = default;
+   explicit MatrixDataModel();
+   ~MatrixDataModel() override = default;
 
-   void setImageMatrix(MatrixFileInfo matrixFile);
-   MatrixFileInfo getMatrixFile(const QModelIndex& index) const;
+   void setImageMatrix(const cv::Mat& matrix);
 
    QModelIndex index(int row, int column, const QModelIndex& parent) const override;
    QModelIndex parent(const QModelIndex& child) const override;
@@ -31,18 +36,19 @@ private:
    QString formatFileType(MatrixFileInfo::Type type) const;
 
 private:
-   MatrixFileRepository m_repository;
+   //ImageMatrix m_matrix;
+   cv::Mat m_matrix;
 };
 
-using FileSelectModelPtr = std::unique_ptr<FileSelectModel>;
+using MatrixDataModelPtr = std::unique_ptr<MatrixDataModel>;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-class FileSelectProxy final : public QSortFilterProxyModel
+class MatrixDataProxy final : public QSortFilterProxyModel
 {
 public:
-   explicit FileSelectProxy(QObject* parent = nullptr);
-   ~FileSelectProxy() override = default;
+   explicit MatrixDataProxy(QObject* parent = nullptr);
+   ~MatrixDataProxy() override = default;
 
    void updateSearch(const QString& searchString);
    uint getSourceIndex(const QModelIndex& index);
@@ -56,6 +62,7 @@ private:
    QStringList m_searchStringList;
 };
 
-using FileSelectProxyPtr = std::unique_ptr<FileSelectProxy>;
+using MatrixDataProxyPtr = std::unique_ptr<MatrixDataProxy>;
 
 // Codepage: UTF-8 (‹¸÷ˆƒ‰ﬂ)
+

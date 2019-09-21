@@ -7,7 +7,7 @@ FileSelectModel::FileSelectModel()
 
 }
 
-void FileSelectModel::addMatrixFile(MatrixFileInfo matrixFile)
+void FileSelectModel::setImageMatrix(MatrixFileInfo matrixFile)
 {
    beginResetModel();
    m_repository.push_back(matrixFile);

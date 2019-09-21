@@ -11,6 +11,8 @@ struct MatrixManager
 
    void loadMatrixFromFile(MatrixFileInfo fileInfo);
 
+   cv::Mat getSourceData() const;
+
 private:
    cv::Mat importMatrixFile(MatrixFileInfo info) const;
    cv::Mat transformToFloating(cv::Mat source) const;

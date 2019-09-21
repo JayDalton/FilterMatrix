@@ -71,7 +71,7 @@ void FilterDialog::setupTabWidgets()
 
    connect(m->tabFileSelect, &FileSelectTab::displayMatrixData, 
       //m->tabMatrixData, &MatrixDataTab::load);
-      this, [&]() {
+      this, [=]() {
          m->tabMatrixData->load();
          m->ui.tabWidget->setCurrentWidget(m->tabMatrixData);
       });

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "FileManager.h"
 #include "MatrixManager.h"
@@ -11,10 +13,14 @@ struct DataLayer
 
    void loadConfiguration();
 
-   MatrixFileOpt openMatrixFile(std::string_view path);
+   bool readMatrixFileInfo(const StringVector& pathList);
+   bool readMatrixFileInfo(std::string_view path);
+
    void loadMatrixFile(MatrixFileInfo file);
 
    cv::Mat currentMatrix();
+
+   const MatrixFileRepository& getFileRepository() const;
 
    void getSourceMatrixView();
    void getMagnitudeMatrixView();

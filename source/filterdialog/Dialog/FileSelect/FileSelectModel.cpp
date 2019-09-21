@@ -2,6 +2,14 @@
 
 #include "FileSelectModel.h"
 
+struct FileInfoCompare
+{
+   bool operator()(const MatrixFileInfo& lhs, const MatrixFileInfo& rhs) 
+   {
+      return lhs.getPath() == rhs.getPath();
+   }
+};
+
 FileSelectModel::FileSelectModel()
 {
 
@@ -11,6 +19,15 @@ void FileSelectModel::setImageMatrix(MatrixFileInfo matrixFile)
 {
    beginResetModel();
    m_repository.push_back(matrixFile);
+   endResetModel();
+}
+
+void FileSelectModel::reloadFileModel(const MatrixFileRepository& repository)
+{
+   beginResetModel();
+   m_repository.assign(repository.cbegin(), repository.cend());
+   auto last = std::unique(m_repository.begin(), m_repository.end(), FileInfoCompare{});
+   m_repository.erase(last, m_repository.end()); 
    endResetModel();
 }
 

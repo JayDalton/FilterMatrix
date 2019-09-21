@@ -70,22 +70,28 @@ void FileSelectTab::setupMenus()
 
 void FileSelectTab::openFile()
 {
-   QString fileName{ QFileDialog::getOpenFileName(
-      this, tr("Open Matrix File"), "",
-      tr("Portable Graymap (*.pgm);;All Files (*)")) };
+   QFileDialog dialog{ this };
+   dialog.setFileMode(QFileDialog::FileMode::ExistingFiles);
+   dialog.setNameFilter(tr("Portable Graymap (*.pgm)"));
+   dialog.setViewMode(QFileDialog::Detail);
 
-   if (fileName.isEmpty())
+   QStringList fileNames;
+   if (dialog.exec())
    {
-      return;
-   }
+      fileNames = dialog.selectedFiles();
+      const auto filePathList{ fileNames.toVector() };
 
-   if (auto file = m->data->openMatrixFile(fileName.toStdString()))
-   {
-      m_fileSelectModel->setImageMatrix(file.value());
-      return;
-   }
+      StringVector fileList(fileNames.size());
+      std::transform(filePathList.cbegin(), filePathList.cend(), fileList.begin(), 
+         [](const QString& path) { return path.toStdString(); }
+      );
 
-   QMessageBox::information(this, tr("Unable to open file"), fileName);
+      if (m->data->readMatrixFileInfo(fileList))
+      {
+         m_fileSelectModel->reloadFileModel(m->data->getFileRepository());
+         return;
+      }
+   }
 }
 
 void FileSelectTab::loadFile()

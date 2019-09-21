@@ -5,8 +5,6 @@
 
 #include "MatrixFile.h"
 
-using MatrixFileRepository = std::vector<MatrixFileInfo>;
-
 class FileSelectModel final : public QAbstractItemModel
 {
    Q_OBJECT
@@ -17,6 +15,7 @@ public:
    ~FileSelectModel() override = default;
 
    void setImageMatrix(MatrixFileInfo matrixFile);
+   void reloadFileModel(const MatrixFileRepository& repository);
    MatrixFileInfo getMatrixFile(const QModelIndex& index) const;
 
    QModelIndex index(int row, int column, const QModelIndex& parent) const override;

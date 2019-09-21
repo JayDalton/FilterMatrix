@@ -92,7 +92,16 @@ QVariant MatrixDataModel::data(const QModelIndex& index, int role) const
       return {};
    }
 
-   return m_matrix.at<double>(index.row(), index.column());
+   auto row = index.row();
+   auto col = index.column();
+   auto size = m_matrix.size;
+   auto dims = m_matrix.dims;
+   auto type = m_matrix.type();
+   auto chans = m_matrix.channels();
+
+   //auto val = m_matrix.at<double>(index.row(), index.column());
+
+   return 0;// m_matrix.at<double>(index.row(), index.column());
 }
 
 QString MatrixDataModel::formatFileType(MatrixFileInfo::Type type) const

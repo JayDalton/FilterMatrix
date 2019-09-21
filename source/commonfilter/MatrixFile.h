@@ -32,3 +32,6 @@ using MatrixFileUPtr = std::unique_ptr<MatrixFileInfo>;
 using MatrixFileSPtr = std::shared_ptr<MatrixFileInfo>;
 using MatrixFileList = std::vector<MatrixFileInfo>;
 using MatrixFileOpt = std::optional<MatrixFileInfo>;
+
+using MatrixFileRepository = std::vector<MatrixFileInfo>;
+

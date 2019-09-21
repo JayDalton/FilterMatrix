@@ -7,10 +7,16 @@
 
 #include "MatrixFile.h"
 
+using StringVector = std::vector<std::string>;
+
 struct FileManager
 {
-   MatrixFileOpt loadMatrixFileInfo(std::string_view filePath) const;
+   bool loadMatrixFileInfo(std::string_view filePath);
+   bool loadMatrixFileInfo(const StringVector& fileList);
+
    void appendMatrixFile(MatrixFileInfo matrixFile);
+   void appendMatrixFileList(MatrixFileList fileList);
+
    const MatrixFileList& getFileList() const;
 
 private:

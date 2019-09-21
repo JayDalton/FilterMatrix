@@ -13,14 +13,14 @@ void DataLayer::loadConfiguration()
 {
 }
 
-MatrixFileOpt DataLayer::openMatrixFile(std::string_view importFileName)
+bool DataLayer::readMatrixFileInfo(const StringVector& pathList)
 {
-   if (auto fileOpt = m_fileManger.loadMatrixFileInfo(importFileName))
-   {
-      m_fileManger.appendMatrixFile(fileOpt.value());
-      return fileOpt;
-   }
-   return {};
+   return m_fileManger.loadMatrixFileInfo(pathList);
+}
+
+bool DataLayer::readMatrixFileInfo(std::string_view importFileName)
+{
+   return m_fileManger.loadMatrixFileInfo(importFileName);
 }
 
 void DataLayer::loadMatrixFile(MatrixFileInfo file)
@@ -31,4 +31,9 @@ void DataLayer::loadMatrixFile(MatrixFileInfo file)
 cv::Mat DataLayer::currentMatrix()
 {
    return m_matrixManger.getSourceData();
+}
+
+const MatrixFileRepository& DataLayer::getFileRepository() const
+{
+   return m_fileManger.getFileList();
 }

@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "FileManager.h"
 
-MatrixFileOpt FileManager::findMatrixFile(std::string_view filePath) const
+MatrixFileOpt FileManager::loadMatrixFileInfo(std::string_view filePath) const
 {
-   MatrixFile file{ filePath };
+   MatrixFileInfo file{ filePath };
    if (file.isValid())
    {
       return file;
@@ -11,7 +11,7 @@ MatrixFileOpt FileManager::findMatrixFile(std::string_view filePath) const
    return {};
 }
 
-void FileManager::appendMatrixFile(MatrixFile matrixFile)
+void FileManager::appendMatrixFile(MatrixFileInfo matrixFile)
 {
    m_fileList.push_back(matrixFile);
 }

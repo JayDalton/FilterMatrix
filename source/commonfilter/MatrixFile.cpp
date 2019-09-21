@@ -2,12 +2,17 @@
 
 #include "MatrixFile.h"
 
-MatrixFile::MatrixFile(std::string_view filePath)
+MatrixFileInfo::MatrixFileInfo(std::string_view filePath)
    : m_path(filePath)
 {
 }
 
-bool MatrixFile::isValid() const
+const fs::path& MatrixFileInfo::getPath() const
+{
+   return m_path;
+}
+
+bool MatrixFileInfo::isValid() const
 {
    return fs::exists(m_path) 
       && fs::is_regular_file(m_path)
@@ -18,27 +23,27 @@ bool MatrixFile::isValid() const
    ;
 }
 
-MatrixFile::Type MatrixFile::getFileType() const
+MatrixFileInfo::Type MatrixFileInfo::getFileType() const
 {
    return Type::Graymap;
 }
 
-unsigned MatrixFile::getFileSize() const
+unsigned MatrixFileInfo::getFileSize() const
 {
    return fs::file_size(m_path);
 }
 
-std::string MatrixFile::getFileName() const
+std::string MatrixFileInfo::getFileName() const
 {
    return m_path.filename().string();
 }
 
-std::string MatrixFile::getFilePath() const
+std::string MatrixFileInfo::getFilePath() const
 {
    return m_path.root_directory().string();
 }
 
-std::string MatrixFile::getExtension() const
+std::string MatrixFileInfo::getExtension() const
 {
    return m_path.extension().string();
 }

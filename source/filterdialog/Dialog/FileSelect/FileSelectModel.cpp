@@ -2,13 +2,21 @@
 
 #include "FileSelectModel.h"
 
-void FileSelectModel::addMatrixFile(MatrixFile matrixFile)
+FileSelectModel::FileSelectModel()
 {
+
 }
 
-MatrixFile FileSelectModel::getMatrixFile(const QModelIndex& index) const
+void FileSelectModel::addMatrixFile(MatrixFileInfo matrixFile)
 {
-   return MatrixFile{""};
+   beginResetModel();
+   m_repository.push_back(matrixFile);
+   endResetModel();
+}
+
+MatrixFileInfo FileSelectModel::getMatrixFile(const QModelIndex& index) const
+{
+   return m_repository.at(index.row());
 }
 
 QModelIndex FileSelectModel::index(int row, int column, const QModelIndex& parent) const
@@ -29,7 +37,7 @@ int FileSelectModel::rowCount(const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
-      return static_cast<int>(m_repo.size());
+      return static_cast<int>(m_repository.size());
    }
    return 0;
 }
@@ -80,13 +88,13 @@ QVariant FileSelectModel::data(const QModelIndex& index, int role) const
    }
 
    if (index.parent().isValid() || 
-      (index.row() >= m_repo.size()) ||
+      (index.row() >= m_repository.size()) ||
       (index.column() > static_cast<int>(Column::Count)))
    {
       return {};
    }
 
-   const auto entry{ m_repo.at(index.row()) };
+   const auto entry{ m_repository.at(index.row()) };
    switch (static_cast<Column>(index.column()))
    {
    case Column::Name: 
@@ -104,13 +112,13 @@ QVariant FileSelectModel::data(const QModelIndex& index, int role) const
    }
 }
 
-QString FileSelectModel::formatFileType(MatrixFile::Type type) const
+QString FileSelectModel::formatFileType(MatrixFileInfo::Type type) const
 {
    switch (type)
    {
-   case MatrixFile::Type::None:
+   case MatrixFileInfo::Type::None:
       return "none";
-   case MatrixFile::Type::Graymap:
+   case MatrixFileInfo::Type::Graymap:
       return "Graymap";
    default:
       return "undefined";
@@ -119,35 +127,35 @@ QString FileSelectModel::formatFileType(MatrixFile::Type type) const
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-FileSelectSortFilterProxyModel::FileSelectSortFilterProxyModel(QObject* parent)
+FileSelectProxy::FileSelectProxy(QObject* parent)
    : QSortFilterProxyModel(parent)
 {
 }
 
-void FileSelectSortFilterProxyModel::updateSearch(const QString& searchString)
+void FileSelectProxy::updateSearch(const QString& searchString)
 {
    m_searchStringList = searchString.split(' ', QString::SkipEmptyParts);
    invalidate();
 }
 
-uint FileSelectSortFilterProxyModel::getSourceIndex(const QModelIndex& index)
+uint FileSelectProxy::getSourceIndex(const QModelIndex& index)
 {
    auto sourceIndex{ mapToSource(index) };
    auto sourceRow{ sourceIndex.row() };
    return static_cast<uint>(sourceRow);
 }
 
-MatrixFile FileSelectSortFilterProxyModel::getSourceContact(const QModelIndex& index)
+MatrixFileInfo FileSelectProxy::getSourceContact(const QModelIndex& index)
 {
    const auto sourceIndex{ mapFromSource(index) };
    if (auto model = qobject_cast<FileSelectModel*>(sourceModel()))
    {
       return model->getMatrixFile(sourceIndex);
    }
-   return MatrixFile{""};
+   return MatrixFileInfo{""};
 }
 
-bool FileSelectSortFilterProxyModel::filterAcceptsRow(int row, const QModelIndex& parent) const
+bool FileSelectProxy::filterAcceptsRow(int row, const QModelIndex& parent) const
 {
    // leeres Suchwort = alles anzeigen
    if (m_searchStringList.isEmpty())
@@ -181,7 +189,7 @@ bool FileSelectSortFilterProxyModel::filterAcceptsRow(int row, const QModelIndex
    return true;
 }
 
-bool FileSelectSortFilterProxyModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
+bool FileSelectProxy::lessThan(const QModelIndex& left, const QModelIndex& right) const
 {
    return QSortFilterProxyModel::lessThan(left, right);
 }

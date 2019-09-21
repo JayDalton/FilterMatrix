@@ -3,6 +3,7 @@
 #include <QWidget>
 
 #include "DataLayer/DataLayer.h"
+#include <Dialog\FileSelect\FileSelectModel.h>
 
 class FileSelectTab : public QWidget
 {
@@ -21,9 +22,13 @@ private:
    void setupMenus();
 
    void openFile();
+   void loadFile();
    void saveFile();
 
 private:
    struct Impl;
    std::unique_ptr<Impl> m;
+
+   FileSelectModelPtr m_fileSelectModel{ nullptr };
+   FileSelectProxyPtr m_fileSelectProxy{ nullptr };
 };

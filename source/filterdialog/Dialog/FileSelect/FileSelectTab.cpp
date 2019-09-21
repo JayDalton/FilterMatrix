@@ -6,6 +6,7 @@
 
 #include <QMenu>
 #include <QtGui/qevent.h>
+#include <QPushButton>
 #include <QtWidgets\qfiledialog.h>
 #include <QtWidgets\qmessagebox.h>
 #include <FileManager.h>
@@ -32,13 +33,20 @@ FileSelectTab::FileSelectTab(DataLayerSPtr data, QWidget* parent)
 {
    m->ui.setupUi(this);
 
+   setupUIElements();
    setupActions();
    setupMenus();
 }
 
 void FileSelectTab::setupUIElements()
 {
-   m->ui.pushButton;
+   auto con1 = connect(m->ui.openButton, &QPushButton::clicked, this, [&]() { openFile(); });
+   auto con2 = connect(m->ui.loadButton, &QPushButton::clicked, this, [&]() { loadFile(); });
+
+   m_fileSelectModel = std::make_unique<FileSelectModel>();
+   m_fileSelectProxy = std::make_unique<FileSelectProxy>();
+   m_fileSelectProxy->setSourceModel(m_fileSelectModel.get());
+   m->ui.treeView->setModel(m_fileSelectProxy.get());
 }
 
 void FileSelectTab::setupActions()
@@ -71,13 +79,28 @@ void FileSelectTab::openFile()
       return;
    }
 
-   if (!m->data->loadMatrixFile(fileName.toStdString()))
+   if (auto file = m->data->openMatrixFile(fileName.toStdString()))
    {
-      QMessageBox::information(this, tr("Unable to open file"), fileName);
+      m_fileSelectModel->addMatrixFile(file.value());
       return;
    }
 
-   //updateInterface(NavigationMode);
+   QMessageBox::information(this, tr("Unable to open file"), fileName);
+}
+
+void FileSelectTab::loadFile()
+{
+   auto* selectionModel = m->ui.treeView->selectionModel();
+   if (!selectionModel->hasSelection())
+   {
+      return;
+   }
+
+   auto index = selectionModel->currentIndex();
+   auto file = m_fileSelectModel->getMatrixFile(index);
+   m->data->loadMatrixFile(file);
+
+   // switch dialog tab with file index
 }
 
 void FileSelectTab::saveFile()

@@ -9,8 +9,8 @@
 
 struct FileManager
 {
-   MatrixFileOpt findMatrixFile(std::string_view filePath) const;
-   void appendMatrixFile(MatrixFile matrixFile);
+   MatrixFileOpt loadMatrixFileInfo(std::string_view filePath) const;
+   void appendMatrixFile(MatrixFileInfo matrixFile);
    const MatrixFileList& getFileList() const;
 
 private:

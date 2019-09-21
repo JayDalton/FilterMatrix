@@ -5,19 +5,19 @@
 
 #include "MatrixFile.h"
 
-using MatrixFileRepository = std::vector<MatrixFile>;
+using MatrixFileRepository = std::vector<MatrixFileInfo>;
 
 class FileSelectModel final : public QAbstractItemModel
 {
    Q_OBJECT
 public:
-   enum class Column { Name, Path, Size, Type, Extension, Count };
+   enum class Column { Name, Type, Size, Path, Extension, Count };
 
    explicit FileSelectModel();
    ~FileSelectModel() override = default;
 
-   void addMatrixFile(MatrixFile matrixFile);
-   MatrixFile getMatrixFile(const QModelIndex& index) const;
+   void addMatrixFile(MatrixFileInfo matrixFile);
+   MatrixFileInfo getMatrixFile(const QModelIndex& index) const;
 
    QModelIndex index(int row, int column, const QModelIndex& parent) const override;
    QModelIndex parent(const QModelIndex& child) const override;
@@ -28,26 +28,25 @@ public:
    QVariant data(const QModelIndex& index, int role) const override;
 
 private:
-   QString formatFileType(MatrixFile::Type type) const;
+   QString formatFileType(MatrixFileInfo::Type type) const;
 
 private:
-   MatrixFileRepository m_repo;
-   //TelUnifyContactEntriesSPtr m_contacts{};
+   MatrixFileRepository m_repository;
 };
 
-using TelUnifyContactsModelPtr = std::unique_ptr<MatrixFileRepository>;
+using FileSelectModelPtr = std::unique_ptr<FileSelectModel>;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-class FileSelectSortFilterProxyModel final : public QSortFilterProxyModel
+class FileSelectProxy final : public QSortFilterProxyModel
 {
 public:
-   explicit FileSelectSortFilterProxyModel(QObject* parent = nullptr);
-   ~FileSelectSortFilterProxyModel() override = default;
+   explicit FileSelectProxy(QObject* parent = nullptr);
+   ~FileSelectProxy() override = default;
 
    void updateSearch(const QString& searchString);
    uint getSourceIndex(const QModelIndex& index);
-   MatrixFile getSourceContact(const QModelIndex& index);
+   MatrixFileInfo getSourceContact(const QModelIndex& index);
 
 protected:
    bool filterAcceptsRow(int row, const QModelIndex& parent) const override;
@@ -57,6 +56,6 @@ private:
    QStringList m_searchStringList;
 };
 
-using TelUnifyContactsProxyModelPtr = std::unique_ptr<FileSelectSortFilterProxyModel>;
+using FileSelectProxyPtr = std::unique_ptr<FileSelectProxy>;
 
 // Codepage: UTF-8 (‹¸÷ˆƒ‰ﬂ)

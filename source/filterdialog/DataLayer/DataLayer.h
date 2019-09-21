@@ -3,8 +3,7 @@
 #include <memory>
 
 #include "FileManager.h"
-
-
+#include "MatrixManager.h"
 
 struct DataLayer
 {
@@ -12,10 +11,16 @@ struct DataLayer
 
    void loadConfiguration();
 
-   bool loadMatrixFile(std::string_view path);
+   MatrixFileOpt openMatrixFile(std::string_view path);
+   void loadMatrixFile(MatrixFileInfo file);
+
+   void getSourceMatrixView();
+   void getMagnitudeMatrixView();
+   void getResultMatrixView();
 
 private:
    FileManager m_fileManger;
+   MatrixManager m_matrixManger;
 };
 
 using DataLayerUPtr = std::unique_ptr<DataLayer>;

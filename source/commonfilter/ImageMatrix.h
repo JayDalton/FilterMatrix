@@ -1,10 +1,15 @@
 #pragma once
 
-class ImageMatrix
+#include <opencv2/core.hpp>
+
+struct ImageMatrix
 {
+   explicit ImageMatrix(cv::Mat matrix);
+   ~ImageMatrix();
 
 private:
-   // filepath
-   // cv::mat
+   struct Impl;
+   std::unique_ptr<Impl> m;
 };
 
+using ImageMatrixUPtr = std::unique_ptr<ImageMatrix>;

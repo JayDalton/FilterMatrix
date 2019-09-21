@@ -13,27 +13,17 @@ void DataLayer::loadConfiguration()
 {
 }
 
-bool DataLayer::loadMatrixFile(std::string_view importFileName)
+MatrixFileOpt DataLayer::openMatrixFile(std::string_view importFileName)
 {
-   if (auto fileOpt = m_fileManger.findMatrixFile(importFileName))
+   if (auto fileOpt = m_fileManger.loadMatrixFileInfo(importFileName))
    {
       m_fileManger.appendMatrixFile(fileOpt.value());
+      return fileOpt;
    }
+   return {};
+}
 
-
-   //auto path{ fs::path(importFileName) };
-   //if (!fs::exists(path))
-   //{
-   //   std::cout << " file does not exist: " << path << std::endl;
-   //   return false;
-   //}
-
-   //if (!path.has_extension() || path.extension() != ".pgm")
-   //{
-   //   std::cout << " wrong file extension. Only PGM support." << std::endl;
-   //   return false;
-   //}
-
-
-   return false;
+void DataLayer::loadMatrixFile(MatrixFileInfo file)
+{
+   m_matrixManger.loadMatrixFromFile(file);
 }

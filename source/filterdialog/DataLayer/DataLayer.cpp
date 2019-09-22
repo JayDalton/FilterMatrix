@@ -30,7 +30,12 @@ void DataLayer::loadMatrixFile(MatrixFileInfo file)
 
 cv::Mat DataLayer::currentMatrix()
 {
-   return m_matrixManger.getSourceData();
+   return m_matrixManger.getSourceData(MatrixLayer::Magnitude);
+}
+
+MatrixPropertyList DataLayer::currentPropertyList()
+{
+   return m_matrixManger.getMatrixPropertyList(MatrixLayer::Magnitude);
 }
 
 const MatrixFileRepository& DataLayer::getFileRepository() const

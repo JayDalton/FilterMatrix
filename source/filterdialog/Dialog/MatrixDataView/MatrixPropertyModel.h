@@ -11,12 +11,12 @@ class MatrixPropertyModel final : public QAbstractItemModel
 {
    Q_OBJECT
 public:
-   enum class Column { Name, Type, Size, Path, Extension, Count };
+   enum class Column { Label, Value, Count };
 
    explicit MatrixPropertyModel();
    ~MatrixPropertyModel() override = default;
 
-   void setImageMatrix(const cv::Mat& matrix);
+   void setPropertyList(const MatrixPropertyList& list);
 
    QModelIndex index(int row, int column, const QModelIndex& parent) const override;
    QModelIndex parent(const QModelIndex& child) const override;
@@ -30,8 +30,7 @@ private:
    QString formatFileType(MatrixFileInfo::Type type) const;
 
 private:
-   //ImageMatrix m_matrix;
-   cv::Mat m_matrix;
+   MatrixPropertyList m_list;
 };
 
 using MatrixPropertyModelPtr = std::unique_ptr<MatrixPropertyModel>;

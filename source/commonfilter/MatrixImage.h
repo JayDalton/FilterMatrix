@@ -2,31 +2,36 @@
 
 #include <vector>
 #include <string>
-#include <variant>
 #include <memory>
+#include <variant>
+#include <complex>
 
 #include "MatrixFile.h"
 
-struct MatrixPropertyPoint
+struct MatrixPoint
 {
-   // cv::Point
    signed x{ 0 };
    signed y{ 0 };
 };
 
-using MatrixPropertyValue = std::variant<unsigned, float, double>;
+struct MatrixRange
+{
+   MatrixPoint x{};
+   MatrixPoint y{};
+};
+
+using MatrixPropertyValue = std::variant<
+   signed, unsigned, float, double, MatrixPoint
+>;
 
 struct MatrixProperty
 {
    std::string m_label;
    MatrixPropertyValue m_value;
 };
+
 using MatrixPropertyList = std::vector<MatrixProperty>;
 
-//struct MatrixImageInfo
-//{
-//   std::vector<MatrixProperty> m_property;
-//};
 //////////////////////////////////////////////////////////////////////////////////
 
 struct MatrixImage

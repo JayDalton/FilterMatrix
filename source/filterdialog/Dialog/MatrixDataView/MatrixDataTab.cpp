@@ -24,20 +24,27 @@ MatrixDataTab::MatrixDataTab(DataLayerSPtr data, QWidget *parent)
    setupUIElements();
 }
 
-
 MatrixDataTab::~MatrixDataTab() = default;
 
 void MatrixDataTab::load()
 {
    auto matrix = m->data->currentMatrix();
-   m_matrixDataModel->setImageMatrix(matrix);
+   m_matrixValueDataModel->setImageMatrix(matrix);
+   
+   auto list = m->data->currentPropertyList();
+   m_matrixPropertyModel->setPropertyList(list);
 }
 
 void MatrixDataTab::setupUIElements()
 {
-   m_matrixDataModel = std::make_unique<MatrixValueDataModel>();
-   m_matrixDataProxy = std::make_unique<MatrixValueDataProxy>();
-   m_matrixDataProxy->setSourceModel(m_matrixDataModel.get());
-   m->ui.treeView->setModel(m_matrixDataProxy.get());
+   m_matrixValueDataModel = std::make_unique<MatrixValueDataModel>();
+   m_matrixValueDataProxy = std::make_unique<MatrixValueDataProxy>();
+   m_matrixValueDataProxy->setSourceModel(m_matrixValueDataModel.get());
+   m->ui.treeView->setModel(m_matrixValueDataProxy.get());
+
+   m_matrixPropertyModel = std::make_unique<MatrixPropertyModel>();
+   m_matrixPropertyProxy = std::make_unique<MatrixPropertyProxy>();
+   m_matrixPropertyProxy->setSourceModel(m_matrixPropertyModel.get());
+   m->ui.treePropertyView->setModel(m_matrixPropertyProxy.get());
 }
 

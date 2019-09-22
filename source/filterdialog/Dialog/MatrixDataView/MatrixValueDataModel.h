@@ -19,6 +19,7 @@ public:
    ~MatrixValueDataModel() override = default;
 
    void setImageMatrix(const cv::Mat& matrix);
+   void setSectionRange(cv::Rect range);
 
    QModelIndex index(int row, int column, const QModelIndex& parent) const override;
    QModelIndex parent(const QModelIndex& child) const override;
@@ -29,9 +30,9 @@ public:
    QVariant data(const QModelIndex& index, int role) const override;
 
 private:
-   QString formatFileType(MatrixFileInfo::Type type) const;
 
 private:
+   cv::Rect m_range;// {0, 0, 100, 100};
    //ImageMatrix m_matrix;
    cv::Mat m_matrix;
 };

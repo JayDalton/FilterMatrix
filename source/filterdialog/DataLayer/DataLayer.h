@@ -19,6 +19,7 @@ struct DataLayer
    void loadMatrixFile(MatrixFileInfo file);
 
    cv::Mat currentMatrix();
+   MatrixPropertyList currentPropertyList();
 
    const MatrixFileRepository& getFileRepository() const;
 

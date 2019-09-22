@@ -5,6 +5,8 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 
+#include "MatrixImage.h"
+
 void MatrixManager::loadMatrixFromFile(MatrixFileInfo fileInfo)
 {
    if (!fileInfo.isValid())
@@ -25,9 +27,42 @@ void MatrixManager::loadMatrixFromFile(MatrixFileInfo fileInfo)
    m_target = transformToInteger(m_fourier);
 }
 
-cv::Mat MatrixManager::getSourceData() const
+cv::Mat MatrixManager::getSourceData(MatrixLayer layer) const
 {
-   return m_magnitude;
+   switch (layer)
+   {
+   case MatrixLayer::Source:
+      return m_source;
+   case MatrixLayer::Floating:
+      return m_floating;
+   case MatrixLayer::Fourier:
+      return m_fourier;
+   case MatrixLayer::Magnitude:
+      return m_magnitude;
+   case MatrixLayer::Target:
+      return m_target;
+   default:
+      return {};
+   }
+}
+
+MatrixPropertyList MatrixManager::getMatrixPropertyList(MatrixLayer layer) const
+{
+   switch (layer)
+   {
+   case MatrixLayer::Source:
+      return showInformation(m_source);
+   case MatrixLayer::Floating:
+      return showInformation(m_floating);
+   case MatrixLayer::Fourier:
+      return showInformation(m_fourier);
+   case MatrixLayer::Magnitude:
+      return showInformation(m_magnitude);
+   case MatrixLayer::Target:
+      return showInformation(m_target);
+   default:
+      return {};
+   }
 }
 
 cv::Mat MatrixManager::importMatrixFile(MatrixFileInfo info) const
@@ -122,7 +157,7 @@ int64 MatrixManager::dump_duration(int64 now, std::string label) const
    return cv::getTickCount();
 }
 
-void MatrixManager::showInformation(std::string_view label, const cv::Mat& matrix)
+MatrixPropertyList MatrixManager::showInformation(const cv::Mat& matrix) const
 {
    MethodTimer timer{ __func__ };
 
@@ -130,16 +165,14 @@ void MatrixManager::showInformation(std::string_view label, const cv::Mat& matri
    cv::Point min_loc{ 0,0 }, max_loc{ 0,0 };
    cv::minMaxLoc(matrix, &min_val, &max_val, &min_loc, &max_loc);
 
-   std::cout << label << std::endl;
-   std::cout << "type: " << matrix.type() << " " << "channels: " << matrix.channels() << std::endl;
-   std::cout << "rows: " << matrix.rows << " " << "cols: " << matrix.cols << std::endl;
-   std::cout << "minVal: " << min_val << " " << "maxVal: " << max_val << std::endl;
-   std::cout << "minLoc: " << min_loc << " " << "maxLoc: " << max_loc << std::endl;
-
-   MatrixPropertyList result {
+   return MatrixPropertyList {
+      MatrixProperty{"Type", matrix.type()},
+      MatrixProperty{"Rows", matrix.rows},
+      MatrixProperty{"Columns", matrix.cols},
+      MatrixProperty{"Channels", matrix.channels()},
       MatrixProperty{"Minimum", min_val},
-      MatrixProperty{"Min Loc", min_loc},
       MatrixProperty{"Maximum", max_val},
-      MatrixProperty{"Max Loc", max_loc},
+      MatrixProperty{"Min Loc", MatrixPoint{min_loc.x, min_loc.y}},
+      MatrixProperty{"Max Loc", MatrixPoint{max_loc.x, max_loc.y}},
    };
 }

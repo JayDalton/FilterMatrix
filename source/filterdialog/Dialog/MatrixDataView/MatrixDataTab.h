@@ -23,6 +23,9 @@ private:
    struct Impl;
    std::unique_ptr<Impl> m;
 
-   MatrixValueDataModelPtr m_matrixDataModel{ nullptr };
-   MatrixValueDataProxyPtr m_matrixDataProxy{ nullptr };
+   MatrixValueDataModelPtr m_matrixValueDataModel{ nullptr };
+   MatrixValueDataProxyPtr m_matrixValueDataProxy{ nullptr };
+
+   MatrixPropertyModelPtr m_matrixPropertyModel{ nullptr };
+   MatrixPropertyProxyPtr m_matrixPropertyProxy{ nullptr };
 };

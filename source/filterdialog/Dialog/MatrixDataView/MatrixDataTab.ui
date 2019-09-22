@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>865</width>
-    <height>476</height>
+    <width>923</width>
+    <height>532</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,20 +20,26 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>GroupBox</string>
+      <string>Eigenschaften</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="labelRange">
           <property name="text">
-           <string>Range:</string>
+           <string>Ausschnitt</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="lineEditRange">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>(P1/P2)[123,456/789,123]</string>
           </property>
@@ -42,25 +48,53 @@
        </layout>
       </item>
       <item>
-       <widget class="QTreeView" name="treePropertyView"/>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QLabel" name="labelMinimum">
           <property name="text">
-           <string>Minimum</string>
+           <string>Ausschnitt</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="labelMinValue">
-          <property name="text">
-           <string>TextLabel</string>
+         <widget class="QSpinBox" name="spinBox">
+          <property name="maximum">
+           <number>5000</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="spinBox_2">
+          <property name="maximum">
+           <number>5000</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="spinBox_4">
+          <property name="maximum">
+           <number>5000</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="spinBox_3">
+          <property name="maximum">
+           <number>5000</number>
           </property>
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QTreeView" name="treePropertyView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">

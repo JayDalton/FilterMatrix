@@ -6,13 +6,20 @@
 
 MatrixValueDataModel::MatrixValueDataModel()
 {
-
 }
 
 void MatrixValueDataModel::setImageMatrix(const cv::Mat& matrix)
 {
    beginResetModel();
    m_matrix = matrix;
+   m_range = cv::Rect{0, 0, 100, 100};
+   endResetModel();
+}
+
+void MatrixValueDataModel::setSectionRange(cv::Rect range)
+{
+   beginResetModel();
+   m_range = range;
    endResetModel();
 }
 
@@ -34,7 +41,7 @@ int MatrixValueDataModel::rowCount(const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
-      return m_matrix.rows; //static_cast<int>(m_matrix.size());
+      return m_range.height;
    }
    return 0;
 }
@@ -43,7 +50,7 @@ int MatrixValueDataModel::columnCount(const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
-      return m_matrix.cols;// static_cast<int>(Column::Count);
+      return m_range.width;
    }
    return 0;
 }
@@ -60,22 +67,7 @@ QVariant MatrixValueDataModel::headerData(int section, Qt::Orientation orientati
       return {};
    }
 
-   //switch (static_cast<Column>(section))
-   //{
-   //case Column::Name:
-   //   return "Dateiname";
-   //case Column::Path:
-   //   return "Verzeichnis";
-   //case Column::Size:
-   //   return "Bytes";
-   //case Column::Type:
-   //   return "Typ";
-   //case Column::Extension:
-   //   return "Dateiendung";
-   //default:
-   //   return {};
-   //}
-   return {};
+   return section;
 }
 
 QVariant MatrixValueDataModel::data(const QModelIndex& index, int role) const
@@ -85,27 +77,14 @@ QVariant MatrixValueDataModel::data(const QModelIndex& index, int role) const
       return {};
    }
 
-   if (index.parent().isValid() || 
-      (index.row() > m_matrix.rows) ||
-      (index.column() > m_matrix.cols))
+   if (index.parent().isValid() 
+      || (index.row() > m_range.height) 
+      || (index.column() > m_range.width))
    {
       return {};
    }
 
-   return m_matrix.at<float>(index.row(), index.column());
-}
-
-QString MatrixValueDataModel::formatFileType(MatrixFileInfo::Type type) const
-{
-   switch (type)
-   {
-   case MatrixFileInfo::Type::None:
-      return "none";
-   case MatrixFileInfo::Type::Graymap:
-      return "Graymap";
-   default:
-      return "undefined";
-   }
+   return m_matrix.at<float>(m_range.y + index.row(), m_range.x + index.column());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

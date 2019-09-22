@@ -16,6 +16,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -30,12 +31,15 @@ public:
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
-    QLabel *label;
-    QLineEdit *lineEdit;
-    QTreeView *treePropertyView;
+    QLabel *labelRange;
+    QLineEdit *lineEditRange;
     QHBoxLayout *horizontalLayout_3;
     QLabel *labelMinimum;
-    QLabel *labelMinValue;
+    QSpinBox *spinBox;
+    QSpinBox *spinBox_2;
+    QSpinBox *spinBox_4;
+    QSpinBox *spinBox_3;
+    QTreeView *treePropertyView;
     QHBoxLayout *horizontalLayout_6;
     QLabel *labelMaximum;
     QLabel *labelMaxValue;
@@ -50,7 +54,7 @@ public:
     {
         if (MatrixDataTab->objectName().isEmpty())
             MatrixDataTab->setObjectName(QString::fromUtf8("MatrixDataTab"));
-        MatrixDataTab->resize(865, 476);
+        MatrixDataTab->resize(923, 532);
         horizontalLayout = new QHBoxLayout(MatrixDataTab);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -69,23 +73,23 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        label = new QLabel(groupBox);
-        label->setObjectName(QString::fromUtf8("label"));
+        labelRange = new QLabel(groupBox);
+        labelRange->setObjectName(QString::fromUtf8("labelRange"));
 
-        horizontalLayout_2->addWidget(label);
+        horizontalLayout_2->addWidget(labelRange);
 
-        lineEdit = new QLineEdit(groupBox);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        lineEditRange = new QLineEdit(groupBox);
+        lineEditRange->setObjectName(QString::fromUtf8("lineEditRange"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(lineEditRange->sizePolicy().hasHeightForWidth());
+        lineEditRange->setSizePolicy(sizePolicy);
 
-        horizontalLayout_2->addWidget(lineEdit);
+        horizontalLayout_2->addWidget(lineEditRange);
 
 
         verticalLayout->addLayout(horizontalLayout_2);
-
-        treePropertyView = new QTreeView(groupBox);
-        treePropertyView->setObjectName(QString::fromUtf8("treePropertyView"));
-
-        verticalLayout->addWidget(treePropertyView);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -95,13 +99,42 @@ public:
 
         horizontalLayout_3->addWidget(labelMinimum);
 
-        labelMinValue = new QLabel(groupBox);
-        labelMinValue->setObjectName(QString::fromUtf8("labelMinValue"));
+        spinBox = new QSpinBox(groupBox);
+        spinBox->setObjectName(QString::fromUtf8("spinBox"));
+        spinBox->setMaximum(5000);
 
-        horizontalLayout_3->addWidget(labelMinValue);
+        horizontalLayout_3->addWidget(spinBox);
+
+        spinBox_2 = new QSpinBox(groupBox);
+        spinBox_2->setObjectName(QString::fromUtf8("spinBox_2"));
+        spinBox_2->setMaximum(5000);
+
+        horizontalLayout_3->addWidget(spinBox_2);
+
+        spinBox_4 = new QSpinBox(groupBox);
+        spinBox_4->setObjectName(QString::fromUtf8("spinBox_4"));
+        spinBox_4->setMaximum(5000);
+
+        horizontalLayout_3->addWidget(spinBox_4);
+
+        spinBox_3 = new QSpinBox(groupBox);
+        spinBox_3->setObjectName(QString::fromUtf8("spinBox_3"));
+        spinBox_3->setMaximum(5000);
+
+        horizontalLayout_3->addWidget(spinBox_3);
 
 
         verticalLayout->addLayout(horizontalLayout_3);
+
+        treePropertyView = new QTreeView(groupBox);
+        treePropertyView->setObjectName(QString::fromUtf8("treePropertyView"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(treePropertyView->sizePolicy().hasHeightForWidth());
+        treePropertyView->setSizePolicy(sizePolicy1);
+
+        verticalLayout->addWidget(treePropertyView);
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
@@ -163,11 +196,10 @@ public:
     void retranslateUi(QWidget *MatrixDataTab)
     {
         MatrixDataTab->setWindowTitle(QApplication::translate("MatrixDataTab", "MatrixDataTab", nullptr));
-        groupBox->setTitle(QApplication::translate("MatrixDataTab", "GroupBox", nullptr));
-        label->setText(QApplication::translate("MatrixDataTab", "Range:", nullptr));
-        lineEdit->setText(QApplication::translate("MatrixDataTab", "(P1/P2)[123,456/789,123]", nullptr));
-        labelMinimum->setText(QApplication::translate("MatrixDataTab", "Minimum", nullptr));
-        labelMinValue->setText(QApplication::translate("MatrixDataTab", "TextLabel", nullptr));
+        groupBox->setTitle(QApplication::translate("MatrixDataTab", "Eigenschaften", nullptr));
+        labelRange->setText(QApplication::translate("MatrixDataTab", "Ausschnitt", nullptr));
+        lineEditRange->setText(QApplication::translate("MatrixDataTab", "(P1/P2)[123,456/789,123]", nullptr));
+        labelMinimum->setText(QApplication::translate("MatrixDataTab", "Ausschnitt", nullptr));
         labelMaximum->setText(QApplication::translate("MatrixDataTab", "Maximum", nullptr));
         labelMaxValue->setText(QApplication::translate("MatrixDataTab", "TextLabel", nullptr));
         labelAverage->setText(QApplication::translate("MatrixDataTab", "Average", nullptr));

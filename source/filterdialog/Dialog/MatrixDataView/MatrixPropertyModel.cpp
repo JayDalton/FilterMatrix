@@ -5,10 +5,10 @@ MatrixPropertyModel::MatrixPropertyModel()
 
 }
 
-void MatrixPropertyModel::setImageMatrix(const cv::Mat& matrix)
+void MatrixPropertyModel::setPropertyList(const MatrixPropertyList& list)
 {
    beginResetModel();
-   m_matrix = matrix;
+   m_list = list;
    endResetModel();
 }
 
@@ -30,7 +30,7 @@ int MatrixPropertyModel::rowCount(const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
-      return m_matrix.rows; //static_cast<int>(m_matrix.size());
+      return m_list.size();
    }
    return 0;
 }
@@ -39,7 +39,7 @@ int MatrixPropertyModel::columnCount(const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
-      return m_matrix.cols;// static_cast<int>(Column::Count);
+      return static_cast<int>(Column::Count);
    }
    return 0;
 }
@@ -56,21 +56,15 @@ QVariant MatrixPropertyModel::headerData(int section, Qt::Orientation orientatio
       return {};
    }
 
-   //switch (static_cast<Column>(section))
-   //{
-   //case Column::Name:
-   //   return "Dateiname";
-   //case Column::Path:
-   //   return "Verzeichnis";
-   //case Column::Size:
-   //   return "Bytes";
-   //case Column::Type:
-   //   return "Typ";
-   //case Column::Extension:
-   //   return "Dateiendung";
-   //default:
-   //   return {};
-   //}
+   switch (static_cast<Column>(section))
+   {
+   case Column::Label:
+      return "Bezeinchner";
+   case Column::Value:
+      return "Werte";
+   default:
+      return {};
+   }
    return {};
 }
 
@@ -82,13 +76,25 @@ QVariant MatrixPropertyModel::data(const QModelIndex& index, int role) const
    }
 
    if (index.parent().isValid() || 
-      (index.row() > m_matrix.rows) ||
-      (index.column() > m_matrix.cols))
+      (index.row() > m_list.size()) ||
+      (index.column() > static_cast<int>(Column::Count)))
    {
       return {};
    }
 
-   return m_matrix.at<float>(index.row(), index.column());
+   const auto& property{ m_list.at(index.row()) };
+
+   switch (index.column())
+   {
+   case 0: // Label
+      return QString::fromStdString(property.m_label);
+   case 1: // Value
+      //return property.m_value;
+   default:
+      return {};
+   }
+
+   //return /*index.column() ? property.m_value : */QString::fromStdString(property.m_label);
 }
 
 QString MatrixPropertyModel::formatFileType(MatrixFileInfo::Type type) const

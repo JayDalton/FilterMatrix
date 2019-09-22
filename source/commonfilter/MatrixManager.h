@@ -7,12 +7,16 @@
 #include "MatrixFile.h"
 #include "MatrixImage.h"
 
+enum class MatrixLayer { Source, Floating, Fourier, Magnitude, Target, Count };
+
 struct MatrixManager
 {
 
    void loadMatrixFromFile(MatrixFileInfo fileInfo);
 
-   cv::Mat getSourceData() const;
+   cv::Mat getSourceData(MatrixLayer layer) const;
+
+   MatrixPropertyList getMatrixPropertyList(MatrixLayer layer) const;
 
 private:
    cv::Mat importMatrixFile(MatrixFileInfo info) const;
@@ -24,12 +28,12 @@ private:
 
    int64 dump_duration(int64 now, std::string label) const;
 
-   void showInformation(std::string_view label, const cv::Mat& matrix);
+   MatrixPropertyList showInformation(const cv::Mat& matrix) const;
 
 private:
 
    // MatrixImage
-   MatrixImage m_matrix;
+   //MatrixImage m_matrix;
 
    MatrixFileInfo m_fileInfo{""};
    cv::Mat m_source;    // ImageMatrix

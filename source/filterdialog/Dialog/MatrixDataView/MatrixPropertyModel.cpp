@@ -1,22 +1,18 @@
-#include <pch.h>
+#include "MatrixPropertyModel.h"
 
-#include "MatrixDataModel.h"
-
-#include <opencv2/core/mat.hpp>
-
-MatrixDataModel::MatrixDataModel()
+MatrixPropertyModel::MatrixPropertyModel()
 {
 
 }
 
-void MatrixDataModel::setImageMatrix(const cv::Mat& matrix)
+void MatrixPropertyModel::setImageMatrix(const cv::Mat& matrix)
 {
    beginResetModel();
    m_matrix = matrix;
    endResetModel();
 }
 
-QModelIndex MatrixDataModel::index(int row, int column, const QModelIndex& parent) const
+QModelIndex MatrixPropertyModel::index(int row, int column, const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
@@ -25,12 +21,12 @@ QModelIndex MatrixDataModel::index(int row, int column, const QModelIndex& paren
    return {};
 }
 
-QModelIndex MatrixDataModel::parent(const QModelIndex& child) const
+QModelIndex MatrixPropertyModel::parent(const QModelIndex& child) const
 {
    return {};
 }
 
-int MatrixDataModel::rowCount(const QModelIndex& parent) const
+int MatrixPropertyModel::rowCount(const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
@@ -39,7 +35,7 @@ int MatrixDataModel::rowCount(const QModelIndex& parent) const
    return 0;
 }
 
-int MatrixDataModel::columnCount(const QModelIndex& parent) const
+int MatrixPropertyModel::columnCount(const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
@@ -48,12 +44,12 @@ int MatrixDataModel::columnCount(const QModelIndex& parent) const
    return 0;
 }
 
-Qt::ItemFlags MatrixDataModel::flags(const QModelIndex& index) const
+Qt::ItemFlags MatrixPropertyModel::flags(const QModelIndex& index) const
 {
    return QAbstractItemModel::flags(index);
 }
 
-QVariant MatrixDataModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant MatrixPropertyModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
    if (role != Qt::DisplayRole)
    {
@@ -78,7 +74,7 @@ QVariant MatrixDataModel::headerData(int section, Qt::Orientation orientation, i
    return {};
 }
 
-QVariant MatrixDataModel::data(const QModelIndex& index, int role) const
+QVariant MatrixPropertyModel::data(const QModelIndex& index, int role) const
 {
    if (role != Qt::DisplayRole)
    {
@@ -92,19 +88,10 @@ QVariant MatrixDataModel::data(const QModelIndex& index, int role) const
       return {};
    }
 
-   auto row = index.row();
-   auto col = index.column();
-   auto size = m_matrix.size;
-   auto dims = m_matrix.dims;
-   auto type = m_matrix.type();
-   auto chans = m_matrix.channels();
-
-   //auto val = m_matrix.at<double>(index.row(), index.column());
-
-   return 0;// m_matrix.at<double>(index.row(), index.column());
+   return m_matrix.at<float>(index.row(), index.column());
 }
 
-QString MatrixDataModel::formatFileType(MatrixFileInfo::Type type) const
+QString MatrixPropertyModel::formatFileType(MatrixFileInfo::Type type) const
 {
    switch (type)
    {
@@ -119,18 +106,18 @@ QString MatrixDataModel::formatFileType(MatrixFileInfo::Type type) const
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-MatrixDataProxy::MatrixDataProxy(QObject* parent)
+MatrixPropertyProxy::MatrixPropertyProxy(QObject* parent)
    : QSortFilterProxyModel(parent)
 {
 }
 
-void MatrixDataProxy::updateSearch(const QString& searchString)
+void MatrixPropertyProxy::updateSearch(const QString& searchString)
 {
    m_searchStringList = searchString.split(' ', QString::SkipEmptyParts);
    invalidate();
 }
 
-uint MatrixDataProxy::getSourceIndex(const QModelIndex& index)
+uint MatrixPropertyProxy::getSourceIndex(const QModelIndex& index)
 {
    auto sourceIndex{ mapToSource(index) };
    auto sourceRow{ sourceIndex.row() };
@@ -147,7 +134,7 @@ uint MatrixDataProxy::getSourceIndex(const QModelIndex& index)
 //   return MatrixFileInfo{""};
 //}
 
-bool MatrixDataProxy::filterAcceptsRow(int row, const QModelIndex& parent) const
+bool MatrixPropertyProxy::filterAcceptsRow(int row, const QModelIndex& parent) const
 {
    // leeres Suchwort = alles anzeigen
    if (m_searchStringList.isEmpty())
@@ -181,7 +168,7 @@ bool MatrixDataProxy::filterAcceptsRow(int row, const QModelIndex& parent) const
    return true;
 }
 
-bool MatrixDataProxy::lessThan(const QModelIndex& left, const QModelIndex& right) const
+bool MatrixPropertyProxy::lessThan(const QModelIndex& left, const QModelIndex& right) const
 {
    return QSortFilterProxyModel::lessThan(left, right);
 }

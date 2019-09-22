@@ -11,9 +11,13 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QTreeView>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -23,6 +27,24 @@ class Ui_MatrixDataTab
 public:
     QHBoxLayout *horizontalLayout;
     QTreeView *treeView;
+    QGroupBox *groupBox;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label;
+    QLineEdit *lineEdit;
+    QTreeView *treePropertyView;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *labelMinimum;
+    QLabel *labelMinValue;
+    QHBoxLayout *horizontalLayout_6;
+    QLabel *labelMaximum;
+    QLabel *labelMaxValue;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *labelAverage;
+    QLabel *labelAvgValue;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *label_5;
+    QLabel *label_4;
 
     void setupUi(QWidget *MatrixDataTab)
     {
@@ -38,6 +60,100 @@ public:
 
         horizontalLayout->addWidget(treeView);
 
+        groupBox = new QGroupBox(MatrixDataTab);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        verticalLayout = new QVBoxLayout(groupBox);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label = new QLabel(groupBox);
+        label->setObjectName(QString::fromUtf8("label"));
+
+        horizontalLayout_2->addWidget(label);
+
+        lineEdit = new QLineEdit(groupBox);
+        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+
+        horizontalLayout_2->addWidget(lineEdit);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
+        treePropertyView = new QTreeView(groupBox);
+        treePropertyView->setObjectName(QString::fromUtf8("treePropertyView"));
+
+        verticalLayout->addWidget(treePropertyView);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        labelMinimum = new QLabel(groupBox);
+        labelMinimum->setObjectName(QString::fromUtf8("labelMinimum"));
+
+        horizontalLayout_3->addWidget(labelMinimum);
+
+        labelMinValue = new QLabel(groupBox);
+        labelMinValue->setObjectName(QString::fromUtf8("labelMinValue"));
+
+        horizontalLayout_3->addWidget(labelMinValue);
+
+
+        verticalLayout->addLayout(horizontalLayout_3);
+
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
+        labelMaximum = new QLabel(groupBox);
+        labelMaximum->setObjectName(QString::fromUtf8("labelMaximum"));
+
+        horizontalLayout_6->addWidget(labelMaximum);
+
+        labelMaxValue = new QLabel(groupBox);
+        labelMaxValue->setObjectName(QString::fromUtf8("labelMaxValue"));
+
+        horizontalLayout_6->addWidget(labelMaxValue);
+
+
+        verticalLayout->addLayout(horizontalLayout_6);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        labelAverage = new QLabel(groupBox);
+        labelAverage->setObjectName(QString::fromUtf8("labelAverage"));
+
+        horizontalLayout_5->addWidget(labelAverage);
+
+        labelAvgValue = new QLabel(groupBox);
+        labelAvgValue->setObjectName(QString::fromUtf8("labelAvgValue"));
+
+        horizontalLayout_5->addWidget(labelAvgValue);
+
+
+        verticalLayout->addLayout(horizontalLayout_5);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        label_5 = new QLabel(groupBox);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+
+        horizontalLayout_4->addWidget(label_5);
+
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        horizontalLayout_4->addWidget(label_4);
+
+
+        verticalLayout->addLayout(horizontalLayout_4);
+
+
+        horizontalLayout->addWidget(groupBox);
+
 
         retranslateUi(MatrixDataTab);
 
@@ -47,6 +163,17 @@ public:
     void retranslateUi(QWidget *MatrixDataTab)
     {
         MatrixDataTab->setWindowTitle(QApplication::translate("MatrixDataTab", "MatrixDataTab", nullptr));
+        groupBox->setTitle(QApplication::translate("MatrixDataTab", "GroupBox", nullptr));
+        label->setText(QApplication::translate("MatrixDataTab", "Range:", nullptr));
+        lineEdit->setText(QApplication::translate("MatrixDataTab", "(P1/P2)[123,456/789,123]", nullptr));
+        labelMinimum->setText(QApplication::translate("MatrixDataTab", "Minimum", nullptr));
+        labelMinValue->setText(QApplication::translate("MatrixDataTab", "TextLabel", nullptr));
+        labelMaximum->setText(QApplication::translate("MatrixDataTab", "Maximum", nullptr));
+        labelMaxValue->setText(QApplication::translate("MatrixDataTab", "TextLabel", nullptr));
+        labelAverage->setText(QApplication::translate("MatrixDataTab", "Average", nullptr));
+        labelAvgValue->setText(QApplication::translate("MatrixDataTab", "TextLabel", nullptr));
+        label_5->setText(QApplication::translate("MatrixDataTab", "TextLabel", nullptr));
+        label_4->setText(QApplication::translate("MatrixDataTab", "TextLabel", nullptr));
     } // retranslateUi
 
 };

@@ -108,7 +108,8 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Dialog\MatrixDataView\MatrixDataModel.cpp" />
+    <ClCompile Include="Dialog\MatrixDataView\MatrixValueDataModel.cpp" />
+    <ClCompile Include="Dialog\MatrixDataView\MatrixPropertyModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Dialog\FilterDialog.h" />
@@ -135,7 +136,8 @@
   <ItemGroup>
     <ClInclude Include="DataLayer\DataLayer.h" />
     <ClInclude Include="Generated\ui_MatrixDataTab.h" />
-    <QtMoc Include="Dialog\MatrixDataView\MatrixDataModel.h" />
+    <QtMoc Include="Dialog\MatrixDataView\MatrixPropertyModel.h" />
+    <QtMoc Include="Dialog\MatrixDataView\MatrixValueDataModel.h" />
     <QtMoc Include="Dialog\MatrixDataView\MatrixDataTab.h" />
     <ClInclude Include="Generated\ui_FileSelectTab.h" />
     <ClInclude Include="Generated\ui_FilterDialog.h" />

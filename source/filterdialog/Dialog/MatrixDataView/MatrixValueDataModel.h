@@ -1,9 +1,5 @@
 #pragma once
 
-//class MatrixDataModel
-//{
-//};
-
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 
@@ -13,14 +9,14 @@
 
 using MatrixFileRepository = std::vector<MatrixFileInfo>;
 
-class MatrixDataModel final : public QAbstractItemModel
+class MatrixValueDataModel final : public QAbstractItemModel
 {
    Q_OBJECT
 public:
    enum class Column { Name, Type, Size, Path, Extension, Count };
 
-   explicit MatrixDataModel();
-   ~MatrixDataModel() override = default;
+   explicit MatrixValueDataModel();
+   ~MatrixValueDataModel() override = default;
 
    void setImageMatrix(const cv::Mat& matrix);
 
@@ -40,15 +36,15 @@ private:
    cv::Mat m_matrix;
 };
 
-using MatrixDataModelPtr = std::unique_ptr<MatrixDataModel>;
+using MatrixValueDataModelPtr = std::unique_ptr<MatrixValueDataModel>;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-class MatrixDataProxy final : public QSortFilterProxyModel
+class MatrixValueDataProxy final : public QSortFilterProxyModel
 {
 public:
-   explicit MatrixDataProxy(QObject* parent = nullptr);
-   ~MatrixDataProxy() override = default;
+   explicit MatrixValueDataProxy(QObject* parent = nullptr);
+   ~MatrixValueDataProxy() override = default;
 
    void updateSearch(const QString& searchString);
    uint getSourceIndex(const QModelIndex& index);
@@ -62,7 +58,7 @@ private:
    QStringList m_searchStringList;
 };
 
-using MatrixDataProxyPtr = std::unique_ptr<MatrixDataProxy>;
+using MatrixValueDataProxyPtr = std::unique_ptr<MatrixValueDataProxy>;
 
 // Codepage: UTF-8 (№ь÷цƒдя)
 

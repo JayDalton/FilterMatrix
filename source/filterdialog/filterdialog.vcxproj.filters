@@ -52,7 +52,10 @@
     <ClCompile Include="Dialog\MatrixDataView\MatrixDataTab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Dialog\MatrixDataView\MatrixDataModel.cpp">
+    <ClCompile Include="Dialog\MatrixDataView\MatrixPropertyModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\MatrixDataView\MatrixValueDataModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,7 +75,10 @@
     <QtMoc Include="Dialog\MatrixDataView\MatrixDataTab.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Dialog\MatrixDataView\MatrixDataModel.h">
+    <QtMoc Include="Dialog\MatrixDataView\MatrixPropertyModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Dialog\MatrixDataView\MatrixValueDataModel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

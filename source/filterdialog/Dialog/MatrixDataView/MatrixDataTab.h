@@ -3,7 +3,8 @@
 #include <QWidget>
 
 #include "DataLayer/DataLayer.h"
-#include "MatrixDataModel.h"
+#include "MatrixValueDataModel.h"
+#include "MatrixPropertyModel.h"
 
 class MatrixDataTab : public QWidget
 {
@@ -22,6 +23,6 @@ private:
    struct Impl;
    std::unique_ptr<Impl> m;
 
-   MatrixDataModelPtr m_matrixDataModel{ nullptr };
-   MatrixDataProxyPtr m_matrixDataProxy{ nullptr };
+   MatrixValueDataModelPtr m_matrixDataModel{ nullptr };
+   MatrixValueDataProxyPtr m_matrixDataProxy{ nullptr };
 };

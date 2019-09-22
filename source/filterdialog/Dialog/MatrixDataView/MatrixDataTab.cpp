@@ -35,8 +35,8 @@ void MatrixDataTab::load()
 
 void MatrixDataTab::setupUIElements()
 {
-   m_matrixDataModel = std::make_unique<MatrixDataModel>();
-   m_matrixDataProxy = std::make_unique<MatrixDataProxy>();
+   m_matrixDataModel = std::make_unique<MatrixValueDataModel>();
+   m_matrixDataProxy = std::make_unique<MatrixValueDataProxy>();
    m_matrixDataProxy->setSourceModel(m_matrixDataModel.get());
    m->ui.treeView->setModel(m_matrixDataProxy.get());
 }

@@ -4,7 +4,8 @@
 
 #include "ImageMatrix.h"
 
-#include <MatrixFile.h>
+#include "MatrixFile.h"
+#include "MatrixImage.h"
 
 struct MatrixManager
 {
@@ -23,9 +24,13 @@ private:
 
    int64 dump_duration(int64 now, std::string label) const;
 
+   void showInformation(std::string_view label, const cv::Mat& matrix);
+
 private:
 
    // MatrixImage
+   MatrixImage m_matrix;
+
    MatrixFileInfo m_fileInfo{""};
    cv::Mat m_source;    // ImageMatrix
    cv::Mat m_floating;

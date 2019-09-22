@@ -36,6 +36,9 @@
     <ClInclude Include="MatrixManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MatrixImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="commonfilter.cpp">
@@ -54,6 +57,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MatrixManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

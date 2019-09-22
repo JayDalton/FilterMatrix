@@ -121,3 +121,25 @@ int64 MatrixManager::dump_duration(int64 now, std::string label) const
    std::cout << label << ": " << duration / cv::getTickFrequency() << std::endl;
    return cv::getTickCount();
 }
+
+void MatrixManager::showInformation(std::string_view label, const cv::Mat& matrix)
+{
+   MethodTimer timer{ __func__ };
+
+   double min_val{ 0 }, max_val{ 0 };
+   cv::Point min_loc{ 0,0 }, max_loc{ 0,0 };
+   cv::minMaxLoc(matrix, &min_val, &max_val, &min_loc, &max_loc);
+
+   std::cout << label << std::endl;
+   std::cout << "type: " << matrix.type() << " " << "channels: " << matrix.channels() << std::endl;
+   std::cout << "rows: " << matrix.rows << " " << "cols: " << matrix.cols << std::endl;
+   std::cout << "minVal: " << min_val << " " << "maxVal: " << max_val << std::endl;
+   std::cout << "minLoc: " << min_loc << " " << "maxLoc: " << max_loc << std::endl;
+
+   MatrixPropertyList result {
+      MatrixProperty{"Minimum", min_val},
+      MatrixProperty{"Min Loc", min_loc},
+      MatrixProperty{"Maximum", max_val},
+      MatrixProperty{"Max Loc", max_loc},
+   };
+}

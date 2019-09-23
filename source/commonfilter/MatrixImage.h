@@ -12,6 +12,7 @@ struct MatrixPoint
 {
    signed x{ 0 };
    signed y{ 0 };
+   std::string to_string() const;
 };
 
 struct MatrixRange
@@ -20,14 +21,15 @@ struct MatrixRange
    MatrixPoint y{};
 };
 
-using MatrixPropertyValue = std::variant<
+using PropertyLabel = std::string;
+using PropertyValue = std::variant<
    signed, unsigned, float, double, MatrixPoint
 >;
 
 struct MatrixProperty
 {
-   std::string m_label;
-   MatrixPropertyValue m_value;
+   PropertyLabel m_label;
+   PropertyValue m_value;
 };
 
 using MatrixPropertyList = std::vector<MatrixProperty>;

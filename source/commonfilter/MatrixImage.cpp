@@ -3,6 +3,19 @@
 #include "MatrixImage.h"
 
 
+std::string  MatrixPoint::MatrixPoint::to_string() const
+{
+   std::ostringstream oss;
+   oss << "{x:";
+   oss << std::to_string(x);
+   oss << "/y:";
+   oss << std::to_string(y);
+   oss << "}";
+   return oss.str();
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+
 struct MatrixImage::Impl
 {
    explicit Impl(MatrixFileInfo info) : m_fileInfo(info) {}

@@ -27,7 +27,7 @@ public:
    QVariant data(const QModelIndex& index, int role) const override;
 
 private:
-   QString formatFileType(MatrixFileInfo::Type type) const;
+   QString formatMatrixProperty(const MatrixProperty& property) const;
 
 private:
    MatrixPropertyList m_list;

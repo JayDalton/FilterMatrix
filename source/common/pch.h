@@ -14,5 +14,7 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/logger.h>
 
+#include "Config/ValueVisitor.h"
+#include "Config/Configuration.h"
 
 #endif //PCH_H

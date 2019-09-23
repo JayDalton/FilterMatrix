@@ -1,4 +1,7 @@
+#include <pch.h>
+
 #include "MatrixPropertyModel.h"
+
 
 MatrixPropertyModel::MatrixPropertyModel()
 {
@@ -89,25 +92,26 @@ QVariant MatrixPropertyModel::data(const QModelIndex& index, int role) const
    case 0: // Label
       return QString::fromStdString(property.m_label);
    case 1: // Value
-      //return property.m_value;
+      return formatMatrixProperty(property);
    default:
       return {};
    }
-
-   //return /*index.column() ? property.m_value : */QString::fromStdString(property.m_label);
 }
 
-QString MatrixPropertyModel::formatFileType(MatrixFileInfo::Type type) const
+QString MatrixPropertyModel::formatMatrixProperty(const MatrixProperty& property) const
 {
-   switch (type)
-   {
-   case MatrixFileInfo::Type::None:
-      return "none";
-   case MatrixFileInfo::Type::Graymap:
-      return "Graymap";
-   default:
-      return "undefined";
-   }
+   std::string result = std::visit(Visitor{
+      [](const auto& value) -> std::string
+      {
+         return std::to_string(value);
+      },
+      [](const MatrixPoint& point) -> std::string
+      {
+         return point.to_string();
+      }
+      }, property.m_value);
+
+   return QString::fromStdString(result);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

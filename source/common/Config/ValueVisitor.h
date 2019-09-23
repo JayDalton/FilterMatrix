@@ -6,15 +6,24 @@
 #include <type_traits>
 #include <iostream>
 
-template<typename ... Base>
-struct Visitor : Base ...
+template<typename... Base>
+struct Visitor : Base...
 {
 	using Base::operator()...;
 };
 
-template<typename ... T> Visitor(T...)->Visitor<T...>;
+template<typename ... Base> 
+Visitor(Base...) -> Visitor<Base...>;
 
 // YouTube: Jason Turner C++ Weekly - Ep 134 - The Best Possible Way To Create A Visitor?
+
+template<class... Ts> 
+struct overload : Ts... 
+{ 
+   using Ts::operator()...; 
+};
+template<class... Ts> 
+overload(Ts...)->overload<Ts...>;
 
 struct ValueVisitor
 {
@@ -44,7 +53,4 @@ struct SampleVisitor
 		std::cout << "string: " << s << "\n";
 	}
 };
-
-template<class... Ts> struct overload : Ts... { using Ts::operator()...; };
-template<class... Ts> overload(Ts...)->overload<Ts...>;
 

@@ -12,15 +12,22 @@ void MatrixValueDataModel::setImageMatrix(const cv::Mat& matrix)
 {
    beginResetModel();
    m_matrix = matrix;
-   m_range = cv::Rect{0, 0, 100, 100};
+   m_range = QRect{0, 0, 100, 100};
    endResetModel();
+
+   emit sizeChanged(m_range);
 }
 
-void MatrixValueDataModel::setSectionRange(cv::Rect range)
+void MatrixValueDataModel::setSectionRange(const QRect& range)
 {
    beginResetModel();
    m_range = range;
    endResetModel();
+}
+
+const QRect& MatrixValueDataModel::getSectionRange() const
+{
+   return m_range;
 }
 
 QModelIndex MatrixValueDataModel::index(int row, int column, const QModelIndex& parent) const
@@ -41,7 +48,7 @@ int MatrixValueDataModel::rowCount(const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
-      return m_range.height;
+      return m_range.height();
    }
    return 0;
 }
@@ -50,7 +57,7 @@ int MatrixValueDataModel::columnCount(const QModelIndex& parent) const
 {
    if (!parent.isValid())
    {
-      return m_range.width;
+      return m_range.width();
    }
    return 0;
 }
@@ -78,13 +85,13 @@ QVariant MatrixValueDataModel::data(const QModelIndex& index, int role) const
    }
 
    if (index.parent().isValid() 
-      || (index.row() > m_range.height) 
-      || (index.column() > m_range.width))
+      || (index.row() > m_range.height()) 
+      || (index.column() > m_range.width()))
    {
       return {};
    }
 
-   return m_matrix.at<float>(m_range.y + index.row(), m_range.x + index.column());
+   return m_matrix.at<float>(m_range.y() + index.row(), m_range.x() + index.column());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

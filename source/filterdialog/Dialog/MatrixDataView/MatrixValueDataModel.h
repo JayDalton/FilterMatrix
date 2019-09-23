@@ -1,5 +1,8 @@
 #pragma once
 
+#include <QSize>
+#include <QRect>
+
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 
@@ -19,8 +22,13 @@ public:
    ~MatrixValueDataModel() override = default;
 
    void setImageMatrix(const cv::Mat& matrix);
-   void setSectionRange(cv::Rect range);
+   void setSectionRange(const QRect& range);
+   const QRect& getSectionRange() const;
 
+signals:
+   void sizeChanged(QRect size);
+
+protected:
    QModelIndex index(int row, int column, const QModelIndex& parent) const override;
    QModelIndex parent(const QModelIndex& child) const override;
    int rowCount(const QModelIndex& parent) const override;
@@ -32,7 +40,7 @@ public:
 private:
 
 private:
-   cv::Rect m_range;// {0, 0, 100, 100};
+   QRect m_range;// {0, 0, 100, 100};
    //ImageMatrix m_matrix;
    cv::Mat m_matrix;
 };

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>923</width>
-    <height>532</height>
+    <width>958</width>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,22 +26,23 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLabel" name="labelRange">
+         <widget class="QLabel" name="labelPoint">
           <property name="text">
-           <string>Ausschnitt</string>
+           <string>Point: X / Y</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEditRange">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QSpinBox" name="spinBoxPointX">
+          <property name="maximum">
+           <number>5000</number>
           </property>
-          <property name="text">
-           <string>(P1/P2)[123,456/789,123]</string>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="spinBoxPointY">
+          <property name="maximum">
+           <number>5000</number>
           </property>
          </widget>
         </item>
@@ -50,35 +51,21 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QLabel" name="labelMinimum">
+         <widget class="QLabel" name="labelRange">
           <property name="text">
-           <string>Ausschnitt</string>
+           <string>Range: W / H</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox">
+         <widget class="QSpinBox" name="spinBoxSizeW">
           <property name="maximum">
            <number>5000</number>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_2">
-          <property name="maximum">
-           <number>5000</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="spinBox_4">
-          <property name="maximum">
-           <number>5000</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="spinBox_3">
+         <widget class="QSpinBox" name="spinBoxSizeH">
           <property name="maximum">
            <number>5000</number>
           </property>
@@ -95,60 +82,6 @@
          </sizepolicy>
         </property>
        </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QLabel" name="labelMaximum">
-          <property name="text">
-           <string>Maximum</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labelMaxValue">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLabel" name="labelAverage">
-          <property name="text">
-           <string>Average</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labelAvgValue">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
      </layout>
     </widget>

@@ -12,10 +12,9 @@ void MatrixValueDataModel::setImageMatrix(const cv::Mat& matrix)
 {
    beginResetModel();
    m_matrix = matrix;
-   m_range = QRect{0, 0, 100, 100};
    endResetModel();
 
-   emit sizeChanged(m_range);
+   emit sizeChanged(QRect{0, 0, 100, 100});
 }
 
 void MatrixValueDataModel::setSectionRange(const QRect& range)

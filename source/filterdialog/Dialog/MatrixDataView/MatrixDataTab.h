@@ -11,7 +11,7 @@ class MatrixDataTab : public QWidget
     Q_OBJECT
 
 public:
-    MatrixDataTab(DataLayerSPtr data, QWidget *parent = nullptr);
+    explicit MatrixDataTab(DataLayerSPtr data, QWidget *parent);
     ~MatrixDataTab();
 
     void load();

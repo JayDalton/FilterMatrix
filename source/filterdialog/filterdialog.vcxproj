@@ -64,7 +64,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>.\Dialog\MatrixDataView;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Dialog\MatrixDataView;.\Dialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -85,7 +85,7 @@
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>.\Dialog\MatrixDataView;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Dialog\MatrixDataView;.\Dialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -100,6 +100,8 @@
     <ClCompile Include="Dialog\FilterDialog.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectTab.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectModel.cpp" />
+    <ClCompile Include="Dialog\MatrixDataPlot\QCustomPlot\qcustomplot.cpp" />
+    <ClCompile Include="Dialog\MatrixDataPlot\MatrixDataPlot.cpp" />
     <ClCompile Include="Dialog\MatrixDataView\MatrixDataTab.cpp" />
     <ClCompile Include="Generated\qrc_FilterDialog.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -117,6 +119,7 @@
   <ItemGroup>
     <QtUic Include="Dialog\FilterDialog.ui" />
     <QtUic Include="Dialog\FileSelect\FileSelectTab.ui" />
+    <QtUic Include="Dialog\MatrixDataPlot\MatrixDataPlot.ui" />
     <QtUic Include="Dialog\MatrixDataView\MatrixDataTab.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataLayer\DataLayer.h" />
+    <QtMoc Include="Dialog\MatrixDataPlot\MatrixDataPlot.h" />
+    <QtMoc Include="Dialog\MatrixDataPlot\QCustomPlot\qcustomplot.h" />
+    <ClInclude Include="Generated\ui_MatrixDataPlot.h" />
     <ClInclude Include="Generated\ui_MatrixDataTab.h" />
     <QtMoc Include="Dialog\MatrixDataView\MatrixPropertyModel.h" />
     <QtMoc Include="Dialog\MatrixDataView\MatrixValueDataModel.h" />

@@ -7,6 +7,7 @@
 
 #include "FileSelect/FileSelectTab.h"
 #include "MatrixDataView/MatrixDataTab.h"
+#include "MatrixDataPlot/MatrixDataPlot.h"
 
 #include "DataLayer/DataLayer.h"
 
@@ -16,6 +17,7 @@ struct FilterDialog::Impl
 
    FileSelectTab* tabFileSelect{ nullptr };
    MatrixDataTab* tabMatrixData{ nullptr };
+   MatrixDataPlot* tabMatrixPlot{ nullptr };
 
    DataLayerSPtr data{ nullptr };
 
@@ -68,6 +70,9 @@ void FilterDialog::setupTabWidgets()
 
    m->tabMatrixData = new MatrixDataTab{ m->data, this };
    m->ui.tabWidget->addTab(m->tabMatrixData, "Matrix Data");
+
+   m->tabMatrixPlot = new MatrixDataPlot{ m->data, this };
+   m->ui.tabWidget->addTab(m->tabMatrixPlot, "Matrix Plot");
 
    connect(m->tabFileSelect, &FileSelectTab::displayMatrixData, 
       //m->tabMatrixData, &MatrixDataTab::load);

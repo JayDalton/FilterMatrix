@@ -58,6 +58,12 @@
     <ClCompile Include="Dialog\MatrixDataView\MatrixValueDataModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Dialog\MatrixDataPlot\MatrixDataPlot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\MatrixDataPlot\QCustomPlot\qcustomplot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Application\Application.h">
@@ -79,6 +85,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Dialog\MatrixDataView\MatrixValueDataModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Dialog\MatrixDataPlot\MatrixDataPlot.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Dialog\MatrixDataPlot\QCustomPlot\qcustomplot.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -106,6 +118,9 @@
     <ClInclude Include="Generated\ui_MatrixDataTab.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Generated\ui_MatrixDataPlot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Dialog\FilterDialog.ui">
@@ -115,6 +130,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Dialog\MatrixDataView\MatrixDataTab.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Dialog\MatrixDataPlot\MatrixDataPlot.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

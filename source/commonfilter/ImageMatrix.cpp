@@ -1,4 +1,5 @@
-#include "pch.h"
+﻿#include "precompheader.h"
+
 #include "ImageMatrix.h"
 
 struct ImageMatrix::Impl
@@ -13,3 +14,5 @@ ImageMatrix::ImageMatrix(cv::Mat matrix)
 }
 
 ImageMatrix::~ImageMatrix() = default;
+
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

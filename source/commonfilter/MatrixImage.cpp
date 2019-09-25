@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "precompheader.h"
 
 #include "MatrixImage.h"
 
@@ -18,11 +18,13 @@ std::string  MatrixPoint::MatrixPoint::to_string() const
 
 struct MatrixImage::Impl
 {
-   explicit Impl(MatrixFileInfo info) : m_fileInfo(info) {}
+   explicit Impl(MatrixFileInfo info) 
+      : m_fileInfo(info) {}
 
    //cv::Mat m_source;    // ImageMatrix
    //cv::Mat m_floating;
    //cv::Mat m_fourier;
+   //cv::Mat m_processed;
    //cv::Mat m_magnitude;
    //cv::Mat m_target;
    MatrixFileInfo m_fileInfo;
@@ -35,3 +37,5 @@ MatrixImage::MatrixImage(MatrixFileInfo info)
 }
 
 MatrixImage::~MatrixImage() = default;
+
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

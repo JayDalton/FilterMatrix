@@ -1,4 +1,5 @@
-#include "pch.h"
+﻿#include "precompheader.h"
+
 #include "FileManager.h"
 
 bool FileManager::loadMatrixFileInfo(std::string_view filePath)
@@ -37,3 +38,4 @@ const MatrixFileList& FileManager::getFileList() const
    return m_fileList;
 }
 
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

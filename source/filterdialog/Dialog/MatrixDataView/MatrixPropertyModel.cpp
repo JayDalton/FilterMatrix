@@ -1,4 +1,4 @@
-#include <pch.h>
+Ôªø#include <precompheader.h>
 
 #include "MatrixPropertyModel.h"
 
@@ -183,4 +183,4 @@ bool MatrixPropertyProxy::lessThan(const QModelIndex& left, const QModelIndex& r
    return QSortFilterProxyModel::lessThan(left, right);
 }
 
-// Codepage: UTF-8 (‹¸÷ˆƒ‰ﬂ)
+// Codepage: UTF-8 (√ú√º√ñ√∂√Ñ√§·∫û√ü)

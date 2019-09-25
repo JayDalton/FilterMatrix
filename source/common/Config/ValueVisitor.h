@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include <variant>
 #include <utility>
+#include <string>
 #include <typeinfo>
 #include <type_traits>
 #include <iostream>
@@ -54,3 +55,4 @@ struct SampleVisitor
 	}
 };
 
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

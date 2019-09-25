@@ -1,4 +1,4 @@
-#include <pch.h>
+﻿#include <precompheader.h>
 
 #include "MatrixDataPlot.h"
 
@@ -95,3 +95,4 @@ void MatrixDataPlot::setupSpinBox(int size)
    m->ui.layerBox->setMaximum(size);
 }
 
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

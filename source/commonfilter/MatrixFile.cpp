@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "precompheader.h"
 
 #include "MatrixFile.h"
 
@@ -47,3 +47,5 @@ std::string MatrixFileInfo::getExtension() const
 {
    return m_path.extension().string();
 }
+
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

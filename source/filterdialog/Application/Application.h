@@ -1,6 +1,6 @@
-#pragma once
+﻿#pragma once
 
-#include <qapplication.h>
+#include <QApplication>
 
 class Application : public QApplication
 {
@@ -10,5 +10,9 @@ public:
    Application(int argc, char* argv[], std::string_view title = {});
 
    void setConfig();
+
+private:
+   void setupLogger();
 };
 
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

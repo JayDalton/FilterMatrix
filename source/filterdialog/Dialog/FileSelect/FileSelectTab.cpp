@@ -1,4 +1,4 @@
-﻿#include <pch.h>
+﻿#include <precompheader.h>
 
 #include "FileSelectTab.h"
 
@@ -134,3 +134,5 @@ void FileSelectTab::contextMenuEvent(QContextMenuEvent* event)
    menu.addAction(m->m_saveFile.get());
    menu.exec(event->globalPos());
 }
+
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

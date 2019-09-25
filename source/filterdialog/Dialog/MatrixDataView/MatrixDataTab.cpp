@@ -1,4 +1,4 @@
-#include <pch.h>
+﻿#include <precompheader.h>
 
 #include <QSpinBox>
 
@@ -105,3 +105,4 @@ QRect MatrixDataTab::retriveMatrixRange() const
    );
 }
 
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

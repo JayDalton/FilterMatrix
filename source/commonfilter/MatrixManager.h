@@ -20,11 +20,11 @@ struct MatrixManager
 
 private:
    cv::Mat importMatrixFile(MatrixFileInfo info) const;
-   cv::Mat transformToFloating(cv::Mat source) const;
-   cv::Mat transformToInteger(cv::Mat source) const;
-   cv::Mat transformToFourier(cv::Mat source) const;
-   cv::Mat transformToMagnitude(cv::Mat source) const;
-   cv::Mat transformToInvert(cv::Mat source) const;
+   cv::Mat transformToFloating(const cv::Mat& source) const;
+   cv::Mat transformToInteger(const cv::Mat& source) const;
+   cv::Mat transformToFourier(const cv::Mat& source) const;
+   cv::Mat transformToMagnitude(const cv::Mat& source) const;
+   cv::Mat transformToInvert(const cv::Mat& source) const;
 
    int64 dump_duration(int64 now, std::string label) const;
 

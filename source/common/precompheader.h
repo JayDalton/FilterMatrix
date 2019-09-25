@@ -1,4 +1,8 @@
-#include "pch.h"
+Ôªø
+// Logging
+#include <spdlog/spdlog.h>
+#include <spdlog/logger.h>
+#include "spdlog/sinks/basic_file_sink.h"
 
 #include "Config/ConfigParameter.h"
 #include "Config/Configuration.h"
@@ -7,4 +11,4 @@
 #include "Logger/Logger.h"
 #include "Logger/MethodTimer.h"
 
-// Codepage: UTF-8 (‹¸÷ˆƒ‰ﬂ)
+// Codepage: UTF-8 (√ú√º√ñ√∂√Ñ√§·∫û√ü)

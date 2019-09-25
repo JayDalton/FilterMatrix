@@ -64,6 +64,9 @@
     <ClCompile Include="Dialog\MatrixDataPlot\QCustomPlot\qcustomplot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="precompheader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Application\Application.h">
@@ -119,6 +122,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Generated\ui_MatrixDataPlot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="precompheader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

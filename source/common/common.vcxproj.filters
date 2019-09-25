@@ -15,15 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pch_common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Config\ConfigParameter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -39,17 +30,14 @@
     <ClInclude Include="Logger\MethodTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CommandLineArguments.h">
+    <ClInclude Include="precompheader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="precompheader_common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="common.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Config\ConfigParameter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,7 +53,7 @@
     <ClCompile Include="Logger\MethodTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CommandLineArguments.cpp">
+    <ClCompile Include="precompheader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

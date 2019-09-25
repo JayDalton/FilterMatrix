@@ -9,6 +9,9 @@
     <ClCompile>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>$(SolutionDir)source\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompheader.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>NOMINMAX;UNICODE;WIN32;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_SQL_LIB;QT_SVG_LIB;QT_WIDGETS_LIB;QT_THREAD_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

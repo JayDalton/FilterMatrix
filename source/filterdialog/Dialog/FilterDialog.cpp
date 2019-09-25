@@ -1,4 +1,4 @@
-#include <pch.h>
+﻿#include <precompheader.h>
 
 #include "FilterDialog.h"
 #include "ui_FilterDialog.h"
@@ -87,3 +87,5 @@ void FilterDialog::setupTabWidgets()
       });
 }
 
+
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

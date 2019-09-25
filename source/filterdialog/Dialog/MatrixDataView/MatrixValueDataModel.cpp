@@ -1,4 +1,4 @@
-#include <pch.h>
+Ôªø#include <precompheader.h>
 
 #include "MatrixValueDataModel.h"
 
@@ -162,4 +162,5 @@ bool MatrixValueDataProxy::lessThan(const QModelIndex& left, const QModelIndex& 
    return QSortFilterProxyModel::lessThan(left, right);
 }
 
-// Codepage: UTF-8 (‹¸÷ˆƒ‰ﬂ)
+
+// Codepage: UTF-8 (√ú√º√ñ√∂√Ñ√§·∫û√ü)

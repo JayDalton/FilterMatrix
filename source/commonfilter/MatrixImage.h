@@ -38,7 +38,7 @@ using MatrixPropertyList = std::vector<MatrixProperty>;
 
 struct MatrixImage
 {
-   MatrixImage(MatrixFileInfo info);
+   explicit MatrixImage(MatrixFileInfo info);
    ~MatrixImage();
 
    MatrixPropertyList getMatrixInfo();

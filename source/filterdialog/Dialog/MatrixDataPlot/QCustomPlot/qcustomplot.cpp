@@ -1,3 +1,4 @@
+﻿#include <precompheader.h>
 /***************************************************************************
 **                                                                        **
 **  QCustomPlot, an easy to use, modern plotting widget for Qt            **
@@ -30212,3 +30213,4 @@ QPen QCPItemBracket::mainPen() const
 /* end of 'src/items/item-bracket.cpp' */
 
 
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

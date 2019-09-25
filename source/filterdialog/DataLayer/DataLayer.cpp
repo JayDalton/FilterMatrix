@@ -1,4 +1,4 @@
-#include <pch.h>
+﻿#include <precompheader.h>
 
 #include "DataLayer/DataLayer.h"
 #include "MatrixFile.h"
@@ -42,3 +42,5 @@ const MatrixFileRepository& DataLayer::getFileRepository() const
 {
    return m_fileManger.getFileList();
 }
+
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

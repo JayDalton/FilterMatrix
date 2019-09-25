@@ -1,4 +1,5 @@
-#include "pch.h"
+﻿#include "precompheader.h"
+
 #include "MatrixManager.h"
 
 #include <opencv2/core.hpp>
@@ -70,23 +71,23 @@ cv::Mat MatrixManager::importMatrixFile(MatrixFileInfo info) const
    return cv::imread(info.getPath().string(), cv::IMREAD_GRAYSCALE | cv::IMREAD_ANYDEPTH);
 }
 
-cv::Mat MatrixManager::transformToFloating(cv::Mat source) const
+cv::Mat MatrixManager::transformToFloating(const cv::Mat& source) const
 {
    cv::Mat converted;
-   source.convertTo(converted, CV_32F, 1.0 / USHRT_MAX);
+   source.convertTo(converted, CV_32F, 1.0 / USHRT_MAX); // float
    return converted;
 }
 
-cv::Mat MatrixManager::transformToInteger(cv::Mat source) const
+cv::Mat MatrixManager::transformToInteger(const cv::Mat& source) const
 {
    cv::Mat converted;
-   source.convertTo(converted, CV_16UC1, USHRT_MAX);
+   source.convertTo(converted, CV_16UC1, USHRT_MAX);  // short
    return converted;
 }
 
-cv::Mat MatrixManager::transformToFourier(cv::Mat source) const
+cv::Mat MatrixManager::transformToFourier(const cv::Mat& source) const
 {
-   assert(source.depth() == CV_32F);		// 32 bit
+   assert(source.depth() == CV_32F);		// 32 bit - float
    assert(source.channels() == 1);			// 1 chan
 
    MethodTimer timer{__func__};
@@ -103,10 +104,13 @@ cv::Mat MatrixManager::transformToFourier(cv::Mat source) const
    cv::dft(padded, result, cv::DFT_ROWS | cv::DFT_COMPLEX_OUTPUT);
 
    dump_duration(now, "complete transform");
+   assert(result.depth() == CV_32F);		// 32 bit - float
+   assert(result.channels() == 2);			// 2 chan
+
    return result;
 }
 
-cv::Mat MatrixManager::transformToMagnitude(cv::Mat source) const
+cv::Mat MatrixManager::transformToMagnitude(const cv::Mat& source) const
 {
    assert(source.depth() == CV_32F);		// 32 bit
    assert(source.channels() == 2);			// 2 chan
@@ -127,13 +131,13 @@ cv::Mat MatrixManager::transformToMagnitude(cv::Mat source) const
    cv::log(result, result);
 
    dump_duration(now, "complete magnitude");
-   std::cout << result.channels() << std::endl;
-   std::cout << result.type() << std::endl;
+   assert(result.depth() == CV_32F);		// 32 bit - float
+   assert(result.channels() == 1);			// 1 chan
 
    return result;
 }
 
-cv::Mat MatrixManager::transformToInvert(cv::Mat source) const
+cv::Mat MatrixManager::transformToInvert(const cv::Mat& source) const
 {
    assert(source.depth() == CV_32F);		// 32 bit
    assert(source.channels() == 2);			// 2 chan
@@ -176,3 +180,5 @@ MatrixPropertyList MatrixManager::showInformation(const cv::Mat& matrix) const
       MatrixProperty{"Max Loc", MatrixPoint{max_loc.x, max_loc.y}},
    };
 }
+
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

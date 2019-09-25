@@ -1,4 +1,4 @@
-#include <pch.h>
+Ôªø#include <precompheader.h>
 
 #include "FileSelectModel.h"
 
@@ -211,4 +211,4 @@ bool FileSelectProxy::lessThan(const QModelIndex& left, const QModelIndex& right
    return QSortFilterProxyModel::lessThan(left, right);
 }
 
-// Codepage: UTF-8 (‹¸÷ˆƒ‰ﬂ)
+// Codepage: UTF-8 (√ú√º√ñ√∂√Ñ√§·∫û√ü)

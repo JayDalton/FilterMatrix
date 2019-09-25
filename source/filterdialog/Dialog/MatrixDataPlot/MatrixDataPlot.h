@@ -12,8 +12,14 @@ public:
    explicit MatrixDataPlot(DataLayerSPtr data, QWidget* parent);
    ~MatrixDataPlot();
 
+   void load(int index);
+
+private:
+   void plotGraph(const std::vector<double>& values);
+
 private:
    void setupUIElements();
+   void setupSpinBox(int size);
 
 private:
    struct Impl;

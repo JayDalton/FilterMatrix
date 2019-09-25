@@ -13,6 +13,8 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -26,13 +28,16 @@ public:
     QHBoxLayout *horizontalLayout;
     QCustomPlot *customPlot;
     QVBoxLayout *verticalLayout;
-    QTreeView *layerView;
+    QSpinBox *layerBox;
+    QPushButton *selectButton;
+    QPushButton *clearButton;
+    QTreeView *selectView;
 
     void setupUi(QWidget *MatrixDataPlot)
     {
         if (MatrixDataPlot->objectName().isEmpty())
             MatrixDataPlot->setObjectName(QString::fromUtf8("MatrixDataPlot"));
-        MatrixDataPlot->resize(629, 417);
+        MatrixDataPlot->resize(908, 524);
         horizontalLayout = new QHBoxLayout(MatrixDataPlot);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -50,10 +55,39 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        layerView = new QTreeView(MatrixDataPlot);
-        layerView->setObjectName(QString::fromUtf8("layerView"));
+        layerBox = new QSpinBox(MatrixDataPlot);
+        layerBox->setObjectName(QString::fromUtf8("layerBox"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(layerBox->sizePolicy().hasHeightForWidth());
+        layerBox->setSizePolicy(sizePolicy1);
 
-        verticalLayout->addWidget(layerView);
+        verticalLayout->addWidget(layerBox);
+
+        selectButton = new QPushButton(MatrixDataPlot);
+        selectButton->setObjectName(QString::fromUtf8("selectButton"));
+        sizePolicy1.setHeightForWidth(selectButton->sizePolicy().hasHeightForWidth());
+        selectButton->setSizePolicy(sizePolicy1);
+
+        verticalLayout->addWidget(selectButton);
+
+        clearButton = new QPushButton(MatrixDataPlot);
+        clearButton->setObjectName(QString::fromUtf8("clearButton"));
+        sizePolicy1.setHeightForWidth(clearButton->sizePolicy().hasHeightForWidth());
+        clearButton->setSizePolicy(sizePolicy1);
+
+        verticalLayout->addWidget(clearButton);
+
+        selectView = new QTreeView(MatrixDataPlot);
+        selectView->setObjectName(QString::fromUtf8("selectView"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(selectView->sizePolicy().hasHeightForWidth());
+        selectView->setSizePolicy(sizePolicy2);
+
+        verticalLayout->addWidget(selectView);
 
 
         horizontalLayout->addLayout(verticalLayout);
@@ -67,6 +101,8 @@ public:
     void retranslateUi(QWidget *MatrixDataPlot)
     {
         MatrixDataPlot->setWindowTitle(QApplication::translate("MatrixDataPlot", "MatrixDataPlot", nullptr));
+        selectButton->setText(QApplication::translate("MatrixDataPlot", "Select", nullptr));
+        clearButton->setText(QApplication::translate("MatrixDataPlot", "Clear", nullptr));
     } // retranslateUi
 
 };

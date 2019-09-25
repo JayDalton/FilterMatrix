@@ -7,6 +7,7 @@
 #include <QMenu>
 #include <QtGui/qevent.h>
 #include <QPushButton>
+#include <QAbstractItemView>
 #include <QtWidgets\qfiledialog.h>
 #include <QtWidgets\qmessagebox.h>
 #include <FileManager.h>
@@ -43,10 +44,17 @@ void FileSelectTab::setupUIElements()
    auto con1 = connect(m->ui.openButton, &QPushButton::clicked, this, [&]() { openFile(); });
    auto con2 = connect(m->ui.loadButton, &QPushButton::clicked, this, [&]() { loadFile(); });
 
+   m->ui.treeView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
+   m->ui.treeView->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
+   
    m_fileSelectModel = std::make_unique<FileSelectModel>();
    m_fileSelectProxy = std::make_unique<FileSelectProxy>();
    m_fileSelectProxy->setSourceModel(m_fileSelectModel.get());
    m->ui.treeView->setModel(m_fileSelectProxy.get());
+
+   //m->ui.treeView.chan
+
+   //auto con3 = connect(m->ui.treeView, &QTreeView::dataChanged, this, []() {});
 }
 
 void FileSelectTab::setupActions()
@@ -88,8 +96,12 @@ void FileSelectTab::openFile()
 
       if (m->data->readMatrixFileInfo(fileList))
       {
-         m_fileSelectModel->reloadFileModel(m->data->getFileRepository());
-         return;
+         const auto repo{ m->data->getFileRepository() };
+         m_fileSelectModel->reloadFileModel(repo);
+         if (!repo.empty())
+         {
+            m->ui.treeView->setCurrentIndex(QModelIndex());
+         }
       }
    }
 }

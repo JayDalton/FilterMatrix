@@ -2,6 +2,8 @@
 
 #include "MatrixDataPlot.h"
 
+#include <QSpinBox>
+#include <QPushButton>
 #include "QCustomPlot/qcustomplot.h"
 
 #include "ui_MatrixDataPlot.h"
@@ -13,6 +15,8 @@ struct MatrixDataPlot::Impl
 
    DataLayerSPtr data{ nullptr };
    Ui::MatrixDataPlot ui;
+
+   int index{ 0 };
 
 private:
    MatrixDataPlot* parent{ nullptr };
@@ -30,26 +34,64 @@ MatrixDataPlot::MatrixDataPlot(DataLayerSPtr data, QWidget* parent)
 
 MatrixDataPlot::~MatrixDataPlot() = default;
 
-void MatrixDataPlot::setupUIElements()
+void MatrixDataPlot::load(int index)
 {
-   // generate some data:
-   QVector<double> x(101), y(101); // initialize with entries 0..100
-   for (int i=0; i<101; ++i)
+   const auto matrix = m->data->currentMatrix();
+
+   m->ui.customPlot->clearGraphs();
+
+   if (index > matrix.rows)
    {
-      x[i] = i/50.0 - 1; // x goes from -1 to 1
-      y[i] = x[i]*x[i];  // let's plot a quadratic function
+      return;
    }
 
-   // create graph and assign data to it:
-   m->ui.customPlot->addGraph();
-   m->ui.customPlot->graph(0)->setData(x, y);
+   const auto row = matrix.row(index);
+   std::vector<double> values(row.begin<float>(), row.end<float>());
+
+   setupSpinBox(values.size());
+
+   plotGraph(values);
+}
+
+void MatrixDataPlot::plotGraph(const std::vector<double>& values)
+{
+   const auto y{ QVector<double>::fromStdVector(values) };
+
+   QVector<double> x(values.size());
+   std::iota(x.begin(), x.end(), 0);
 
    // give the axes some labels:
    m->ui.customPlot->xAxis->setLabel("x");
    m->ui.customPlot->yAxis->setLabel("y");
 
-   // set axes ranges, so we see all data:
-   m->ui.customPlot->xAxis->setRange(-1, 1);
-   m->ui.customPlot->yAxis->setRange(0, 1);
+   m->ui.customPlot->addGraph();
+
+   QPen pen;
+   pen.setColor(QColor(255, 200, 20, 200));
+   m->ui.customPlot->graph(0)->setPen(pen);
+   m->ui.customPlot->graph(0)->setBrush(QBrush(QColor(255,200,20,70)));
+   
+   m->ui.customPlot->graph(0)->setData(x, y);
+   m->ui.customPlot->graph(0)->rescaleAxes();
+
+   // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
+   m->ui.customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom /*| QCP::iSelectPlottables*/);
+
+   m->ui.customPlot->replot();
+}
+
+void MatrixDataPlot::setupUIElements()
+{
+   auto con1 = connect(m->ui.layerBox, QOverload<int>::of(&QSpinBox::valueChanged),
+      this, [&](int value) { load(value); }
+   );
+
+   setupSpinBox(0);
+}
+
+void MatrixDataPlot::setupSpinBox(int size)
+{
+   m->ui.layerBox->setMinimum(0);
+   m->ui.layerBox->setMaximum(size);
 }
 

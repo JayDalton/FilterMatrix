@@ -1,44 +1,61 @@
 ﻿#include <precompheader.h>
 
+#include "Logger/Logger.h"
 #include "Application.h"
 
-#include <qfileinfo.h>
 #include <string_view>
 
+namespace fs = std::filesystem;
+
 Application::Application(int argc, char* argv[], std::string_view title)
-   : QApplication(argc, argv)
+   : QApplication(argc, argv), m_data(std::make_shared<DataLayer>()), m_dialog(m_data)
 {
    setOrganizationName("legal duplics");
    setApplicationName(title.empty() ? QFileInfo(QCoreApplication::applicationFilePath()).baseName() : title.data());
 
+   setupLogger();
+   setupDialog();
 
+   auto con = connect(this, &QApplication::lastWindowClosed, this, &QApplication::quit);
+
+   m_dialog.show();
+}
+
+void Application::setConfig()
+{
 }
 
 void Application::setupLogger()
 {
-   //spdlog::info("Welcome to spdlog!");
-   //spdlog::error("Some error message with arg: {}", 1);
+   fs::path path("logs/dialog.log");
+   if (!fs::exists(path))
+   {
+      auto p = path.parent_path();
+      fs::create_directories(p);
+   }
 
-   //spdlog::warn("Easy padding in numbers like {:08d}", 12);
-   //spdlog::critical("Support for int: {0:d};  hex: {0:x};  oct: {0:o}; bin: {0:b}", 42);
-   //spdlog::info("Support for floats {:03.2f}", 1.23456);
-   //spdlog::info("Positional args are {1} {0}..", "too", "supported");
-   //spdlog::info("{:<30}", "left aligned");
+   // Set the default logger to file logger
+   auto file_logger = spdlog::basic_logger_mt("logger", path.string(), true);
+   spdlog::set_default_logger(file_logger);
+   
+   spdlog::set_level(spdlog::level::debug);
+   spdlog::flush_every(std::chrono::seconds(1));
 
-   //spdlog::set_level(spdlog::level::debug); // Set global log level to debug
    //spdlog::debug("This message should be displayed..");    
 
-   //// change log pattern
+   //spdlog::info("Welcome to spdlog!");
+   //spdlog::error("Some error message with arg: {}", 1);
+   //spdlog::debug("This message should be displayed..");    
+   //spdlog::warn("Easy padding in numbers like {:08d}", 12);
+   //spdlog::info("Support for floats {:03.2f}", 1.23456);
+   //spdlog::info("Positional args are {1} {0}..", "too", "supported");
+
+
    //spdlog::set_pattern("[%H:%M:%S %z] [%n] [%^---%L---%$] [thread %t] %v");
+}
 
-   //// Compile time log levels
-   //// define SPDLOG_ACTIVE_LEVEL to desired level
-   //SPDLOG_TRACE("Some trace message with param {}", {});
-   //SPDLOG_DEBUG("Some debug message");
-
-   //// Set the default logger to file logger
-   //auto file_logger = spdlog::basic_logger_mt("basic_logger", "logs/basic.txt");
-   //spdlog::set_default_logger(file_logger);
+void Application::setupDialog()
+{
 }
 
 // Codepage: UTF-8 (ÜüÖöÄäẞß)

@@ -2,10 +2,12 @@
 
 #include "MatrixImageView/MatrixFrameView.h"
 
+#include "Logger/Logger.h"
+
 MatrixFrameView::MatrixFrameView(QWidget* parent)
    : QFrame(parent)
 {
-
+   //spdlog;
 }
 
 void MatrixFrameView::setImageMatrix(const cv::Mat& matrix)

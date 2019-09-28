@@ -14,7 +14,7 @@
 
 struct FilterDialog::Impl
 {
-   explicit Impl(FilterDialog* parent) : m_parent(parent) {}
+   explicit Impl(DataLayerSPtr data) : data(data) {}
 
    FileSelectTab* tabFileSelect{ nullptr };
    MatrixDataTab* tabMatrixData{ nullptr };
@@ -26,13 +26,12 @@ struct FilterDialog::Impl
    Ui::FilterDialogClass ui;
 
 private:
-   FilterDialog* m_parent{ nullptr };
 };
 
 //////////////////////////////////////////////////////////////////
 
-FilterDialog::FilterDialog()
-   : m{ std::make_unique<Impl>(this) }
+FilterDialog::FilterDialog(DataLayerSPtr data)
+   : m{ std::make_unique<Impl>(data) }
 {
    m->ui.setupUi(this);
 
@@ -61,7 +60,6 @@ void FilterDialog::saveSettings()
 
 void FilterDialog::setupDataLayers()
 {
-   m->data = std::make_shared<DataLayer>();
    m->data->loadConfiguration();
 }
 

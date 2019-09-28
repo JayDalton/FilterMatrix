@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QFrame>
 #include <QPainter>
+#include <QFileInfo>
 
 
 // Codepage: UTF-8 (ÜüÖöÄäẞß)

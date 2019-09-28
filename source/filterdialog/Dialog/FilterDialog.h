@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DataLayer/DataLayer.h"
+
 #include <QtWidgets/QWidget>
 
 class FilterDialog : public QWidget
@@ -7,8 +9,8 @@ class FilterDialog : public QWidget
     Q_OBJECT
 
 public:
+   explicit FilterDialog(DataLayerSPtr data);
    ~FilterDialog();
-   explicit FilterDialog();
 
 protected:
    void closeEvent(QCloseEvent* event) override;

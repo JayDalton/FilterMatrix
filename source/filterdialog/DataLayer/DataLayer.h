@@ -18,6 +18,8 @@ public:
 
    void loadConfiguration();
 
+
+
    bool readMatrixFileInfo(const StringVector& pathList);
    bool readMatrixFileInfo(std::string_view path);
 

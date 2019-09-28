@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MatrixDataPlot.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.4
+** Created by: Qt User Interface Compiler version 5.13.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -100,9 +100,9 @@ public:
 
     void retranslateUi(QWidget *MatrixDataPlot)
     {
-        MatrixDataPlot->setWindowTitle(QApplication::translate("MatrixDataPlot", "MatrixDataPlot", nullptr));
-        selectButton->setText(QApplication::translate("MatrixDataPlot", "Select", nullptr));
-        clearButton->setText(QApplication::translate("MatrixDataPlot", "Clear", nullptr));
+        MatrixDataPlot->setWindowTitle(QCoreApplication::translate("MatrixDataPlot", "MatrixDataPlot", nullptr));
+        selectButton->setText(QCoreApplication::translate("MatrixDataPlot", "Select", nullptr));
+        clearButton->setText(QCoreApplication::translate("MatrixDataPlot", "Clear", nullptr));
     } // retranslateUi
 
 };

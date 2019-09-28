@@ -7,5 +7,6 @@
 #include <QPainter>
 #include <QFileInfo>
 
+//#include <QtPrintSupport/QtPrintSupport>
 
 // Codepage: UTF-8 (ÜüÖöÄäẞß)

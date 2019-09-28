@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'FileSelectTab.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.4
+** Created by: Qt User Interface Compiler version 5.13.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -74,9 +74,9 @@ public:
 
     void retranslateUi(QWidget *FileSelectTab)
     {
-        FileSelectTab->setWindowTitle(QApplication::translate("FileSelectTab", "FileSelectTab", nullptr));
-        openButton->setText(QApplication::translate("FileSelectTab", "Hinzuf\303\274gen", nullptr));
-        loadButton->setText(QApplication::translate("FileSelectTab", "Laden", nullptr));
+        FileSelectTab->setWindowTitle(QCoreApplication::translate("FileSelectTab", "FileSelectTab", nullptr));
+        openButton->setText(QCoreApplication::translate("FileSelectTab", "Hinzuf\303\274gen", nullptr));
+        loadButton->setText(QCoreApplication::translate("FileSelectTab", "Laden", nullptr));
     } // retranslateUi
 
 };

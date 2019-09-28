@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MatrixDataTab.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.4
+** Created by: Qt User Interface Compiler version 5.13.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -126,10 +126,10 @@ public:
 
     void retranslateUi(QWidget *MatrixDataTab)
     {
-        MatrixDataTab->setWindowTitle(QApplication::translate("MatrixDataTab", "MatrixDataTab", nullptr));
-        groupBox->setTitle(QApplication::translate("MatrixDataTab", "Eigenschaften", nullptr));
-        labelPoint->setText(QApplication::translate("MatrixDataTab", "Point: X / Y", nullptr));
-        labelRange->setText(QApplication::translate("MatrixDataTab", "Range: W / H", nullptr));
+        MatrixDataTab->setWindowTitle(QCoreApplication::translate("MatrixDataTab", "MatrixDataTab", nullptr));
+        groupBox->setTitle(QCoreApplication::translate("MatrixDataTab", "Eigenschaften", nullptr));
+        labelPoint->setText(QCoreApplication::translate("MatrixDataTab", "Point: X / Y", nullptr));
+        labelRange->setText(QCoreApplication::translate("MatrixDataTab", "Range: W / H", nullptr));
     } // retranslateUi
 
 };

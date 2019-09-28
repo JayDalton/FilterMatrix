@@ -42,7 +42,7 @@ QImage MatrixFrameView::coverMatrixByImage(const cv::Mat& _matrix)
 {
    const QHash<int, QImage::Format> formats = {
       {CV_8UC1, QImage::Format_Grayscale8},
-      //{CV_16UC1, QImage::Format_Grayscale16},
+      {CV_16UC1, QImage::Format_Grayscale16},
    };
 
    const auto format{ _matrix.type() };

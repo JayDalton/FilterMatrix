@@ -12,15 +12,14 @@ Two given interfaces allowing Commandline based
 
 ### Possible Technologies
 
-+ C++ / WinRT based console application for Windows 10
++ C++ / QT based windows application
 + Using OpenCV for reading and manipulating 
 + complex number convertion for image datas
 + applying given suppression methods 
 
 ### Known Dependencies
 
++ Qt 5.13
 + OpenCV 4
-+ Qt 5.12.4
 + rapidjson
-+ graphicsmagick
-+ sdplog + fmt
++ sdplog

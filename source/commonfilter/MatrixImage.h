@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <vector>
 #include <string>
@@ -48,3 +48,4 @@ private:
    std::unique_ptr<Impl> m;
 };
 
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

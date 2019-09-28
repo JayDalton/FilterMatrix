@@ -67,6 +67,12 @@
     <ClCompile Include="precompheader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Dialog\MatrixImageView\MatrixImageView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\MatrixImageView\MatrixFrameView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Application\Application.h">
@@ -94,6 +100,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Dialog\MatrixDataPlot\QCustomPlot\qcustomplot.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Dialog\MatrixImageView\MatrixImageView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Dialog\MatrixImageView\MatrixFrameView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -127,6 +139,9 @@
     <ClInclude Include="precompheader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Generated\ui_MatrixImageView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Dialog\FilterDialog.ui">
@@ -139,6 +154,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Dialog\MatrixDataPlot\MatrixDataPlot.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Dialog\MatrixImageView\MatrixImageView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

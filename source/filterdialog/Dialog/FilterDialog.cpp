@@ -8,16 +8,18 @@
 #include "FileSelect/FileSelectTab.h"
 #include "MatrixDataView/MatrixDataTab.h"
 #include "MatrixDataPlot/MatrixDataPlot.h"
+#include "MatrixImageView/MatrixImageView.h"
 
 #include "DataLayer/DataLayer.h"
 
 struct FilterDialog::Impl
 {
-   Impl(FilterDialog* parent) : m_parent(parent) {}
+   explicit Impl(FilterDialog* parent) : m_parent(parent) {}
 
    FileSelectTab* tabFileSelect{ nullptr };
    MatrixDataTab* tabMatrixData{ nullptr };
    MatrixDataPlot* tabMatrixPlot{ nullptr };
+   MatrixImageView* tabMatrixView{ nullptr };
 
    DataLayerSPtr data{ nullptr };
 
@@ -67,6 +69,9 @@ void FilterDialog::setupTabWidgets()
 {
    m->tabFileSelect = new FileSelectTab{ m->data, this };
    m->ui.tabWidget->addTab(m->tabFileSelect, "File Select");
+
+   m->tabMatrixView = new MatrixImageView{ m->data, this };
+   m->ui.tabWidget->addTab(m->tabMatrixView, "Matrix View");
 
    m->tabMatrixData = new MatrixDataTab{ m->data, this };
    m->ui.tabWidget->addTab(m->tabMatrixData, "Matrix Data");

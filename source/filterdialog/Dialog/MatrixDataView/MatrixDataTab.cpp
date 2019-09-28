@@ -30,10 +30,10 @@ MatrixDataTab::~MatrixDataTab() = default;
 
 void MatrixDataTab::load()
 {
-   auto matrix = m->data->currentMatrix();
+   auto matrix = m->data->currentMatrix(MatrixLayer::Magnitude);
    m_matrixValueDataModel->setImageMatrix(matrix);
    
-   auto list = m->data->currentPropertyList();
+   auto list = m->data->currentPropertyList(MatrixLayer::Magnitude);
    m_matrixPropertyModel->setPropertyList(list);
 }
 

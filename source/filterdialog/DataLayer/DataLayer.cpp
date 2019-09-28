@@ -26,16 +26,17 @@ bool DataLayer::readMatrixFileInfo(std::string_view importFileName)
 void DataLayer::loadMatrixFile(MatrixFileInfo file)
 {
    m_matrixManger.loadMatrixFromFile(file);
+   emit currentMatrixChanged();
 }
 
-cv::Mat DataLayer::currentMatrix()
+cv::Mat DataLayer::currentMatrix(MatrixLayer layer)
 {
-   return m_matrixManger.getSourceData(MatrixLayer::Magnitude);
+   return m_matrixManger.getSourceData(layer);
 }
 
-MatrixPropertyList DataLayer::currentPropertyList()
+MatrixPropertyList DataLayer::currentPropertyList(MatrixLayer layer)
 {
-   return m_matrixManger.getMatrixPropertyList(MatrixLayer::Magnitude);
+   return m_matrixManger.getMatrixPropertyList(layer);
 }
 
 const MatrixFileRepository& DataLayer::getFileRepository() const

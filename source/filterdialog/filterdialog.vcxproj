@@ -66,7 +66,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>.\Dialog\MatrixDataView;.\Dialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\Generated;.\Dialog\MatrixDataView;.\Dialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -91,7 +91,7 @@
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>.\Dialog\MatrixDataView;.\Dialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\Generated;.\Dialog\MatrixDataView;.\Dialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -160,7 +160,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DataLayer\DataLayer.h" />
+    <QtMoc Include="DataLayer\DataLayer.h" />
     <QtMoc Include="Dialog\MatrixImageView\MatrixImageView.h" />
     <ClInclude Include="Generated\ui_MatrixImageView.h" />
     <QtMoc Include="Dialog\MatrixImageView\MatrixFrameView.h" />

@@ -36,7 +36,7 @@ MatrixDataPlot::~MatrixDataPlot() = default;
 
 void MatrixDataPlot::load(int index)
 {
-   const auto matrix = m->data->currentMatrix();
+   const auto matrix = m->data->currentMatrix(MatrixLayer::Magnitude);
 
    m->ui.customPlot->clearGraphs();
 

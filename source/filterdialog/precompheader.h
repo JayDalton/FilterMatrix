@@ -9,6 +9,7 @@
 #include <QTransform>
 #include <QSettings>
 #include <QEvent>
+#include <QKeyEvent>
 #include <QApplication>
 #include <QCoreApplication>
 

@@ -1,10 +1,8 @@
 ﻿#pragma once
 
-#include <memory>
+#include "DataLayer/DataLayer.h"
 
 #include <QWidget>
-
-#include "DataLayer/DataLayer.h"
 
 class MatrixImageView : public QWidget
 {
@@ -13,6 +11,10 @@ class MatrixImageView : public QWidget
 public:
     explicit MatrixImageView(DataLayerSPtr data, QWidget* parent);
     ~MatrixImageView();
+
+protected:
+   //void keyPressEvent(QKeyEvent* event) override
+   void keyReleaseEvent(QKeyEvent* event) override;
 
 private:
    struct Impl;

@@ -15,15 +15,30 @@ public:
 
    void setImageMatrix(const cv::Mat& matrix);
 
+   void setScaleValue(double value);
+   void setTranslateX(double value);
+   void setTranslateY(double value);
+
 protected:
    void paintEvent(QPaintEvent* event) override;
+   //void mouseDoubleClickEvent(QMouseEvent* event);
+   //void mouseMoveEvent(QMouseEvent* event);
+   //void mousePressEvent(QMouseEvent* event);
+   //void mouseReleaseEvent(QMouseEvent* event);
 
 private:
-   QImage coverMatrixByImage(const cv::Mat& _matrix);
+   void setDisplayRect(const QRect& display);
+   QImage coverMatrixByImage(const cv::Mat& _matrix) const;
+   QTransform createTransform() const;
+   void updateTransform();
 
 private:
    cv::Mat m_matrix;
-   QRect m_contentRect;
+   QRectF m_displayRect;
+   QRectF m_visibleRect;
+   QRectF m_contentRect;
    QImage m_bitmapImage;
+   QImage m_bitmapOverlay;
+   QTransform m_transform;
 };
 

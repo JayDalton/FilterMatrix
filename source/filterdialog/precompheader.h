@@ -10,6 +10,7 @@
 #include <QSettings>
 #include <QEvent>
 #include <QApplication>
+#include <QCoreApplication>
 
 //#include <QtPrintSupport/QtPrintSupport>
 

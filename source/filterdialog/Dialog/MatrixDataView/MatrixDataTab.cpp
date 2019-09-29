@@ -24,6 +24,10 @@ MatrixDataTab::MatrixDataTab(DataLayerSPtr data, QWidget *parent)
    m->ui.setupUi(this);
    
    setupUIElements();
+
+   auto con = connect(data.get(), &DataLayer::currentMatrixChanged, 
+      this, [&]() { load(); }
+   );
 }
 
 MatrixDataTab::~MatrixDataTab() = default;

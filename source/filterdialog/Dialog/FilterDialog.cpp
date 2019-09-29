@@ -82,17 +82,9 @@ void FilterDialog::setupTabWidgets()
    m->tabMatrixPlot = new MatrixDataPlot{ m->data, this };
    m->ui.tabWidget->addTab(m->tabMatrixPlot, "Matrix Plot");
 
-   auto con1 = connect(m->tabFileSelect, &FileSelectTab::displayMatrixData, 
-      this, [=]() {
-         m->tabMatrixData->load();
-         m->ui.tabWidget->setCurrentWidget(m->tabMatrixData);
-      });
-
-   auto con2 = connect(m->tabFileSelect, &FileSelectTab::displayMatrixData, 
-      this, [=]() {
-         m->tabMatrixPlot->load(0);
-         m->ui.tabWidget->setCurrentWidget(m->tabMatrixData);
-      });
+   auto con = connect(m->tabFileSelect, &FileSelectTab::displayMatrixData, 
+      this, [=]() { m->ui.tabWidget->setCurrentWidget(m->tabMatrixView); }
+   );
 }
 
 

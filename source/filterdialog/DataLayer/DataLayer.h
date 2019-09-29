@@ -1,10 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include <memory>
 #include <string>
 #include <vector>
 
 #include <QObject>
+#include <QSettings>
 
 #include "FileManager.h"
 #include "MatrixManager.h"
@@ -42,3 +43,5 @@ private:
 
 using DataLayerUPtr = std::unique_ptr<DataLayer>;
 using DataLayerSPtr = std::shared_ptr<DataLayer>;
+
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

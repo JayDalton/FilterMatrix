@@ -30,6 +30,10 @@ MatrixDataPlot::MatrixDataPlot(DataLayerSPtr data, QWidget* parent)
     m->ui.setupUi(this);
 
     setupUIElements();
+
+    auto con = connect(data.get(), &DataLayer::currentMatrixChanged, 
+       this, [&]() { load(0); }
+    );
 }
 
 MatrixDataPlot::~MatrixDataPlot() = default;

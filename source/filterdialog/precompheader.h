@@ -6,6 +6,9 @@
 #include <QFrame>
 #include <QPainter>
 #include <QFileInfo>
+#include <QTransform>
+#include <QSettings>
+#include <QEvent>
 
 //#include <QtPrintSupport/QtPrintSupport>
 

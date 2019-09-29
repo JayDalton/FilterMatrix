@@ -46,12 +46,15 @@ FilterDialog::~FilterDialog() = default;
 
 void FilterDialog::closeEvent(QCloseEvent* event)
 {
-   saveSettings();
+   QSettings settings("MyCompany", "MyApp");
+   settings.setValue("geometry", saveGeometry());
+   QWidget::closeEvent(event);
 }
 
 void FilterDialog::restoreSettings()
 {
-
+   QSettings settings("MyCompany", "MyApp");
+   restoreGeometry(settings.value("geometry").toByteArray());
 }
 
 void FilterDialog::saveSettings()

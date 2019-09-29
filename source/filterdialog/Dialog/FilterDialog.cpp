@@ -43,17 +43,19 @@ FilterDialog::FilterDialog(DataLayerSPtr data)
 }
 
 FilterDialog::~FilterDialog() = default;
+//FilterDialog::FilterDialog(FilterDialog&& rhs) = default;
+//FilterDialog& FilterDialog::operator=(FilterDialog&&) = default;
 
 void FilterDialog::closeEvent(QCloseEvent* event)
 {
-   QSettings settings("MyCompany", "MyApp");
-   settings.setValue("geometry", saveGeometry());
+   auto config = m->data->settings();
+   config.setValue("geometry", saveGeometry());
    QWidget::closeEvent(event);
 }
 
 void FilterDialog::restoreSettings()
 {
-   QSettings settings("MyCompany", "MyApp");
+   const auto settings = m->data->settings();
    restoreGeometry(settings.value("geometry").toByteArray());
 }
 
@@ -63,7 +65,7 @@ void FilterDialog::saveSettings()
 
 void FilterDialog::setupDataLayers()
 {
-   m->data->loadConfiguration();
+   //m->data->loadConfiguration();
 }
 
 void FilterDialog::setupTabWidgets()

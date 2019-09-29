@@ -8,17 +8,20 @@
 namespace fs = std::filesystem;
 
 Application::Application(int argc, char* argv[], std::string_view title)
-   : QApplication(argc, argv), m_data(std::make_shared<DataLayer>()), m_dialog(m_data)
+   : QApplication(argc, argv), m_data(std::make_shared<DataLayer>())
 {
-   setOrganizationName("legal duplics");
-   setApplicationName(title.empty() ? QFileInfo(QCoreApplication::applicationFilePath()).baseName() : title.data());
+   QCoreApplication::setOrganizationName("LegalDuplics");
+   QCoreApplication::setApplicationName(title.data());
+
+   const auto orga = QCoreApplication::organizationName();
+   const auto app = QCoreApplication::applicationName();
 
    setupLogger();
    setupDialog();
 
    auto con = connect(this, &QApplication::lastWindowClosed, this, &QApplication::quit);
 
-   m_dialog.show();
+   m_dialog->show();
 }
 
 void Application::setConfig()
@@ -56,6 +59,7 @@ void Application::setupLogger()
 
 void Application::setupDialog()
 {
+   m_dialog = std::make_unique<FilterDialog>(m_data);
 }
 
 // Codepage: UTF-8 (ÜüÖöÄäẞß)

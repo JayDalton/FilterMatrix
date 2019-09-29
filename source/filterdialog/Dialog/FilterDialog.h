@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include "DataLayer/DataLayer.h"
 
-#include <QtWidgets/QWidget>
+#include <QWidget>
 
 class FilterDialog : public QWidget
 {
@@ -10,7 +10,10 @@ class FilterDialog : public QWidget
 
 public:
    explicit FilterDialog(DataLayerSPtr data);
+
    ~FilterDialog();
+   //FilterDialog(FilterDialog&& rhs);
+   //FilterDialog& operator=(FilterDialog&&);
 
 protected:
    void closeEvent(QCloseEvent* event) override;
@@ -25,3 +28,7 @@ private:
    struct Impl;
    std::unique_ptr<Impl> m;
 };
+
+using FilterDialogUPtr = std::unique_ptr<FilterDialog>;
+
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

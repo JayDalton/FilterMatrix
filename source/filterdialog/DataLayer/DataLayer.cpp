@@ -9,8 +9,11 @@ DataLayer::DataLayer()
 {
 }
 
-void DataLayer::loadConfiguration()
+QSettings DataLayer::settings()
 {
+   const auto orga{ QCoreApplication::organizationName() };
+   const auto app{ QCoreApplication::applicationName() };
+   return QSettings(orga, app);
 }
 
 bool DataLayer::readMatrixFileInfo(const StringVector& pathList)

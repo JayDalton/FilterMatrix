@@ -1,8 +1,9 @@
 ﻿#pragma once
 
+#include <optional>
+
 #include "Dialog/FilterDialog.h"
-#include "Logger/Logger.h"
-#include <spdlog/logger.h>
+
 #include <QApplication>
 
 using FileLogger = std::shared_ptr<spdlog::logger>;
@@ -16,15 +17,13 @@ public:
 
    void setConfig();
 
-   void log();
-
 private:
    void setupLogger();
    void setupDialog();
 
 private:
    DataLayerSPtr m_data{ nullptr };
-   FilterDialog m_dialog;
+   FilterDialogUPtr m_dialog{ nullptr };
 };
 
 // Codepage: UTF-8 (ÜüÖöÄäẞß)

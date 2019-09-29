@@ -9,6 +9,7 @@
 #include <QTransform>
 #include <QSettings>
 #include <QEvent>
+#include <QApplication>
 
 //#include <QtPrintSupport/QtPrintSupport>
 

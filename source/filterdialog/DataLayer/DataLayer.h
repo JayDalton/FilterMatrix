@@ -16,9 +16,7 @@ class DataLayer : public QObject
 public:
    explicit DataLayer();
 
-   void loadConfiguration();
-
-
+   QSettings settings();
 
    bool readMatrixFileInfo(const StringVector& pathList);
    bool readMatrixFileInfo(std::string_view path);

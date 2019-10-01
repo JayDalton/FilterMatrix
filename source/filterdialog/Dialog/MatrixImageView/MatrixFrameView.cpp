@@ -43,6 +43,7 @@ void MatrixFrameView::setScaleValue(double value)
    qDebug() << "value:" << value;
    m_visibleRect = transform.mapRect(m_visibleRect);
    qDebug() << "new rect:" << m_visibleRect;
+   update();
 }
 
 void MatrixFrameView::setTranslateX(double value)

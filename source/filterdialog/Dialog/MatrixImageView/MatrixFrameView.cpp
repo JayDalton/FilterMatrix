@@ -43,6 +43,7 @@ void MatrixFrameView::setScaleValue(double value)
    qDebug() << "value:" << value;
    m_visibleRect = transform.mapRect(m_visibleRect);
    qDebug() << "new rect:" << m_visibleRect;
+   update();
 }
 
 void MatrixFrameView::setTranslateX(double value)
@@ -64,15 +65,14 @@ void MatrixFrameView::paintEvent(QPaintEvent* event)
    QFrame::paintEvent(event);
 
    QPainter painter(this);
-
    if (m_matrix.empty())
    {
-      painter.drawRect(rect());
+      painter.fillRect(rect(), Qt::gray);
       return;
    }
 
+   //#todo
    setDisplayRect(rect());
-
    painter.setTransform(m_transform);
    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
    painter.drawImage(QPoint(0,0), m_bitmapImage);

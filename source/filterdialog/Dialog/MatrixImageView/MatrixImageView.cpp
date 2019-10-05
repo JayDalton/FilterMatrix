@@ -22,6 +22,8 @@ MatrixImageView::MatrixImageView(DataLayerSPtr data, QWidget *parent)
 {
    m->ui.setupUi(this);
 
+   setFocusPolicy(Qt::StrongFocus);
+
    auto con = connect(data.get(), &DataLayer::currentMatrixChanged, 
       this, [=]()
       {

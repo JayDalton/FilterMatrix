@@ -1,4 +1,6 @@
 ﻿
+#include "common.h"
+
 // Logging
 #include <spdlog/spdlog.h>
 #include <spdlog/logger.h>

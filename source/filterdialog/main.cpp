@@ -5,7 +5,13 @@
 int main(int argc, char *argv[])
 {
    Application application(argc, argv, "Matrix Filter");
-   //application.setConfig(FilterDialogGuiConfig{});
+
+   ApplicationConfig config;
+   fs::path filePath{ "filterdialog.cfg" };
+   if (config.loadJsonFile(filePath))
+   {
+      application.setConfig(config);
+   }
 
    return application.exec();
 }

@@ -21,8 +21,9 @@ Application::Application(int argc, char* argv[], std::string_view title)
    m_dialog->show();
 }
 
-void Application::setConfig()
+void Application::setConfig(const ApplicationConfig& config)
 {
+   m_config = config;
 }
 
 void Application::setupLogger()

@@ -1,17 +1,4 @@
-#pragma once
-
-#include <string>
-#include <string_view>
-#include <variant>
-
-#include <map>
-#include <set>
-#include <unordered_set>
-#include <unordered_map>
-#include <limits>
-#include <numeric>
-
-using namespace std::string_literals;
+﻿#pragma once
 
 struct Parameter
 {
@@ -132,42 +119,47 @@ struct Configuration
 	std::string m_name;
 	ConfigValue m_value;
 
+   bool loadJsonFile(fs::path filePath);
+
+   bool saveJsonFile(fs::path filePath) const;
+
+protected:
+
+   void registerParameter();
+
 	void registerString(
-		std::string_view nameOfParam,
-		std::string_view description,
-		std::uint32_t maxLength
+		const std::string& nameOfParam,
+		const std::string& description,
+      const std::string& defaultValue,
+		std::size_t maximum = 1024,
+      std::size_t minimum = 0
 	);
 
 	void registerDouble(
-		std::string_view nameOfParam,
-		std::string_view description,
-		double min, double max,
-		double defaultValue
+      const std::string& nameOfParam,
+      const std::string& description,
+		double defaultValue = 0.0,
+      double maximum = std::numeric_limits<double>::max(),
+      double minimum = std::numeric_limits<double>::min()
 	);
 
 	void registerInteger(
-		std::string_view nameOfParam,
-		std::string_view description,
-		std::int32_t min, std::int32_t max,
-		std::int32_t defaultValue
+      const std::string& nameOfParam,
+      const std::string& description,
+      std::int32_t defaultValue = 0,
+      std::int32_t maximum = std::numeric_limits<std::int32_t>::max(),
+      std::int32_t minimum = std::numeric_limits<std::int32_t>::min()
 	);
 
 	void registerBoolean(
 		std::string_view nameOfParam,
-		std::string_view description
+		std::string_view description,
+      bool defaultValue = false
 	);
+
+   void getParameter(const std::string& paramName) const;
 
 	std::map<std::string, ConfigValue> m;
 };
 
-struct FilterConfig : public Configuration
-{
-	double getValue1() const;
-
-	unsigned getValue2() const;
-
-	std::string getValue3() const;
-
-
-};
-
+// Codepage: UTF-8 (ÜüÖöÄäẞß)

@@ -3,6 +3,7 @@
 #include "ApplicationConfig.h"
 
 ApplicationConfig::ApplicationConfig()
+   /*: Configuration{ std::string{""}, std::string{""} }*/
 {
    registerParameter(Parameter{ 
       DEFAULT_MATRIX_IMPORT, "Standard Matrix Datei", 
@@ -35,49 +36,20 @@ ApplicationConfig::~ApplicationConfig()
 
 }
 
-std::string ApplicationConfig::getDefaultImportMatrix()
+std::string ApplicationConfig::getDefaultImportMatrix() const
 {
-   const auto& param = getParameter(DEFAULT_MATRIX_IMPORT);
-   if (auto value = std::get_if<std::string>(&param.m_current))
-   {
-      return *value;
-   }
+   return getStringParameter(DEFAULT_MATRIX_IMPORT);
+}
 
-   if (std::holds_alternative<std::string>(param.m_current))
-   {
-      return std::get<std::string>(param.m_current);
-   }
-
-   if (auto option = getParameterOpt(DEFAULT_MATRIX_IMPORT))
-   {
-      if (auto value = std::get_if<std::string>(&(*option).m_current))
-      {
-
-      }
-
-   }
-
-   assert(false);
-
-   return {};
+void ApplicationConfig::setDefaultImportMatrix(const std::string& file)
+{
+   setParameter(DEFAULT_MATRIX_IMPORT, file);
 }
 
 std::string ApplicationConfig::getDefaultMatrixFolder() const
 {
    return std::string();
 }
-
-
-/*
-
-{
-   "application" : "",
-   "app-version" : "",
-   "matrixImport" : "",
-   "matrixFolder" : ""
-}
-
-*/
 
 
 // Codepage: UTF-8 (ÜüÖöÄäẞß)

@@ -35,17 +35,18 @@ void Application::setupLogger()
       fs::create_directories(p);
    }
 
-   auto file_logger = spdlog::basic_logger_mt("logger", path.string());
-   spdlog::set_default_logger(file_logger);
-   //spdlog::set_level(spdlog::level::debug);
-   spdlog::flush_every(std::chrono::seconds(3));
-   spdlog::flush_on(spdlog::level::warn);
+   auto file_logger = logger::basic_logger_mt("logger", path.string());
+   logger::set_default_logger(file_logger);
+   //log::set_level(log::level::debug);
+   logger::flush_every(std::chrono::seconds(3));
+   //logger::flush_on(logger::level::warn);
+   logger::flush_on(logger::level::info);
 
    const auto app = QCoreApplication::applicationName().toStdString();
    const auto ver = QCoreApplication::applicationVersion().toStdString();
-   spdlog::info("===============================================");
-   spdlog::info("Logging: {0} - {1}", app, ver);
-   spdlog::info("===============================================");
+   logger::info("===============================================");
+   logger::info("Logging: {0} - {1}", app, ver);
+   logger::info("===============================================");
 }
 
 void Application::setupDialog()

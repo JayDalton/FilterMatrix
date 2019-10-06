@@ -9,10 +9,11 @@ struct ApplicationConfig : public Configuration
    ApplicationConfig();
    ~ApplicationConfig();
 
-   std::string getDefaultImportMatrix();
+   std::string getDefaultImportMatrix() const;
+   void setDefaultImportMatrix(const std::string& file);
 
    std::string getDefaultMatrixFolder() const;
-
+   void setDefaultMatrixFolder(std::string_view file);
 
 
 private:

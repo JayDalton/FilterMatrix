@@ -13,6 +13,8 @@ int main(int argc, char *argv[])
       application.setConfig(config);
    }
 
+   auto matrix = config.getDefaultImportMatrix();
+
    if (config.saveJsonFile(filePath))
    {
       qDebug() << "";

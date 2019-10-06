@@ -13,6 +13,19 @@ int main(int argc, char *argv[])
       application.setConfig(config);
    }
 
+   if (config.saveJsonFile(filePath))
+   {
+      qDebug() << "";
+   }
+   else {
+      qDebug() << "";
+   }
+
+   //FilterDialogUPtr m_dialog{ nullptr };
+
+   //FilterDialog()
+
+
    return application.exec();
 }
 

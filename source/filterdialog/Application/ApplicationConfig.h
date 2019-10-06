@@ -7,10 +7,12 @@
 struct ApplicationConfig : public Configuration
 {
    ApplicationConfig();
+   ~ApplicationConfig();
 
-   std::string getDefaultImportMatrix() const;
+   std::string getDefaultImportMatrix();
 
    std::string getDefaultMatrixFolder() const;
+
 
 
 private:

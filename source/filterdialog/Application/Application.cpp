@@ -23,7 +23,7 @@ Application::Application(int argc, char* argv[], std::string_view title)
 
 void Application::setConfig(const ApplicationConfig& config)
 {
-   m_config = config;
+   //m_config = config;
 }
 
 void Application::setupLogger()

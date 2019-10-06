@@ -24,7 +24,7 @@ private:
    void setupDialog();
 
 private:
-   ApplicationConfig m_config;
+   //ApplicationConfig m_config;
    DataLayerSPtr m_data{ nullptr };
    FilterDialogUPtr m_dialog{ nullptr };
 };

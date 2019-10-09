@@ -133,41 +133,6 @@ bool Configuration::saveJsonFile(const fs::path& filePath) const
    json::StringBuffer buffer;
    json::PrettyWriter<json::StringBuffer> writer(buffer);
 
-   auto output = overload
-   {
-      [&writer](bool b) { writer.Bool(b); },
-      [&writer](float b) { writer.Double(b); },
-      [&writer](double b) { writer.Double(b); },
-      [&writer](signed int si) { writer.Int(si); },
-      [&writer](unsigned int ui) { writer.Uint(ui); },
-      [&writer](const std::string& s) { writer.String(s); },
-      [&writer](const fs::path& p) { writer.String(p.string()); },
-      //[&writer](const Parameter::ValueList& values) 
-      //{ 
-      //   writer.StartArray();
-      //   writer.EndArray();
-      //},
-   };
-
-   auto output2 = overload
-   {
-      [&writer, &output](const BaseParameter::ValueType& value) { 
-         std::visit(output, value);
-      },
-
-      //[&writer, &output](const Parameter::ValueList& values) 
-      //{ 
-      //   writer.StartArray();
-      //   for (const Parameter& value : values)
-      //   {
-      //      //writer.Key(value.m_ident.data());
-      //      std::visit(output, value.m_current); // recursive call
-      //      //writer.String(value.m_label.data());
-      //   }
-      //   writer.EndArray();
-      //},
-   };
-
    auto write = [&writer](const auto& value) { value.Serialize(writer); };
 
    writer.StartObject();
@@ -179,17 +144,6 @@ bool Configuration::saveJsonFile(const fs::path& filePath) const
    for (const auto& keyValue : m_paramMap)
    {
       std::visit(write, keyValue.second);
-      //keyValue.second.Serialize(writer);
-      //auto lambda = [](const auto& obj) 
-      //{
-      //   obj.m_ident;
-      //};
-
-
-      //std::visit(lambda, param);
-
-      //writer.Key(param.m_ident.data());
-      //std::visit(output, param.m_current);
    }
    writer.EndObject();
 
@@ -222,6 +176,30 @@ const ParameterVariant& Configuration::getParameter(const std::string& ident) co
    if (m_paramMap.contains(ident))
    {
       return m_paramMap.at(ident);
+   }
+
+   assert(false);
+   return {};
+}
+
+const BaseParameter& Configuration::getBaseParameter(const std::string& ident) const
+{
+   const ParameterVariant& param = getParameter(ident);
+   if (std::holds_alternative<BaseParameter>(param))
+   {
+      return std::get<BaseParameter>(param);
+   }
+
+   assert(false);
+   return {};
+}
+
+const ListParameter& Configuration::getListParameter(const std::string& ident) const
+{
+   const ParameterVariant& param = getParameter(ident);
+   if (std::holds_alternative<ListParameter>(param))
+   {
+      return std::get<ListParameter>(param);
    }
 
    assert(false);
@@ -267,11 +245,11 @@ bool Configuration::setParameter(const std::string& ident, const std::string& va
 
 const std::string& Configuration::getStringParameter(const std::string& ident) const
 {
-   const auto& param = getParameter(ident);
-   //if (std::holds_alternative<std::string>(param.m_current))
-   //{
-   //   return std::get<std::string>(param.m_current);
-   //}
+   const BaseParameter& param = getBaseParameter(ident);
+   if (std::holds_alternative<std::string>(param.m_current))
+   {
+      return std::get<std::string>(param.m_current);
+   }
 
    assert(false);
    return {};

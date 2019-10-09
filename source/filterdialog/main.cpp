@@ -13,7 +13,9 @@ int main(int argc, char *argv[])
    //   application.setConfig(config);
    //}
 
-   //auto matrix = config.getDefaultImportMatrix();
+   auto matrix = config.getDefaultImportMatrix();
+   auto folder = config.getDefaultMatrixFolder();
+   auto filelist = config.getFolderFilelist();
 
    if (config.saveJsonFile(filePath))
    {

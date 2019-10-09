@@ -17,6 +17,8 @@ protected:
    void registerListParameter(const ListParameter& parameter);
 
    const ParameterVariant& getParameter(const std::string& ident) const;
+   const BaseParameter& getBaseParameter(const std::string& ident) const;
+   const ListParameter& getListParameter(const std::string& ident) const;
 
    bool setParameter(const std::string& ident, BaseParameter::ValueType value);
    bool setParameter(const std::string& ident, const std::string& value);
@@ -24,7 +26,7 @@ protected:
    const std::string& getStringParameter(const std::string& ident) const;
    const fs::path& getPathParameter(const std::string& ident) const;
 
-   //ParameterListing m_params;
+private:
    ParameterMapping m_paramMap;
 };
 

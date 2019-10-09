@@ -23,29 +23,15 @@ ApplicationConfig::ApplicationConfig()
       }
    );
 
-   ListParameter list{ "", "", { std::string(), std::string()} };
-
-   //registerParameter(Parameter{ "filePathList", "Dateiliste", Parameter::ValueList{
-   //   Parameter{ "filePath1", "Datei Pfad 1", fs::path{"logfiles/dialog.log"} },
-   //   Parameter{ "filePath2", "Datei Pfad 2", fs::path{"logfiles/dialog.log"} },
-   //   Parameter{ "filePath3", "Datei Pfad 3", fs::path{"logfiles/dialog.log"} },
-   //   Parameter{ "filePath4", "Datei Pfad 4", fs::path{"logfiles/dialog.log"} },
-   //   Parameter{ "filePath5", "Datei Pfad 5", fs::path{"logfiles/dialog.log"} },
-   //   } }
-   //);
-
-
-   registerBaseParameter(BaseParameter{ "signed", "label", -1234 });
-   registerBaseParameter(BaseParameter{ "unsigned", "label", 1234u });
-   registerBaseParameter(BaseParameter{ "double", "label", 3.21 });
-   registerBaseParameter(BaseParameter{ "boolean", "bool", true });
-   registerBaseParameter(BaseParameter{ "string", "label", std::string{"23"} });
-   registerBaseParameter(BaseParameter{ "path", "label", fs::path{"top/sub"} });
-}
-
-ApplicationConfig::~ApplicationConfig()
-{
-
+   registerListParameter(ListParameter{
+      MATRIX_FOLDER_FILELIST, "Standard Datei Liste", 
+      {
+         "path/to/next/sub/folder/1"s,
+         "path/to/next/sub/folder/2"s,
+         "path/to/next/sub/folder/3"s,
+         "path/to/next/sub/folder/4"s,
+      }
+   });
 }
 
 std::string ApplicationConfig::getDefaultImportMatrix() const
@@ -60,7 +46,25 @@ void ApplicationConfig::setDefaultImportMatrix(const std::string& file)
 
 std::string ApplicationConfig::getDefaultMatrixFolder() const
 {
-   return std::string();
+   return getStringParameter(DEFAULT_MATRIX_FOLDER);
+}
+
+void ApplicationConfig::setDefaultMatrixFolder(std::string_view file)
+{
+}
+
+std::vector<std::string> ApplicationConfig::getFolderFilelist() const
+{
+   const ListParameter& param = getListParameter(MATRIX_FOLDER_FILELIST);
+   //if (std::holds_alternative<std::vector<std::string>>(param.m_current))
+   //{
+   //   return std::get<ListParameter>(param);
+   //}
+   return std::vector<std::string>();
+}
+
+void ApplicationConfig::setFolderFilelist(const std::vector<std::string>& list)
+{
 }
 
 

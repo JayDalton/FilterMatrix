@@ -2,32 +2,78 @@
 
 #include "Configuration.h"
 
-struct MyHandler {
+struct ReadHandler 
+{
+   // Handler API
    bool Null() { logger::info("Null()"); return true; }
-   bool Bool(bool b) { logger::info("Bool({})", b); return true; }
-   bool Int(signed i) { logger::info("Int({})", i); return true; }
-   bool Uint(unsigned u) { logger::info("Uint({})", u); return true; }
    bool Int64(int64_t i) { logger::info("Int64({})", i); return true; }
    bool Uint64(uint64_t u) { logger::info("UInt64({})", u); return true; }
-   bool Double(double d) { logger::info("Double({})", d); return true; }
-
    bool RawNumber(const char* str, json::SizeType length, bool copy) { 
       logger::info("Number({0}, {1}, {2})", str, length, copy); return true;
    }
-   bool String(const char* str, json::SizeType length, bool copy) { 
-      logger::info("String({0}, {1}, {2})", str, length, copy); return true;
+
+   bool Bool(bool b) { 
+
+      //auto& param = m_params.back();
+      //if (std::holds_alternative<bool>(param))
+      //{
+      //   return std::get<bool>(param);
+      //}
+
+
+      m_params.back().emplace<BaseParameter>();
+      //m_params.back().m_current = b;
+      logger::info("Bool({})", b); 
+      return true; 
    }
-   bool StartObject() { logger::info("StartObject()"); return true; }
+   
+   bool Int(signed i) { 
+      //m_params.back().m_current = i;
+      logger::info("Int({})", i); 
+      return true; 
+   }
+   bool Uint(unsigned u) { 
+      //m_params.back().m_current = u;
+      logger::info("Uint({})", u); 
+      return true; 
+   }
+   
+   bool Double(double d) { 
+      //m_params.back().m_current = d;
+      logger::info("Double({})", d); 
+      return true; 
+   }
+
    bool Key(const char* str, json::SizeType length, bool copy) {
-      logger::info("Key({0}, {1}, {2})", str, length, copy); return true;
+      logger::info("Key({0}, {1}, {2})", str, length, copy); 
+      m_params.emplace_back(BaseParameter{ 
+         std::string{str, length}, 
+         std::string{str, length} 
+         });
+      return true;
    }
-   bool EndObject(json::SizeType memberCount) { 
-      logger::info("EndObject({})", memberCount); return true; 
+
+   bool String(const char* str, json::SizeType length, bool copy) { 
+      //m_params.back().m_current = std::string{str, length};
+      logger::info("String({0}, {1}, {2})", str, length, copy); 
+      return true;
    }
+   
+   bool StartObject() { logger::info("StartObject()"); return true; }
+   bool EndObject(json::SizeType count) { 
+      logger::info("EndObject({})", count); return true; 
+   }
+   
    bool StartArray() { logger::info("StartArray()"); return true; }
-   bool EndArray(json::SizeType elementCount) { 
-      logger::info("EndArray({})", elementCount); return true; 
+   bool EndArray(json::SizeType count) { 
+      logger::info("EndArray({})", count); 
+      return true; 
    }
+
+   const ParameterListing& getParameters() const { return m_params; }
+
+private:
+   ParameterListing m_params;
 };
 
 bool Configuration::loadJsonFile(const fs::path& filePath)
@@ -45,32 +91,41 @@ bool Configuration::loadJsonFile(const fs::path& filePath)
       return false;
    }
 
-   //MyHandler handler;
-   //json::Reader reader;
-   //json::IStreamWrapper isw(stream);
-   //if (!reader.Parse(isw, handler))
-   //{
-   //   return false;
-   //}
-
-   json::Document document;
-   json::IStreamWrapper isw(stream);
-   document.ParseStream(isw);
-   if (document.HasParseError())
+   ReadHandler handler;
+   json::Reader reader;
+   json::IStreamWrapper wrapper(stream);
+   if (!reader.Parse(wrapper, handler))
    {
       logger::info("config json file parse error");
       return false;
    }
-   
-   for (const auto& member : document.GetObject())
-   {
-      member.name;
-      member.value;
-      logger::debug("json member: {0} : {1}", 
-         member.name.GetString(),
-         member.value.GetString()
-      );
-   }
+
+   const auto& params{ handler.getParameters() };
+   //m_params.assign(params.cbegin(), params.cend());
+   //for (const auto& param : handler.getParameters())
+   //{
+   //   param.m_ident;
+   //   param.m_label;
+   //}
+
+   //json::Document document;
+   ////json::IStreamWrapper isw(stream);
+   //document.ParseStream(wrapper);
+   //if (document.HasParseError())
+   //{
+   //   logger::info("config json file parse error");
+   //   return false;
+   //}
+   //
+   //for (const auto& member : document.GetObject())
+   //{
+   //   member.name;
+   //   member.value;
+   //   logger::debug("json member: {0} : {1}", 
+   //      member.name.GetString(),
+   //      member.value.GetString()
+   //   );
+   //}
 }
 
 bool Configuration::saveJsonFile(const fs::path& filePath) const
@@ -87,18 +142,33 @@ bool Configuration::saveJsonFile(const fs::path& filePath) const
       [&writer](unsigned int ui) { writer.Uint(ui); },
       [&writer](const std::string& s) { writer.String(s); },
       [&writer](const fs::path& p) { writer.String(p.string()); },
-      [&writer](const Parameter::ValueList& p) 
-      { 
-         writer.StartArray();
-         for (const auto& value : p)
-         {
-            writer.Key(value.m_ident.data());
-            //std::visit(output, value.m_current); // recursive call
-            writer.String(value.m_label.data());
-         }
-         writer.EndArray();
-      },
+      //[&writer](const Parameter::ValueList& values) 
+      //{ 
+      //   writer.StartArray();
+      //   writer.EndArray();
+      //},
    };
+
+   auto output2 = overload
+   {
+      [&writer, &output](const BaseParameter::ValueType& value) { 
+         std::visit(output, value);
+      },
+
+      //[&writer, &output](const Parameter::ValueList& values) 
+      //{ 
+      //   writer.StartArray();
+      //   for (const Parameter& value : values)
+      //   {
+      //      //writer.Key(value.m_ident.data());
+      //      std::visit(output, value.m_current); // recursive call
+      //      //writer.String(value.m_label.data());
+      //   }
+      //   writer.EndArray();
+      //},
+   };
+
+   auto write = [&writer](const auto& value) { value.Serialize(writer); };
 
    writer.StartObject();
    //writer.Key("Ident");
@@ -106,10 +176,20 @@ bool Configuration::saveJsonFile(const fs::path& filePath) const
    //writer.Key("Label");
    //writer.String(m_label);
 
-   for (const Parameter& param : m_params)
+   for (const auto& keyValue : m_paramMap)
    {
-      writer.Key(param.m_ident.data());
-      std::visit(output, param.m_current);
+      std::visit(write, keyValue.second);
+      //keyValue.second.Serialize(writer);
+      //auto lambda = [](const auto& obj) 
+      //{
+      //   obj.m_ident;
+      //};
+
+
+      //std::visit(lambda, param);
+
+      //writer.Key(param.m_ident.data());
+      //std::visit(output, param.m_current);
    }
    writer.EndObject();
 
@@ -127,36 +207,42 @@ bool Configuration::saveJsonFile(const fs::path& filePath) const
    return false;
 }
 
-void Configuration::registerParameter(const Parameter& parameter)
+void Configuration::registerBaseParameter(const BaseParameter& parameter)
 {
-   m_params.emplace_back(parameter);
+   m_paramMap.insert_or_assign(parameter.m_ident, parameter);
 }
 
-const Parameter& Configuration::getParameter(const std::string& ident) const
+void Configuration::registerListParameter(const ListParameter& parameter)
 {
-   auto found = std::find_if(m_params.begin(), m_params.end(), 
-      [&ident](const Parameter& param) { return param.m_ident == ident; }
-   );
+   m_paramMap.insert_or_assign(parameter.m_ident, parameter);
+}
 
-   if (found != m_params.end())
+const ParameterVariant& Configuration::getParameter(const std::string& ident) const
+{
+   if (m_paramMap.contains(ident))
    {
-      return *found;
+      return m_paramMap.at(ident);
    }
 
    assert(false);
    return {};
 }
 
-bool Configuration::setParameter(const std::string& ident, Parameter::ValueType value)
+bool Configuration::setParameter(const std::string& ident, BaseParameter::ValueType value)
 {
-   auto found = std::find_if(m_params.begin(), m_params.end(), 
-      [&ident](const Parameter& param) { return param.m_ident == ident; }
-   );
+   //auto found = std::find_if(m_params.begin(), m_params.end(), 
+   //   [&ident](const auto& param) { return param.m_ident == ident; }
+   //);
 
-   if (found != m_params.end())
+   //if (found != m_params.end())
+   //{
+   //   //found->m_current = value;
+   //   return true;
+   //}
+
+   if (m_paramMap.contains(ident))
    {
-      found->m_current = value;
-      return true;
+      m_paramMap.at(ident) /*= value*/;
    }
 
    assert(false);
@@ -165,15 +251,15 @@ bool Configuration::setParameter(const std::string& ident, Parameter::ValueType 
 
 bool Configuration::setParameter(const std::string& ident, const std::string& value)
 {
-   auto found = std::find_if(m_params.begin(), m_params.end(), 
-      [&ident](const Parameter& param) { return param.m_ident == ident; }
-   );
+   //auto found = std::find_if(m_params.begin(), m_params.end(), 
+   //   [&ident](const auto& param) { return param.m_ident == ident; }
+   //);
 
-   if (found != m_params.end())
-   {
-      found->m_current.emplace<std::string>(value);
-      return true;
-   }
+   //if (found != m_params.end())
+   //{
+   //   //found->m_current.emplace<std::string>(value);
+   //   return true;
+   //}
 
    assert(false);
    return false;
@@ -182,10 +268,10 @@ bool Configuration::setParameter(const std::string& ident, const std::string& va
 const std::string& Configuration::getStringParameter(const std::string& ident) const
 {
    const auto& param = getParameter(ident);
-   if (std::holds_alternative<std::string>(param.m_current))
-   {
-      return std::get<std::string>(param.m_current);
-   }
+   //if (std::holds_alternative<std::string>(param.m_current))
+   //{
+   //   return std::get<std::string>(param.m_current);
+   //}
 
    assert(false);
    return {};

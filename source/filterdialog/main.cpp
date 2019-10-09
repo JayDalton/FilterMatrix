@@ -8,12 +8,12 @@ int main(int argc, char *argv[])
 
    ApplicationConfig config;
    fs::path filePath{ "filterdialog.cfg" };
-   if (config.loadJsonFile(filePath))
-   {
-      application.setConfig(config);
-   }
+   //if (config.loadJsonFile(filePath))
+   //{
+   //   application.setConfig(config);
+   //}
 
-   auto matrix = config.getDefaultImportMatrix();
+   //auto matrix = config.getDefaultImportMatrix();
 
    if (config.saveJsonFile(filePath))
    {

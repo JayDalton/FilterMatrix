@@ -21,7 +21,7 @@ namespace logger = spdlog;
 #include <rapidjson/ostreamwrapper.h>
 namespace json = rapidjson;
 
-#include "Config/ConfigParameter.h"
+#include "Config/Parameter.h"
 #include "Config/Configuration.h"
 #include "Config/ValueVisitor.h"
 

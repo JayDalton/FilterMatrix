@@ -55,7 +55,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <UseFullPaths>false</UseFullPaths>
       <AdditionalIncludeDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -72,7 +72,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,7 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
-    <ClInclude Include="Config\ConfigParameter.h" />
+    <ClInclude Include="Config\Parameter.h" />
     <ClInclude Include="Config\Configuration.h" />
     <ClInclude Include="Config\ValueVisitor.h" />
     <ClInclude Include="Logger\Logger.h" />
@@ -92,7 +92,7 @@
     <ClInclude Include="precompheader_common.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Config\ConfigParameter.cpp" />
+    <ClCompile Include="Config\Parameter.cpp" />
     <ClCompile Include="Config\Configuration.cpp" />
     <ClCompile Include="Config\ValueVisitor.cpp" />
     <ClCompile Include="Logger\Logger.cpp" />

@@ -33,9 +33,6 @@
     <ClInclude Include="precompheader_common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Config\Parameter.h">
       <Filter>Header Files</Filter>
     </ClInclude>

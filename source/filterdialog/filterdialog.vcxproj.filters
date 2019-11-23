@@ -73,6 +73,12 @@
     <ClCompile Include="Dialog\MatrixImageView\MatrixFrameView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Dialog\EditConfig\ConfigDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\EditConfig\ConfigEditorModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Application\Application.h">
@@ -111,6 +117,12 @@
     <QtMoc Include="DataLayer\DataLayer.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Dialog\EditConfig\ConfigDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Dialog\EditConfig\ConfigEditorModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FilterDialog.qrc">
@@ -142,6 +154,9 @@
     <ClInclude Include="Generated\ui_MatrixImageView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Generated\ui_ConfigDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Dialog\FilterDialog.ui">
@@ -157,6 +172,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Dialog\MatrixImageView\MatrixImageView.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Dialog\EditConfig\ConfigDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

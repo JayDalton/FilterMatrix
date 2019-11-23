@@ -1,4 +1,4 @@
-﻿#include <precompheader.h>
+﻿#include "precompheader.h"
 
 #include "Application/Application.h"
 
@@ -13,17 +13,17 @@ int main(int argc, char *argv[])
    //   application.setConfig(config);
    //}
 
-   auto matrix = config.getDefaultImportMatrix();
-   auto folder = config.getDefaultMatrixFolder();
-   auto filelist = config.getFolderFilelist();
+   //auto matrix = config.getDefaultImportMatrix();
+   //auto folder = config.getDefaultMatrixFolder();
+   //auto filelist = config.getFolderFilelist();
 
-   if (config.saveJsonFile(filePath))
-   {
-      qDebug() << "";
-   }
-   else {
-      qDebug() << "";
-   }
+   //if (config.saveJsonFile(filePath))
+   //{
+   //   qDebug() << "";
+   //}
+   //else {
+   //   qDebug() << "";
+   //}
 
    //FilterDialogUPtr m_dialog{ nullptr };
 

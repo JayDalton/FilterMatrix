@@ -18,7 +18,7 @@ private:
 };
 
 MatrixImageView::MatrixImageView(DataLayerSPtr data, QWidget *parent)
-    : QWidget(parent), m(std::make_unique<Impl>(this, data))
+   : QWidget(parent), m(std::make_unique<Impl>(this, data))
 {
    m->ui.setupUi(this);
 

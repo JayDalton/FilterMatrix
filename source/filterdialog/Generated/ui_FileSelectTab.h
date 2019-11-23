@@ -29,6 +29,7 @@ public:
     QLineEdit *lineEdit;
     QPushButton *openButton;
     QPushButton *loadButton;
+    QPushButton *configButton;
     QTreeView *treeView;
 
     void setupUi(QWidget *FileSelectTab)
@@ -58,6 +59,11 @@ public:
 
         horizontalLayout->addWidget(loadButton);
 
+        configButton = new QPushButton(FileSelectTab);
+        configButton->setObjectName(QString::fromUtf8("configButton"));
+
+        horizontalLayout->addWidget(configButton);
+
 
         verticalLayout->addLayout(horizontalLayout);
 
@@ -77,6 +83,7 @@ public:
         FileSelectTab->setWindowTitle(QCoreApplication::translate("FileSelectTab", "FileSelectTab", nullptr));
         openButton->setText(QCoreApplication::translate("FileSelectTab", "Hinzuf\303\274gen", nullptr));
         loadButton->setText(QCoreApplication::translate("FileSelectTab", "Laden", nullptr));
+        configButton->setText(QCoreApplication::translate("FileSelectTab", "Config...", nullptr));
     } // retranslateUi
 
 };

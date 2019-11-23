@@ -1,5 +1,7 @@
 ﻿#include "precompheader.h"
 
+#include "Config/Parameter.h"
+#include "Config/ValueVisitor.h"
 
 void BaseParameter::Serialize(Writer& writer) const
 {

@@ -31,12 +31,10 @@
     <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)$(Configuration)\build\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)$(Configuration)\build\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -61,17 +59,16 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <Optimization>Disabled</Optimization>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>.\;.\Generated;.\Dialog\MatrixDataView;.\Dialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\Generated;.\Dialog\MatrixDataView;.\Dialog;.\Dialog\EditConfig;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
     </Link>
     <QtRcc>
       <QtRccDir>.\Generated</QtRccDir>
@@ -87,16 +84,16 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>.\;.\Generated;.\Dialog\MatrixDataView;.\Dialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\Generated;.\Dialog\MatrixDataView;.\Dialog;.\Dialog\EditConfig;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
+      <TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
     </Link>
     <QtMoc>
       <QtMocDir>.\Generated\$(ConfigurationName)</QtMocDir>
@@ -112,7 +109,9 @@
   <ItemGroup>
     <ClCompile Include="Application\Application.cpp" />
     <ClCompile Include="Application\ApplicationConfig.cpp" />
+    <ClCompile Include="Dialog\EditConfig\ConfigEditorModel.cpp" />
     <ClCompile Include="DataLayer\DataLayer.cpp" />
+    <ClCompile Include="Dialog\EditConfig\ConfigDialog.cpp" />
     <ClCompile Include="Dialog\FilterDialog.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectTab.cpp" />
     <ClCompile Include="Dialog\FileSelect\FileSelectModel.cpp" />
@@ -139,6 +138,7 @@
     <QtMoc Include="Dialog\FilterDialog.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="Dialog\EditConfig\ConfigDialog.ui" />
     <QtUic Include="Dialog\FilterDialog.ui" />
     <QtUic Include="Dialog\FileSelect\FileSelectTab.ui" />
     <QtUic Include="Dialog\MatrixDataPlot\MatrixDataPlot.ui" />
@@ -162,6 +162,9 @@
   <ItemGroup>
     <QtMoc Include="DataLayer\DataLayer.h" />
     <QtMoc Include="Dialog\MatrixImageView\MatrixImageView.h" />
+    <QtMoc Include="Dialog\EditConfig\ConfigDialog.h" />
+    <QtMoc Include="Dialog\EditConfig\ConfigEditorModel.h" />
+    <ClInclude Include="Generated\ui_ConfigDialog.h" />
     <ClInclude Include="Generated\ui_MatrixImageView.h" />
     <QtMoc Include="Dialog\MatrixImageView\MatrixFrameView.h" />
     <ClInclude Include="precompheader.h" />

@@ -11,6 +11,7 @@
 #include <QtWidgets\qfiledialog.h>
 #include <QtWidgets\qmessagebox.h>
 #include <FileManager.h>
+#include <Dialog\EditConfig\ConfigDialog.h>
 
 struct FileSelectTab::Impl
 {
@@ -19,6 +20,8 @@ struct FileSelectTab::Impl
 
    std::unique_ptr<QAction> m_openFile{nullptr};
    std::unique_ptr<QAction> m_saveFile{nullptr};
+
+   //ConfigDialog m_configDialog;
 
    DataLayerSPtr data{ nullptr };
    Ui::FileSelectTab ui;
@@ -43,6 +46,7 @@ void FileSelectTab::setupUIElements()
 {
    auto con1 = connect(m->ui.openButton, &QPushButton::clicked, this, [&]() { openFile(); });
    auto con2 = connect(m->ui.loadButton, &QPushButton::clicked, this, [&]() { loadFile(); });
+   auto con3 = connect(m->ui.configButton, &QPushButton::clicked, this, [&]() { editConfig(); });
 
    m->ui.treeView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
    m->ui.treeView->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
@@ -125,6 +129,12 @@ void FileSelectTab::loadFile()
 
 void FileSelectTab::saveFile()
 {
+}
+
+void FileSelectTab::editConfig()
+{
+   //ConfigDialog dialog(this);
+   //dialog;
 }
 
 void FileSelectTab::contextMenuEvent(QContextMenuEvent* event)

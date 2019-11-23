@@ -28,6 +28,8 @@ private:
    void loadFile();
    void saveFile();
 
+   void editConfig();
+
 private:
    struct Impl;
    std::unique_ptr<Impl> m;

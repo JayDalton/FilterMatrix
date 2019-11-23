@@ -1,5 +1,36 @@
 ﻿
-#include "common.h"
+#pragma warning(disable : 26812) //Warning C26812 Prefer 'enum class' over 'enum'
+
+
+#include <variant>
+#include <utility>
+#include <string>
+#include <typeinfo>
+#include <type_traits>
+#include <iostream>
+#include <optional>
+#include <fstream>
+#include <string_view>
+//#include <experimental/>
+
+#include <string>
+#include <string_view>
+#include <variant>
+
+#include <map>
+#include <set>
+#include <unordered_set>
+#include <unordered_map>
+#include <limits>
+#include <numeric>
+
+using namespace std::string_literals;
+
+#include <fstream>
+
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 // Logging
 #include <spdlog/spdlog.h>
@@ -21,11 +52,5 @@ namespace logger = spdlog;
 #include <rapidjson/ostreamwrapper.h>
 namespace json = rapidjson;
 
-#include "Config/Parameter.h"
-#include "Config/Configuration.h"
-#include "Config/ValueVisitor.h"
-
-#include "Logger/Logger.h"
-#include "Logger/MethodTimer.h"
 
 // Codepage: UTF-8 (ÜüÖöÄäẞß)

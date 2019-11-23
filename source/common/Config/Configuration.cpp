@@ -126,6 +126,7 @@ bool Configuration::loadJsonFile(const fs::path& filePath)
    //      member.value.GetString()
    //   );
    //}
+   return false;
 }
 
 bool Configuration::saveJsonFile(const fs::path& filePath) const
@@ -179,7 +180,7 @@ const ParameterVariant& Configuration::getParameter(const std::string& ident) co
    }
 
    assert(false);
-   return {};
+   return m_paramMap.at(0);
 }
 
 const BaseParameter& Configuration::getBaseParameter(const std::string& ident) const
@@ -191,7 +192,7 @@ const BaseParameter& Configuration::getBaseParameter(const std::string& ident) c
    }
 
    assert(false);
-   return {};
+   return std::get<BaseParameter>(param);
 }
 
 const ListParameter& Configuration::getListParameter(const std::string& ident) const
@@ -203,7 +204,7 @@ const ListParameter& Configuration::getListParameter(const std::string& ident) c
    }
 
    assert(false);
-   return {};
+   return std::get<ListParameter>(param);
 }
 
 bool Configuration::setParameter(const std::string& ident, BaseParameter::ValueType value)
@@ -218,10 +219,10 @@ bool Configuration::setParameter(const std::string& ident, BaseParameter::ValueT
    //   return true;
    //}
 
-   if (m_paramMap.contains(ident))
-   {
-      m_paramMap.at(ident) /*= value*/;
-   }
+   //if (m_paramMap.contains(ident))
+   //{
+   //   m_paramMap.at(ident) /*= value*/;
+   //}
 
    assert(false);
    return false;
@@ -252,7 +253,7 @@ const std::string& Configuration::getStringParameter(const std::string& ident) c
    }
 
    assert(false);
-   return {};
+   return std::get<std::string>(param.m_current);
 }
 
 

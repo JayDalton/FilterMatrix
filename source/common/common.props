@@ -4,7 +4,6 @@
     <Import Project="..\global.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
@@ -13,6 +12,14 @@
       <PrecompiledHeaderFile>precompheader.h</PrecompiledHeaderFile>
       <PreprocessorDefinitions>NOMINMAX;UNICODE;WIN32;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_SQL_LIB;QT_SVG_LIB;QT_WIDGETS_LIB;QT_THREAD_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <StackReserveSize>10000000</StackReserveSize>
+      <StackCommitSize>10000000</StackCommitSize>
+      <!-- <AdditionalDependencies Condition="'$(Configuration)'=='Debug'">log4cppd.lib;thriftmdd.lib;psapi.lib;Wldap32.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Networkd.lib;Qt5Qmld.lib;Qt5Quickd.lib;Qt5QuickWidgetsd.lib;Qt5Sqld.lib;Qt5Svgd.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;Qt5HttpServerd.lib;Qt5WebSocketsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)'=='Release'">log4cpp.lib;thriftmd.lib;psapi.lib;Wldap32.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Network.lib;Qt5Qml.lib;Qt5Quick.lib;Qt5QuickWidgets.lib;Qt5Sql.lib;Qt5Svg.lib;Qt5Widgets.lib;Qt5Xml.lib;Qt5WebSockets.lib;Qt5HttpServer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\log4cpp_1_1_3p\lib;$(SolutionDir)3rdparty\thrift_0_12_0p\lib;$(SolutionDir)3rdparty\vld\lib;$(QTDIR)\lib;$(SolutionDir)3rdparty\qthttpserver\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories> -->
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
